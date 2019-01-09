@@ -151,15 +151,44 @@
 						//
 						chart.appendTo( inner );
 						
-						resolve( outer );
 						
-						//
-						//	TODO	handle closing it, probably
-						//			need a popup fn.
-						//
+						outer.appendChild(
+							generateChartpopCloser( outer )
+						);
+						
+						
+						resolve( outer );
 						
 					}
 				);
+		
+	}
+	
+	function generateChartpopCloser( chartpop ) {
+		
+		let	btn	= document.createElement( 'button' );
+		
+		btn.innerHTML	= '&times;';
+		
+		btn.addEventListener(
+			'click',
+			function() {
+				
+				//
+				//	TODO	this NEEDS to kill off the chart
+				//			object first really, or there'll
+				//			be memory leaks galore
+				//
+				//			ideally popups would be an object
+				//			to help with that sort of thing
+				//
+				
+				chartpop.parentNode.removeChild( chartpop );
+				
+			}
+		);
+		
+		return	btn;
 		
 	}
 	

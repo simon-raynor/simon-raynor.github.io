@@ -123,6 +123,9 @@ fixed-aspect( ratio )
 		box-sizing	border-box
 		border		$border-default
 
+@media screen and (orientation:portrait)
+	#mapwrap
+		padding		0 $padding $padding $padding
 
 
 .graphics
@@ -169,6 +172,13 @@ fixed-aspect( ratio )
 	> div
 		height	100%
 		width	100%
+	button
+		font-size	2em
+		line-height	2em
+		position	absolute
+		right		0
+		top			0
+		width		2em
 
 
 
