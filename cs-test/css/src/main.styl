@@ -118,6 +118,7 @@ fixed-aspect( ratio )
 	box-sizing	border-box
 	height		100%
 	padding		$padding $padding $padding 0
+	position	relative
 	width		100%
 	> div
 		box-sizing	border-box
@@ -169,6 +170,7 @@ fixed-aspect( ratio )
 	position	absolute
 	right		0.5rem
 	top			0.5rem
+	z-index		101
 	> div
 		height	100%
 		width	100%
@@ -216,7 +218,17 @@ fixed-aspect( ratio )
 
 
 
-/*
+.ctrl-wrap
+	background	$color-bg
+	padding		$padding
+	position	absolute
+	left		0
+	top			$padding
+	button + button
+		margin-left	$padding
+
+
+
 .dropdown--drop
 	fixed-col-count( 4 )
 	
@@ -258,4 +270,4 @@ fixed-aspect( ratio )
 
 .dropdown--drop input:checked + label
 	border-left-style	solid
-*/
+

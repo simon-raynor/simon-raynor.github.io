@@ -215,7 +215,7 @@
 		let	parentPos	= this.element.getBoundingClientRect();
 		
 		this.drop.style.top			= ( parentPos.y + parentPos.height ) + 'px';
-		this.drop.style.left		= parentPos.x + 'px';
+		this.drop.style.left		= Math.round( parentPos.x + ( parentPos.width / 2 ) ) + 'px';
 		
 	}
 	

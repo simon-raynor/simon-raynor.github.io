@@ -80,13 +80,20 @@
 				map.setBounds( data.traffic.bounds );
 				map.draw( data.roads, data.traffic.rows );
 				
-				charts.forEach(
+				let	ctrls	= createControls( data, map, charts );
+				
+				document.getElementById( 'mapwrap' ).appendChild( ctrls );
+				
+				forEachAsync(
+					charts,
 					function( chart ) {
 						
 						chart.setDataset( data ).then(
 							function() {
 								
 								chart.draw();
+								
+								chart.wrap.style.cursor	= 'pointer';
 								
 								chart.wrap.addEventListener(
 									'click',
@@ -117,7 +124,7 @@
 								);
 								
 							}
-						)
+						);
 						
 					}
 				);
@@ -244,15 +251,15 @@
 	}
 	
 	
-	/*
+	
 	const	DROPDOWNS	= [
 							'year',
 							'roadName'
 						];
 	
-	function createControls( data, mapper ) {
+	function createControls( data, mapper, charts ) {
 		
-		let	placeholder	= document.querySelector( '#controlwrap' ),
+		let	placeholder	= document.createElement( 'div' ),
 			frag		= document.createDocumentFragment(),
 			
 			filters		= {};
@@ -280,10 +287,72 @@
 				
 				mapper.clearSVG();
 				
-				filters[ evt.name ]	= evt;
+				if ( evt.value !== 'ANY' ) {
+					
+					filters[ evt.name ]	= evt;
+					
+				} else {
+					
+					delete	filters[ evt.name ];
+					
+				}
 				
-				mapper.drawCountPoints(
-					filterData( data.traffic.allRows, filters )
+				
+				data.traffic.rows	= filterData( data.traffic.allRows, filters );
+				
+				
+				mapper.drawMarkers(
+					data.traffic.rows
+				);
+				
+				charts.forEach(
+					function( chart ) {
+						
+						chart.clear();
+						
+						chart.setLoading( true );
+						
+						
+						// TODO	this should obviously be in a function
+						chart.setDataset( data ).then(
+							function() {
+								
+								chart.draw();
+								
+								chart.wrap.style.cursor	= 'pointer';
+								
+								chart.wrap.addEventListener(
+									'click',
+									function() {
+										
+										let	bigChart	= new Chart(
+															chart.config,
+															{
+																title	: true,
+																axes	: true
+															}
+														);
+										
+										//
+										//	N.B.	is this dodgy? it feels dodgy...
+										//
+										bigChart.data	= chart.data;
+										
+										openChartPop( bigChart ).then(
+											function() {
+												
+												bigChart.draw();
+												
+											}
+										);
+										
+									}
+								);
+								
+							}
+						);
+						
+					}
 				);
 				
 			}
@@ -292,6 +361,10 @@
 		
 		placeholder.appendChild( frag );
 		
+		placeholder.className	= 'ctrl-wrap';
+		
+		return	placeholder;
+		
 	}
-	*/
+	
 })();
