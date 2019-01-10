@@ -70,13 +70,13 @@ fixed-col-count( n )
 	box-sizing	border-box
 	display		flex
 	flex-wrap	wrap
-	padding		0.5rem 0 0 0.5rem
+	padding		$padding 0 0 $padding
 	> *
 		box-sizing	border-box
 		flex		0 1 ( 100% / n )
 		
-		padding-bottom	0.5rem
-		padding-right	0.5rem
+		padding-bottom	$padding
+		padding-right	$padding
 
 //https://stackoverflow.com/a/10441480/869247
 fixed-aspect( ratio )
@@ -96,7 +96,7 @@ fixed-aspect( ratio )
 
 
 .intro
-	background	$color-bg
+	background	alpha( $color-bg, 90% )
 	border		$border-default
 	padding		$padding
 	position	absolute
@@ -183,15 +183,15 @@ fixed-aspect( ratio )
 
 
 .chartpop
-	background	$color-bg
+	background	alpha( $color-bg, 90% )
 	border		$border-default
-	bottom		0.5rem
+	bottom		$padding
 	box-sizing	border-box
-	left		0.5rem
-	padding		0.5rem
+	left		$padding
+	padding		$padding
 	position	absolute
-	right		0.5rem
-	top			0.5rem
+	right		$padding
+	top			$padding
 	z-index		101
 	> div
 		height	100%
@@ -235,7 +235,7 @@ fixed-aspect( ratio )
 
 .roadmap--marker
 	fill			transparent
-	stroke			red
+	stroke			$color-main
 	stroke-width	1
 
 
@@ -268,13 +268,13 @@ fixed-aspect( ratio )
 		content	' '
 		display	block
 		
-		height	0.5rem
-		width	0.5rem
+		height	$padding
+		width	$padding
 		
 		border-left	$border-default
 		border-top	$border-default
 		background	$color-bg
-		transform	rotate( 45deg ) translateY( -0.5rem )
+		transform	rotate( 45deg ) translateY( -$padding )
 		
 		position	absolute
 		left		0

@@ -88,6 +88,8 @@
 				
 				document.getElementById( 'mapwrap' ).appendChild( ctrls );
 				
+				let	doIntro	= false;
+				
 				forEachAsync(
 					charts,
 					function( chart ) {
@@ -128,15 +130,21 @@
 								);
 								
 							}
-						);
-						
-					}
-				).then(
-					function() {
-						
-						setTimeout(
-							intro,
-							3000
+						).then(
+							function() {
+								
+								if ( ! doIntro ) {
+									
+									setTimeout(
+										intro,
+										2000
+									);
+									
+									doIntro	= true;
+									
+								}
+								
+							}
 						);
 						
 					}
@@ -187,8 +195,9 @@
 				close.addEventListener(
 					'click',
 					function() {
-						
-						document.body.removeChild( wrap );
+						console.log( 'clk' );
+						wrap.style.display = 'none';
+						wrap.parentNode.removeChild( wrap );
 						
 					}
 				);
