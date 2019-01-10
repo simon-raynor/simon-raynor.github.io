@@ -305,12 +305,45 @@
 					data.traffic.rows
 				);
 				
-				charts.forEach(
+				
+				let	filternames	= _.pluck( filters, 'name' );
+				
+				forEachAsync(
+					charts,
 					function( chart ) {
 						
 						chart.clear();
 						
 						chart.setLoading( true );
+						
+						//
+						//	hide charts that make no sense w/ current filters
+						//
+						if (
+							_.contains(
+								filternames,
+								chart.config.slice1
+							)
+							||
+							_.contains(
+								filternames,
+								chart.config.slice2
+							)
+						) {
+							
+							chart.wrap
+								.parentNode
+								.parentNode
+								.parentNode.style.display	= 'none';
+							
+						} else {
+							
+							chart.wrap
+								.parentNode
+								.parentNode
+								.parentNode.style.display	= 'block';
+							
+						}
 						
 						
 						// TODO	this should obviously be in a function
