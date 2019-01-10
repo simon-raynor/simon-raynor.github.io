@@ -1,20 +1,19 @@
-If you were looking for a pixel-perfect demonstration of my design skills
-here you're gonna be sorely disappointed. I decided to go minimal design
-as I felt it wouldn't be an efficient use of time. The code quality is also
-kinda bad as I went for quantity over quality of features.
+I decided to go minimal design as I felt obsessing over looks wouldn't be
+an efficient use of time here. The code quality is also kinda bad as I went
+for quantity over quality of features, and was making up stuff to add as I
+went along. Mobile works(ish) but pretty sure IE doesn't.
 
-The main things I wanted to do are done, however pretty much
-everything here is at a first draft proof-of-concept level and is
-missing a lot of functionality. Things like labels, colours and better
-interactivity would have been added to the charts had I had the time.
-The data handling in particular wants refactoring, but as it's a demo
-I didn't spend too much time on actually engineering good quality code.
+The main things I wanted to do are done, however it is missing a lot of
+functionality. Things like labels, colours and better interactivity would
+have been added to the charts eventually, and the code would get cleaned
+up. The data handling in particular wants refactoring but as it's a demo
+I didn't spend too much time on actually engineering high quality code.
 
 I'm not actually sure which part of this data is most important to users,
 or how they would be analysing it, so I had to make some guesses as to
 what to implement. Similarly I chose to only bother making a bar chart
-output as I knew they're usually correct, even when they're not ideal.
-While it arguably took way too long to find/clean the data I'm glad I did
-the roadmap plotter thing. With more time I'd have made it zoom to points
-when clicked and stuff like that, though there's a part of my brain that
-keeps telling me it's not that useful a datavis tool.
+output as I knew they're usually correct, even when they're not ideal. 
+
+In hindsight maybe some kind of "pick your axes" chart tool might have
+been a better concept but I like what's here and think it looks cool :D
+Hopefully you do too!
