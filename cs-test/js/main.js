@@ -85,7 +85,6 @@
 						
 						chart.setDataset( data ).then(
 							function() {
-								console.log( chart );
 								
 								chart.draw();
 								

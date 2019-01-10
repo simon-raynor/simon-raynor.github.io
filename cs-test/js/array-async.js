@@ -26,6 +26,9 @@
 		
 		let	self	= this;
 		
+		// clone the input array so we dont break it
+		input	= input.slice();
+		
 		return	new Promise(
 					function( resolve, reject ) {
 						

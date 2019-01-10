@@ -56,7 +56,7 @@
 	//	TODO	this is heinous and should be rewritten
 	//
 	//
-	//	TODO	can I have an asynchronous getter? It think
+	//	TODO	can I have an asynchronous getter? I think
 	//			I can with promises...
 	//
 	function getChartData( data ) {
@@ -78,6 +78,12 @@
 									
 									let	o	= output[ type ],
 										val	=  datum[ 'vehicleData' ][ type ];
+									
+									if ( ! val ) {
+										
+										return;
+										
+									}
 									
 									if ( slice2 ) {
 										
@@ -107,6 +113,12 @@
 										}
 										
 									} else {
+										
+										if ( ! val ) {
+											
+											return;
+											
+										}
 										
 										if ( ! o ) {
 											
