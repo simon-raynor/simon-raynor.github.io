@@ -109,6 +109,9 @@
 		//	N.B.	most of these operations could be rolled into a single loop,
 		//			but as that could get messy I'll leave it for now
 		//
+		//	N.B.	it also needs making async (like the parseCSV) so that it
+		//			doesn't cause the UI to lock
+		//
 		traffic.rows	= traffic.rows.map(
 							tidyTrafficDatum
 						);

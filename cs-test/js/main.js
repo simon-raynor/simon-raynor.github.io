@@ -50,6 +50,10 @@
 		let	layout	= generateFALayout( CHARTS.length ),
 			charts	= [];
 		
+		
+		//intro();
+		
+		
 		document.getElementById( 'chartwrap' ).appendChild( layout );
 		
 		CHARTS.forEach(
@@ -127,6 +131,15 @@
 						);
 						
 					}
+				).then(
+					function() {
+						
+						setTimeout(
+							intro,
+							3000
+						);
+						
+					}
 				);
 				
 			}
@@ -139,6 +152,59 @@
 		);
 		
 	}
+	
+	
+	
+	function intro() {
+		
+		fetch( 'data/intro.txt' ).then(
+			function( res ) {
+				
+				return	res.text();
+				
+			}
+		).then(
+			function( txt ) {
+				
+				let	wrap	= document.createElement( 'div' ),
+					close	= document.createElement( 'button' );
+				
+				txt.split( '\n\n' ).forEach(
+					function( t ) {
+						
+						let	p	= document.createElement( 'p' );
+						
+						p.textContent	= t;
+						
+						wrap.appendChild( p );
+						
+					}
+				);
+				
+				
+				close.textContent	= 'OK';
+				
+				close.addEventListener(
+					'click',
+					function() {
+						
+						document.body.removeChild( wrap );
+						
+					}
+				);
+				
+				wrap.appendChild( close );
+				
+				
+				wrap.className	= 'intro';
+				
+				document.body.appendChild( wrap );
+				
+			}
+		);
+		
+	}
+	
 	
 	
 	function openChartPop( chart ) {
@@ -190,6 +256,8 @@
 				//			ideally popups would be an object
 				//			to help with that sort of thing
 				//
+				
+				chartpop.innerHTML	= '';
 				
 				chartpop.parentNode.removeChild( chartpop );
 				
