@@ -275,12 +275,18 @@
 		
 		if ( this.settings.axes ) {
 			
+			let	axis	= createChartXAxis.call( this, _.pluck( this.data, 'txt' ), width );
 			
+			this.svgEl.appendChild( axis );
+			
+			let	size	= axis.getBoundingClientRect();
+			
+			height	-= size.height;
 			
 		}
 		
 		
-		let	graphic		= createChartGraphic.call( this, this.data, width, height );
+		let	graphic		= createChartGraphic.call( this, width, height );
 		
 		if ( top || left ) {
 			
@@ -321,19 +327,57 @@
 	
 	
 	
-	function createChartGraphic( data, width, height ) {
+	function createChartXAxis( headings, width ) {
+		
+		let	self	= this,
+			
+			g		= document.createElementNS( this.SVG_NS, 'g' ),
+			line	= document.createElementNS( this.SVG_NS, 'path' ),
+			
+			xstep		= getChartXStep.call( this, width ),
+			y			= this.dimensions.y - 20;
+		
+		g.setAttribute( 'class', 'axis' );
+		
+		
+		line.setAttribute( 'd', 'm0 ' + y + ' ' + width + ' 0' );
+		
+		g.appendChild( line );
+		
+		
+		headings.forEach(	
+			function( hd, idx ) {
+				
+				let	txt		= document.createElementNS( self.SVG_NS, 'text' ),
+					left	= Math.round( xstep * idx * 2 )
+								+ xstep	// N.B. don't need to check for extra
+										//		xstep, we know it's needed
+								+ ( xstep / 2 )	// centre it
+				
+				txt.textContent	= hd;
+				
+				txt.setAttribute( 'x', left );
+				txt.setAttribute( 'y', y + 16 );	// TODO
+				
+				g.appendChild( txt );
+				
+			}
+		);
+		
+		return	g;
+		
+	}
+	
+	
+	
+	function createChartGraphic( width, height ) {
 		
 		let	self		= this,
+			data		= this.data,
 			
 			frag		= document.createElementNS( this.SVG_NS, 'g' ),
 			
-			colcount	= data.length,
-			// add the below number to set if there's
-			// space around the columns
-			colmod		= this.settings.axes
-							? 1
-							: -1,
-			xstep		= width / ( ( colcount * 2 ) + colmod ),
+			xstep		= getChartXStep.call( this, width ),
 			
 			is2dim		= data[ 0 ].val.join,
 			
@@ -456,6 +500,21 @@
 		return	rect;
 		
 	}
+	
+	
+	function getChartXStep( width ) {
+		
+		let	colcount	= this.data.length,
+			// add the below number to set if there's
+			// space around the columns
+			colmod		= this.settings.axes
+							? 1
+							: -1;
+		
+		return	width / ( ( colcount * 2 ) + colmod );
+		
+	}
+	
 	
 	function getBarChartBlockY( ystep, val ) {
 		

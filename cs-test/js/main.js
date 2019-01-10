@@ -75,6 +75,8 @@
 		fetchData().then(
 			function( data ) {
 				
+				data.traffic.allRows	= data.traffic.rows.slice();
+				
 				map.setBounds( data.traffic.bounds );
 				map.draw( data.roads, data.traffic.rows );
 				
@@ -282,7 +284,7 @@
 				filters[ evt.name ]	= evt;
 				
 				mapper.drawCountPoints(
-					filterData( data.traffic.rows, filters )
+					filterData( data.traffic.allRows, filters )
 				);
 				
 			}
