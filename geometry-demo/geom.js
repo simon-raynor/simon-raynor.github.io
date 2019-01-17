@@ -419,7 +419,7 @@ function getSolidPerspectiveProjection() {
 									return	pts;
 									
 								},
-								[ fc.cz ] // add this here, we'll remove when sorting
+								[ calcViewlineDistance( fc.cx, fc.cy, fc.cz ) ] // add this here, we'll remove when sorting
 							)
 						);
 						
@@ -433,6 +433,41 @@ function getSolidPerspectiveProjection() {
 	
 }
 
+//
+//	https://www.gamedev.net/forums/topic/543708-depth-sorting-polygons-and-obliquecabinet-projection/
+//
+//	rather than simply comparing z coords we
+//	have to order by the "real" distance, taking
+//	account of x/y distance too
+//
+//	N.B.	this actually returns the SQUARE OF THE
+//			DISTANCE, as it's quicker to compute
+//
+function calcViewlineDistance( x, y, z ) {
+	
+	// a^2 + b^2 = c^2
+	//
+	//	so we basically do that twice (for x and y)
+	//
+	//	N.B.	don't need to sqrt I dont think,
+	//			as the magnitude of the distances
+	//			should still be in the correct
+	//			order { n^2 > (n-1)^2 for n > 0 }
+	//
+	
+	let	dist	= ( x * x ) + ( z * z ) + ( y * y );
+	
+	// handle negative z (squaring will lose that)
+	if ( z < 0 ) {
+		
+		dist	*= -1;
+		
+	}
+	 
+	return	dist;
+	
+}
+
 function orderProjectionZ( projection ) {
 	
 	projection.sort(
@@ -443,6 +478,7 @@ function orderProjectionZ( projection ) {
 		}
 	);
 	
+	// remove the face z coords
 	projection.forEach(
 		function( i ) {
 			
@@ -450,6 +486,8 @@ function orderProjectionZ( projection ) {
 			
 		}
 	);
+	
+	// TODO	remove hidden faces
 	
 	return	projection;
 	

@@ -73,7 +73,7 @@
 			shapeDz			= shapeSize * 5;
 		
 		
-		ctx.lineWidth	= 2;
+		ctx.lineWidth	= 3;
 		ctx.lineJoin	= 'miter';
 		ctx.miterLimit	= 1;
 		
@@ -206,6 +206,19 @@
 			);
 			
 		}
+		
+		
+		document.body.addEventListener(
+			'click',
+			function() {
+				
+				stopAnimation();
+				
+				console.log( shapes );
+				
+			}
+		);
+		
 		
 		/*
 		//draw face-by-face

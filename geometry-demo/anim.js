@@ -30,7 +30,7 @@
 		
 		actions	= actions.filter( filterActions );
 		
-		if ( actions.length ) {
+		if ( looping && actions.length ) {
 			
 			actions.forEach(
 				doStep
@@ -40,7 +40,7 @@
 			
 		} else {
 			
-			looping	= false;
+			stopAnimation();
 			
 		}
 		
@@ -60,15 +60,33 @@
 		
 		if ( ! looping ) {
 			
-			looping	= true;
-			
-			loop();
+			startAnimation();
 			
 		}
 		
 	}
 	
 	window[ 'animate' ]	= addAnimation;
+	
+	
+	
+	function stopAnimation() {
+		
+		looping	= false;
+		
+	}
+	
+	window[ 'stopAnimation' ]	= stopAnimation;
+	
+	function startAnimation() {
+		
+		looping	= true;
+		
+		loop();
+		
+	}
+	
+	window[ 'startAnimation' ]	= startAnimation;
 	
 	
 })();
