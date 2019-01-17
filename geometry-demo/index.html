@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+<head>
+	
+	<meta
+		charset	= "utf8"
+	>
+	
+	<meta
+		name		= "viewport"
+		content	= "width=device-width, initial-scale=1, user-scalable=no"
+	>
+	
+	<style>
+		
+		html,
+		body {
+			margin		: 0;
+			padding		: 0;
+		}
+		
+		body {
+			background	: #111;
+			height		: 100vh;
+			position	: relative;
+		}
+		
+		.placeholder {
+			bottom		: 0;
+			left		: 0;
+			position	: absolute;
+			right		: 0;
+			top			: 0;
+		}
+		
+	</style>
+	
+</head>
+<body>
+	
+	<div
+		class	= "placeholder JS_placeholder"
+	></div>
+	
+	<script
+		src	= "graphics.js"
+	></script>
+	
+	<script
+		src	= "anim.js"
+	></script>
+	
+	<script
+		src	= "geom.js"
+	></script>
+	
+	<script
+		src	= "solid-defs.js"
+	></script>
+	
+	<script>
+		
+		let	g	= new Graphics( 'canvas' );
+		
+		g.appendTo( '.JS_placeholder' );
+		
+		let	ctx	= g.canvasCtx,
+			cx	= Math.round( g.dimensions.x ),
+			cy	= Math.round( g.dimensions.y ),
+			
+			shapeSize		= 12,
+			shapeDist		= 144,
+			shapeDz			= shapeSize * 5;
+		
+		
+		ctx.lineWidth	= 2;
+		ctx.lineJoin	= 'miter';
+		ctx.miterLimit	= 1;
+		
+		ctx.fillStyle	= 'blue';
+		ctx.strokeStyle	= 'cyan';
+		
+		
+		let	shapes	= [
+						new Solid( SOLIDS.tetrahedron ),
+						new Solid( SOLIDS.cube ),
+						new Solid( SOLIDS.octahedron ),
+						new Solid( SOLIDS.dodecahedron ),
+						new Solid( SOLIDS.icosahedron )
+					];
+		
+		shapes.forEach(
+			function( shp, i, arr ) {
+				
+				let	ratio1	= i / ( arr.length - 1 ),
+					ratio2	= i / arr.length
+					
+					/*
+					theta	= ( Math.PI * ratio1  )
+							- ( Math.PI / 2 )
+					*/
+					theta	= Math.PI * 2 * ratio2;
+				
+				scalePoints.call( shp, shapeSize );
+				
+				movePoints.call( shp, 0, shapeDz, shapeDist );
+				rotatePoints.call( shp, 0, 0, theta, 0, 0, shapeDist );
+				
+			}
+		);
+		
+		
+		let	pitch	= Math.PI / 300,
+			yaw		= Math.PI / 200,
+			roll	= 0//-Math.PI / 1300;
+		
+		window.animate(
+			function() {
+				
+				g.clearCanvas();
+				
+				
+				let	projections	= [];
+				
+				shapes.forEach(
+					function( shp, i, arr ) {
+						
+						let	ratio	= 1;//0.5 - ( i / ( arr.length - 1 ) );
+						
+						rotatePoints.call( shp, 0, ratio * yaw, 0 );
+						
+						rotatePoints.call( shp, 0, -Math.PI / 500, Math.PI / 300, 0, 0, shapeDist );
+						
+						projections	= projections.concat( getSolidPerspectiveProjection.call( shp ) );
+						
+					}
+				);
+				
+				drawFaces(
+					orderProjectionZ(
+						projections
+					).map(
+						function( face ) {
+							
+							let	arr	= [];
+							
+							face.forEach(
+								function( pts ) {
+									
+									arr.push(
+										[
+											pts[ 0 ] * 8,	// N.B.	"zoom" into projected scene
+											pts[ 1 ] * 8
+										]
+									);
+									
+								}
+							);
+							
+							return	arr;
+							
+						}
+					)
+				);
+				
+			}
+		);
+		
+		
+		function drawFaces( facelist ) {
+			
+			facelist.forEach(
+				function( face ) {
+		
+					let	moved	= false;
+					
+					ctx.beginPath();
+					
+					face.forEach(
+						function( point ) {
+							
+							let	x	= ( cx + point[ 0 ] ),
+								y	= ( cy + point[ 1 ] );
+							
+							if ( moved ) {
+								
+								ctx.lineTo( x, y );
+								
+							} else {
+								
+								ctx.moveTo( x, y );
+								
+								moved	= true;
+								
+							}
+							
+						}
+					);
+					
+					ctx.closePath();
+					
+					ctx.fill();
+					ctx.stroke();
+					
+				}
+			);
+			
+		}
+		
+		/*
+		//draw face-by-face
+		animate(
+			function() {
+				console.log( shpProj );
+				
+				let	face	= shpProj.shift();
+				
+				if ( face ) {
+					
+					let	moved	= false;
+					
+					console.log( face );
+					
+					ctx.beginPath();
+					
+					face.forEach(
+						function( point ) {
+							
+							let	x	= ( cx + point[ 0 ] ),
+								y	= ( cy + point[ 1 ] );
+							
+							if ( moved ) {
+								
+								ctx.lineTo( x, y );
+								
+							} else {
+								
+								ctx.moveTo( x, y );
+								
+								moved	= true;
+								
+							}
+							
+						}
+					);
+					
+					ctx.closePath();
+					
+					ctx.fill();
+					ctx.stroke();
+					
+				} else {
+					
+					return	true;
+					
+				}
+				
+			}
+		);
+		*/
+		
+		/*
+		3d spiral
+		for ( let n = 120, nsq = Math.ceil( n / 10 ), i = nsq; i <= n - nsq; i++ ) {
+			
+			let	shp	= new Solid( SOLIDS.cube ),
+				
+				a1	= 9 * 2 * Math.PI * ( i / n ),
+				a2	= Math.PI / 2 + ( Math.PI * ( i / n ) );
+			
+			rotatePoints.call( shp, 0, 0, 0 );
+			scalePoints.call( shp, shapeSize );
+			
+			movePoints.call( shp, 0, 0, shapeSpread );
+			rotatePoints.call( shp, a2, a1, 0, 0, 0, 0 );
+			
+			rotatePoints.call( shp, Math.PI / 3, 2 * Math.PI / 3, 0, 0, 0, 0 );
+			movePoints.call( shp, 0, 0, shapeSpread * 2 );
+			
+			
+			//shpProj	= shpProj.concat( getSolidBasicProjection.call( shp ) );
+			shpProj	= shpProj.concat( getSolidPerspectiveProjection.call( shp ) );
+			
+		}
+		*/
+		
+	</script>
+	
+</body>
+</html>
