@@ -30,7 +30,9 @@
 			
 			let	placeholder	= document.querySelector( '.JS_main' ),
 				
-				graphics	= new Graphics( 'svg' ),
+				graphics	= new Graphics( 'canvas'/*'svg'*/ ),
+				ctx			= graphics.canvasCtx,
+				
 				shape		= SOLIDS.icosahedron,
 				shape2		= SOLIDS.dodecahedron,
 				shape3		= SOLIDS.globe,//SOLIDS.octahedron,
@@ -93,10 +95,15 @@
 			translateThingy.call( thing.child.child.child.child, [ 0, 0, distance ] );
 			*/
 			
-			
+			/*
 			graphics.svgEl.appendChild(
 				buildThingyElements.call( thing )
 			);
+			*/
+			
+			thing.color				= '#0ff';
+			thing.child.color		= '#f0f';
+			thing.child.child.color	= '#ff0';
 			
 			
 			animate(
@@ -111,11 +118,87 @@
 					/*rotateThingy.call( thing.child.child.child, [ - yaw, - pitch ] );
 					rotateThingy.call( thing.child.child.child.child, [ yaw, pitch ] );*/
 					
+					/*
 					graphics.svgEl.appendChild(
 						drawThingy.call( thing, cx, cy )
 					);
+					*/
+					
+					graphics.clearCanvas();
+					
+					drawThingyOnCanvas.call( thing, ctx, cx, cy );
 					
 					//return	true;
+					
+				}
+			);
+			
+			
+			let	step		= 0,
+				totalSpread	= 0;
+			
+			graphics.canvasEl.addEventListener(
+				'click',
+				function( evt ) {
+					
+					console.log( step );
+					
+					if ( totalSpread === 0 ) {	// avoid overlapping the expansions
+						
+						// TODO	collision detect?
+						if ( step === 0 ) {
+							
+							animate(
+								function( time ) {					
+									
+									let	spread	= time / 33;
+									
+									totalSpread	+= spread;
+									
+									if ( totalSpread < radius ) {
+										
+										spreadThingy.call( thing, spread );
+										
+									} else {
+										
+										totalSpread	= 0;
+										
+										return	true;
+										
+									}
+									
+								}
+							);
+							
+						} else if ( step === 1 ) {
+							
+							animate(
+								function( time ) {					
+									
+									let	spread	= time / 33;
+									
+									totalSpread	+= spread;
+									
+									if ( totalSpread < radius ) {
+										
+										spreadThingy.call( thing.child, spread );
+										
+									} else {
+										
+										totalSpread	= 0;
+										
+										return	true;
+										
+									}
+									
+								}
+							);
+							
+						}
+						
+						step++;
+						
+					}
 					
 				}
 			);
@@ -485,6 +568,122 @@
 		wrap.removeAttribute( 'style' );
 		
 		return	wrap;
+		
+	}
+	
+	function drawThingyOnCanvas( ctx, cx, cy, color ) {
+		
+		
+		color	= color || this.color || 'white';
+		
+		let	child	= this.child;
+		
+		
+		let	centreDist	= calc3dViewlineDistance.apply(
+							null,
+							this.centre
+						);
+		
+		
+		// TODO	optimise
+		let	faces	= this.faces.sort(
+						function( a, b ) {
+							
+							return	b.z - a.z;
+							
+						}
+					);
+		
+		// use this to determine when to show any
+		// "inside" child shape
+		//
+		// N.B.	isn't 100% perfect
+		let	behind	= true;
+		
+		
+		ctx.lineWidth	= 2;
+		ctx.lineJoin	= 'round';
+		
+		
+		this.faces.forEach(
+			function( face, idx ) {
+				
+				let	projection	= get3d2dProjection(
+									face.points
+								),
+					centre		= projection.shift(),
+					normal		= projection.shift();
+				
+				
+				ctx.beginPath();
+				
+				let	started	= false;
+				
+				projection.forEach(
+					function( point ) {
+						
+						let	x	= ( ( point[ 0 ] * zoom ) + cx ) * 2,
+							y	= ( ( point[ 1 ] * zoom ) + cy ) * 2;
+						
+						if ( started ) {
+							
+							ctx.lineTo( x, y );
+							
+						} else {
+							
+							ctx.moveTo( x, y );
+							
+							started	= true;
+							
+						}
+						
+					}
+				);
+				
+				ctx.closePath();
+				
+				
+				ctx.strokeStyle	= color;
+				
+				if ( face.z > centreDist ) {
+					// "inside"
+					
+					ctx.fillStyle	= color;
+					
+					ctx.fill();
+					ctx.stroke();
+					
+				} else {
+					// "outside"
+					
+					ctx.fillStyle	= 'black';
+					
+					ctx.fill();
+					ctx.stroke();
+					
+					// append the child now so that it's
+					// at the correct z position
+					if ( behind ) {
+						
+						if ( child ) {
+							
+							drawThingyOnCanvas.call(
+								child,
+								ctx,
+								cx,
+								cy
+							);
+							
+						}
+						
+						behind	= false;
+						
+					}
+					
+				}
+				
+			}
+		);
 		
 	}
 	
