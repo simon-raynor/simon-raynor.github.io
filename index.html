@@ -2,22 +2,78 @@
 <html>
 <head>
 <style>
+body {
+	animation	: colorshift 100s linear infinite;
+	background	: #111;
+	color		: #0f0;
+	font-family	: monospace;
+	line-height	: 1.5;
+}
+@keyframes colorshift {
+	0% {
+		color	: #0f0;
+	}
+	16.667% {
+		color	: #ff0;
+	}
+	33.333% {
+		color	: #f00;
+	}
+	50% {
+		color	: #f0f;
+	}
+	66.667% {
+		color	: #00f;
+	}
+	83.333% {
+		color	: #0ff;
+	}
+}
+
 p {
 	max-width	: 45em;
 }
+
+a {
+	color			: inherit;
+}
+a::before,
+a::after {
+}
+
+a:hover {
+	color	: #fff;
+}
+@supports ( background-clip	: text ) {
+	a:hover {
+		background		: linear-gradient( to left, #f00, #ff0, #0f0, #0ff, #00f, #f0f );
+		background-clip	: text;
+		color			: transparent;
+	}
+}
+
+em {
+	font-style		: normal;
+	text-transform	: uppercase;
+}
+
+@media ( max-width : 800px ) {
+	.mhide {
+		display	: none;
+	}
+}
+
 </style>
 </head>
 <body>
+<h1><em>My Website needs work, I know!</em></h1>
 <p>
 	Realised I needed one of these to host things professionally,
-	as well as just for fun.
+	as well as just for fun. Haven't quite worked out what to put
+	on it yet. I'm thinking bare minimum is something prettier than
+	this, a contact form would be nice too.
 </p>
-
-<p>
-	I might make it good if I ever manage to decide on a concept
-	I like.
-</p>
-<p>
+<p class="mhide">
 	<a
 		href	= "/javascroids/"
 	>Here's a game I built many years ago.</a>
@@ -28,12 +84,16 @@ p {
 		href	= "/geometry-demo/"
 	>Here's the platonic solids rotating in 3-space.</a>
 	I'll do something cool with it someday (once I iron out
-	the kinks).
+	the kinks). <strong><em>Update</em></strong>: <a
+		href	= "/geometry-demo-2/"
+	>Like this (give it a click!)</a>
 </p>
 <p>
 	<a
-		href	= "/geometry-demo-2/"
-	>Here's some more 3d geometry stuff, give it a click!</a>
+		href	= "/plants/"
+	>Here's a half-baked concept for a homepage.</a> It uses JS modules
+	so it might not work if your browser is on the older side.
 </p>
+<p><strong><em>TODO</em></strong> Add more stuff...</p>
 </body>
 </html>
