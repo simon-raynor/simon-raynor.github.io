@@ -122,12 +122,14 @@ export function sizeCanvas( canvas, dims ) {
 }
 
 
-function addCanvasToDocument( canvas, dims, prepend = false ) {
+function addCanvasToDocument( canvas, dims, prepend = false, hasWindowDims	= false ) {
 	
 	//
 	//	if dimensions were not passed in we should get them
 	//
 	if ( ! dims ) {
+		
+		hasWindowDims	= true;
 		
 		dims	= getWindowDimensions();
 		
@@ -153,46 +155,50 @@ function addCanvasToDocument( canvas, dims, prepend = false ) {
 	}
 	
 	
-	// debounced resize/rotate handler
-	let		debounce		= null;
-	const	handleResize	= () => {
+	if ( hasWindowDims ) {
 		
-		if ( debounce ) clearTimeout( debounce );
+		// debounced resize/rotate handler
+		let		debounce		= null;
+		const	handleResize	= () => {
+			
+			if ( debounce ) clearTimeout( debounce );
+			
+			setTimeout(
+				() => {
+					
+					debounce	= null;
+					
+					dims	= getWindowDimensions();
+					
+					canvas	= sizeCanvas( canvas, dims );
+					
+					canvas.dispatchEvent(
+						new CustomEvent(
+							'canvasresize',
+							{
+								bubbles	: false,
+								detail	: { dims, canvas }
+							}
+						)
+					);
+					
+				},
+				100
+			);
+			
+		}
 		
-		setTimeout(
-			() => {
-				
-				debounce	= null;
-				
-				dims	= getWindowDimensions();
-				
-				canvas	= sizeCanvas( canvas, dims );
-				
-				canvas.dispatchEvent(
-					new CustomEvent(
-						'canvasresize',
-						{
-							bubbles	: true,
-							detail	: { dims, canvas }
-						}
-					)
-				);
-				
-			},
-			100
+		window.addEventListener(
+			'resize',
+			handleResize
+		);
+		
+		window.addEventListener(
+			'orientationchange',
+			handleResize
 		);
 		
 	}
-	
-	window.addEventListener(
-		'resize',
-		handleResize
-	);
-	
-	window.addEventListener(
-		'orientationchange',
-		handleResize
-	);
 	
 	return	{ dims, canvas };
 	

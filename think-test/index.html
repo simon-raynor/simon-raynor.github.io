@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- font -->
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;1,700&display=swap" rel="stylesheet">
+	
+	<!-- styles -->
+	<link href="./main.css" rel="stylesheet">
+</head>
+<body>
+	<!-- cache-friendly SVG include: https://www.filamentgroup.com/lab/html-includes/ -->
+	<iframe
+		src		= "./symbols.svg"
+		onload	= "this.before( (this.contentDocument.body || this.contentDocument).children[0] );this.remove()" ></iframe>
+	<section class="cols">
+		<main class="ringtext">
+			<p>Are you making the most of your money <em>whatever your life stage?</em></p>
+			
+			<ul id="ringctrls"></ul>
+		</main>
+		<aside class="ringimg">
+			<svg
+				id		= "ring"
+				height	= "600"
+				width	= "600"
+				viewBox	= "0 0 600 600" ></svg>
+		</aside>
+	</section>
+	
+	<section class="desc">
+		<p>
+			Here is my submission for the assigned task. I've tried to interpret
+			the brief as best I can however in real life I would want to liase
+			with other members of the team to get a better handle on how the
+			thing should behave and animate. It is also missing the final polish
+			due to a lack of sign-off from a stakeholder, I'm quite averse to
+			finalising things without knowing they're "correct".
+		</p>
+		<p>
+			I'm relatively happy with the overall approach I've taken here, in
+			particular generating an SVG to handle all the graphical stuff seems
+			like the best option by far. In an actual implementation we'd
+			want to do this serverside or as part of a build script, as such the
+			<a href="./build.js">build code</a> has been written to output strings
+			so that it's easy to port to a gulpfile or similar. Alternatively
+			it could likely be produced from the design software then tweaked, though
+			obviously that wasn't an option here.
+		</p>
+		<p>
+			Originally I'd set this up to switch on clicking the list items (which
+			is why they are buttons). The very simple handler is commented out
+			at the top of <a href="./main.js">animation code</a>, after playing
+			with the animations I realised the direction I'd taken did not work too
+			well when the icons were selected out of order (the arrows made no sense)
+			so I switched to an autorotating carousel type thing. It's running far
+			too fast for production but I didn't want to have a ~10 second wait in
+			this demo.
+		</p>
+		<p>
+			All of the animations are simple CSS transitions, which makes them
+			pretty easy to modify. The code uses <code>transitionend</code> handlers
+			wrapped in promises to chain them, an approach I've used successfully
+			in the past, however this particular implementation probably needs a
+			bit of work (especially if we need to allow for user interaction). It does
+			lead to fairly easy to follow animations though, even with imperfect code.
+		</p>
+		<p>
+			I don't like how the arrow is visible under the icon as it expands but
+			I don't have a (quick) solution for it so I decided it was acceptable
+			for now. There's also quite a lot of room to improve the animations I
+			think but would require more understanding of the designer's intention
+			and the client's needs.
+		</p>
+		<p>
+			On the whole I'm happy with how this has turned out. I spent about a
+			workday on it and am confident that, with collaboration with teammates
+			etc., I could have got this totally finished in around 8 to 10 hours.
+			Possibly even less depending on whether code/assets could be reused from
+			elsewhere. Of course I've totally ignored mobile for this task beyond
+			a very, very basic layout change; that would likely need some serious
+			though prior to starting any of it!
+		</p>
+	</section>
+	
+	<script src="./build.js"></script>
+	<script src="./main.js"></script>
+</body>
+</html>
