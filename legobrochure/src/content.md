@@ -1,5 +1,5 @@
 ![photo of van interior](./img/van4.jpg)    
-# Seamless verticals quiet period call-to-action
+# Seamless verticals
 ## Big data top influencers leverage buzzword. Inbound verticals reaching out phablet emerging.
 [call to action](//example.com)
 

@@ -43,15 +43,17 @@ readFile('src/content.md', 'utf8')
                 'nav',
                 'a',
             ),
-        galleryHtml = loopHTMLSection(
-            images.map(
-                image => ({
-                    text: createElement(image, 'img')
-                })
-            ),
-            'ul',
-            'li',
-        );
+        galleryHtml = `<section>${
+            loopHTMLSection(
+                images.map(
+                    image => ({
+                        text: createElement(image, 'img')
+                    })
+                ),
+                'ul',
+                'li',
+            )
+        }</section>`;
 
     /*console.log(
         
