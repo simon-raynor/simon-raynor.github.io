@@ -20,7 +20,7 @@ readFile('src/content.md', 'utf8')
                                 .toLowerCase(),
                     sectionImages = section.match(/\!\[.*\]\(.*\)/gi);
 
-                sections.push(sectionId);
+                idx && sections.push(sectionId);
 
                 sectionImages && images.push(...sectionImages.map(parseMdImage))
 
