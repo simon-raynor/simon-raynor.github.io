@@ -1,2 +1,16 @@
-$c-background: rgb(152, 188, 212);
-$c-accent: rgb(255, 77, 32);
+$c-accent: #ff4d20;
+
+$c-secondary: #20D2FF;
+
+$c-background: adjust-color($c-accent, $saturation: -50%, $lightness: 20%);
+$c-background-secondary: adjust-color($c-secondary, $saturation: -50%, $lightness: 20%);
+
+$c-text: darken($c-accent, 45%);
+$c-text-secondary: darken($c-secondary, 40%);
+
+$c-white: #fff;
+$c-white-50: rgba(255,255,255,0.5);
+
+%hi {
+    color: blue;
+}

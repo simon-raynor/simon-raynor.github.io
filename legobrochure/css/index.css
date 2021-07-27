@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600;800&family=Roboto:wght@300&display=swap");
 * {
   margin: 0;
   padding: 0; }
 
 body {
-  font-family: 'IBM Plex Sans', sans-serif;
+  color: #3a0c00;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px; }
 
 img {
@@ -12,24 +14,23 @@ img {
 h1,
 h2,
 h3 {
-  font-family: 'IBM Plex Serif', serif;
+  font-family: 'Roboto Slab', serif;
   text-transform: capitalize;
   margin-bottom: 0.5em; }
 
 h1 {
   font-size: 54px;
-  font-weight: 500; }
+  font-weight: 800; }
   h1 + h2 {
-    font-size: 24px;
-    font-weight: 500; }
+    font-size: 24px; }
 
 h2 {
   font-size: 32px;
-  font-weight: 300; }
+  font-weight: 600; }
 
 h3 {
   font-size: 24px;
-  font-weight: 300; }
+  font-weight: 600; }
 
 p > a:last-child {
   display: block;
@@ -43,7 +44,7 @@ p > a:last-child {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'IBM Plex Serif', serif; }
+  font-family: inherit; }
 
 section p > a:last-child {
   margin-inline: auto; }
@@ -77,7 +78,7 @@ nav {
 
 header,
 section:nth-child(2n) {
-  background: #98bcd4; }
+  background: #e1b0a4; }
 
 header {
   box-sizing: border-box;
@@ -89,7 +90,8 @@ header {
   padding: 4rem 2rem;
   margin: 0 auto;
   position: relative;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  text-shadow: 0.0625em 0.0625em 0.05em rgba(255, 255, 255, 0.5); }
   header > *:not(img) {
     z-index: 2;
     width: 38rem;
@@ -103,6 +105,8 @@ header {
     object-fit: cover;
     z-index: 1;
     max-width: none; }
+  header > h1 {
+    color: #004253; }
 
 section:first-of-type {
   display: flex;
@@ -129,7 +133,10 @@ section:nth-of-type(2) {
   justify-content: center;
   padding: 4rem 2rem; }
   section:nth-of-type(2) > *:not(img) {
-    max-width: 60rem; }
+    max-width: 50rem; }
+  section:nth-of-type(2) h2,
+  section:nth-of-type(2) h3 {
+    text-align: center; }
 
 section:nth-of-type(3) {
   display: grid;
