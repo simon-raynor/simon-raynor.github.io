@@ -1,12 +1,16 @@
 import React from 'react';
+import styles from './hero.scss';
 
 export default function Hero({
-    title = 'TITLE',
-    subtitle = 'SUBTITLE',
-    cta
+    image = {},
+    children
 }) {
-    return <header>
-        <h1>{ title }</h1>
-        <h2>{ subtitle }</h2>
+    return <header
+        className={styles.hero}
+    >
+        <img {...image} />
+        {
+            children
+        }
     </header>
 }

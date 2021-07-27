@@ -12,7 +12,16 @@ module.exports = {
         rules: [
             {
                 test: /\.scss$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                use: [
+                    'style-loader',
+                    {
+                        loader: "css-loader",
+                        options: {
+                          modules: true,
+                        },
+                    },
+                    'sass-loader'
+                ]
             },
             {
                 test: /\.jsx?$/,
@@ -28,7 +37,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Output Management',
+            title: 'Lego Brochure',
         }),
     ],
 }

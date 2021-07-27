@@ -4,8 +4,8 @@
   "description": "brochure site",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "md": "node scripts/generate-markup.js",
-    "css": "node scripts/generate-css.js"
+    "build": "webpack",
+    "dev": "webpack --watch"
   },
   "author": "Simon Raynor",
   "license": "ISC",

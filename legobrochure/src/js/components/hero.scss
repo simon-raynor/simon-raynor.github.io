@@ -1,0 +1,25 @@
+$height: 90vh;
+$width: 100%;
+
+:local {
+    .hero {
+        height: $height;
+        width: $width;
+        
+        display: flex;
+        flex-direction: column;
+
+        > img {
+            height: $height;
+            width: $width;
+        }
+
+        h1 {
+            font-size: 54px;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+    }
+}
