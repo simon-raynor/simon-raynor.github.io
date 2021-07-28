@@ -1,0 +1,16 @@
+:local {
+    .section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        > * {
+            max-width: var(--half-width);
+        }
+
+        > h1,
+        > h2 {
+            text-align: center;
+        }
+    }
+}

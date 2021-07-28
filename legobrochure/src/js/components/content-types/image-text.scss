@@ -1,0 +1,28 @@
+:local {
+    .section {
+        display: flex;
+        flex-direction: row;
+
+        width: var(--half-width-unpad);
+        padding-left: calc(50vw + var(--padding-h));
+
+        position: relative;
+
+        overflow: hidden;
+
+        .image {
+            height: 100%;
+            width: 50vw;
+
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+
+            object-fit: cover;
+        }
+    }
+    .reverse {
+        flex-direction: row-reverse;
+    }
+}

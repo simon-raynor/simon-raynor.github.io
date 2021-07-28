@@ -8,7 +8,7 @@
 }
 
 body {
-    color: $c-text;
+    color: var(--c-text);
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
 }
@@ -45,6 +45,19 @@ h3 {
     font-weight: 600;
 }
 
+
+// add the block direction (top/bottom) section padding
+section {
+    padding-block: var(--padding-v);
+}
+
+// zebra stripe the sections
+header,
+section:nth-child(2n) {
+    background: var(--c-background);
+}
+
+
 // cta buttons
 p > a:last-child {
     display: block;
@@ -52,7 +65,7 @@ p > a:last-child {
     padding: 1rem 2rem;
     margin: 2rem 0 0;
 
-    background: $c-accent;
+    background: var(--c-accent);
     border: none;
     color: white;
 
@@ -110,14 +123,8 @@ nav {
     }
 }
 
-// zebra stripe the sections
-header,
-section:nth-child(2n) {
-    background: $c-background;
-}
 
-
-
+/* 
 // hero section
 header {
     box-sizing: border-box;
@@ -136,7 +143,7 @@ header {
 
     overflow-x: hidden;
 
-    text-shadow: 0.0625em 0.0625em 0.05em $c-white-50;
+    text-shadow: 0.0625em 0.0625em 0.05em var(--c-white-50);
 
     > *:not(img) {
         z-index: 2;
@@ -159,7 +166,7 @@ header {
     }
 
     > h1 {
-        color: $c-text-secondary;
+        color: var(--c-text-secondary);
     }
 }
 
@@ -258,11 +265,7 @@ section:nth-of-type(4) {
                 animation: galleryFade 50s linear infinite;
             }
 
-            @for $i from 1 through 5 {
-                &:nth-child(#{$i}) > img {
-                    animation-delay: ((5 - $i) * 10s);
-                }
-            }
+            
         }
     }
 }
@@ -283,4 +286,4 @@ section:nth-of-type(4) {
     100% {
         opacity: 0;
     }
-}
+} */

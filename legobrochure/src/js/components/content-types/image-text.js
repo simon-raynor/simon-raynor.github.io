@@ -1,15 +1,21 @@
 import React from 'react';
+import styles from './image-text.scss';
 
 export default function ImageText({
-    imgSrc,
-    imgAlt,
+    image = {},
     reverse,
     children
 }) {
-    return <section>
+    return <section
+        className={[
+            styles.section,
+            reverse ? styles.reverse : ''
+        ].join(' ')}
+    >
         <img
-            src={imgSrc}
-            alt={imgAlt}
+            className={styles.image}
+            src={image.src}
+            alt={image.alt}
         />
         <div>{
             children

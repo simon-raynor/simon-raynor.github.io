@@ -8,9 +8,10 @@ export default function Hero({
     return <header
         className={styles.hero}
     >
-        <img {...image} />
-        {
-            children
-        }
+        <img
+            className={styles.image}
+            {...image}
+        />
+        { children }
     </header>
 }
