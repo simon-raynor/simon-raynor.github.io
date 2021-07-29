@@ -10,6 +10,8 @@ $c-text-secondary: darken($c-secondary, 40%);
 $c-white: #fff;
 $c-white-50: rgba(255,255,255,0.5);
 
+$c-dark: adjust-color($c-secondary, $saturation: -80%, $lightness: -50%);
+
 
 :root {
     
@@ -33,4 +35,6 @@ $c-white-50: rgba(255,255,255,0.5);
 
     --c-white: #{$c-white};
     --c-white-50: #{$c-white-50};
+
+    --c-dark: #{$c-dark};
 }

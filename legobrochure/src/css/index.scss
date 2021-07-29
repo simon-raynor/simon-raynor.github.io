@@ -10,6 +10,7 @@ body {
     color: var(--c-text);
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    font-weight: 300;
 
     display: flex;
     flex-direction: column;
@@ -38,7 +39,7 @@ h1 {
 
 h1 {
     font-size: 54px;
-    font-weight: 800;
+    font-weight: 500;
 
     + h2 {
         font-size: 24px;
@@ -47,18 +48,19 @@ h1 {
 
 h2 {
     font-size: 32px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 h3 {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--c-text-secondary);
 }
 
 
 // add the block direction (top/bottom) section padding
-section {
+section,
+footer {
     padding-block: var(--padding-v);
 }
 

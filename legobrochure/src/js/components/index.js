@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Hero from './hero';
 import Navbar from './navbar';
 import ImageText from './content-types/image-text';
@@ -6,6 +6,7 @@ import CalloutText from './content-types/callout-text';
 import Columns from './content-types/columns';
 import CallToActionButton from './ctaButton';
 import '../../css/index.scss';
+import Footer from './footer';
 
 
 const images = [
@@ -36,7 +37,6 @@ export default function App() {
     return <>
         <Navbar navitems={[
             {text: 'home', href: '/'},
-            {text: 'link', href: '/'},
             {text: 'thing', href: '/'},
             {text: 'stuff', href: '/'},
             {text: 'foobar', href: '/'},
@@ -45,7 +45,7 @@ export default function App() {
             image={images[0]}
         >
             <h1>Seamless verticals</h1>
-            <h2>Big data top influencers leverage buzzword. Inbound verticals reaching out phablet emerging.</h2>
+            <h2>Big data top influencers leverage buzzword</h2>
             <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
         </Hero>
         <ImageText
@@ -133,5 +133,30 @@ export default function App() {
             </p>
             <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
         </CalloutText>
+        <Footer>
+            <dl>
+                <dt>Thing</dt>
+                <dd>
+                    <a href="//example.com">Lorem</a>
+                    <a href="//example.com">Ipsum</a>
+                    <a href="//example.com">Dolor</a>
+                    <a href="//example.com">Sit Amet</a>
+                </dd>
+                <dt>Stuff</dt>
+                <dd>
+                    <a href="//example.com">Sit Amet</a>
+                    <a href="//example.com">Ipsum</a>
+                    <a href="//example.com">Lorem</a>
+                    <a href="//example.com">Dolor</a>
+                </dd>
+                <dt>Foobar</dt>
+                <dd>
+                    <a href="//example.com">Dolor</a>
+                    <a href="//example.com">Lorem</a>
+                    <a href="//example.com">Sit Amet</a>
+                    <a href="//example.com">Ipsum</a>
+                </dd>
+            </dl>
+        </Footer>
     </>
 }
