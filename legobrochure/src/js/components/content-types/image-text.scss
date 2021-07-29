@@ -1,0 +1,40 @@
+$image-side-padding: calc(50vw + var(--padding-h));
+
+:local {
+    .section {
+        display: flex;
+        flex-direction: column;
+
+        padding-left: $image-side-padding;
+        padding-right: var(--padding-pagegutter);
+
+        position: relative;
+
+        overflow: hidden;
+
+        .image {
+            height: 100%;
+            width: 50%;
+
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+
+            object-fit: cover;
+        }
+
+        > *:not(.image) {
+            width: var(--half-width-unpad);
+        }
+    }
+    .reverse {
+        padding-left: var(--padding-pagegutter);
+        padding-right: $image-side-padding;
+
+        .image {
+            left: auto;
+            right: 0;
+        }
+    }
+}
