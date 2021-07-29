@@ -1,4 +1,5 @@
 @import './variables';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=fallback');
 
 * {
     margin: 0;
@@ -9,6 +10,10 @@ body {
     color: var(--c-text);
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
 }
 
 img {
@@ -66,36 +71,7 @@ section:nth-of-type(4n - 2) {
     background: var(--c-background-secondary);
 }
 
-
-// cta buttons
-p > a:last-child {
-    display: block;
-    width: 10rem;
-    padding: 1rem 2rem;
-    margin: 2rem 0 0;
-
-    background: var(--c-accent);
-    border: none;
-    color: white;
-
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-
-    font-weight: bold;
-    font-family: inherit;
-}
-
-section p > a:last-child {
-    // don't do this for header
-    margin-inline: auto;
-}
-
-
-
 /* 
-// 3 columns
-
 // gallery
 section:nth-of-type(4) {
     padding: 4rem 2rem;

@@ -6,6 +6,7 @@ $image-side-padding: calc(50vw + var(--padding-h));
         flex-direction: column;
 
         padding-left: $image-side-padding;
+        padding-right: var(--padding-pagegutter);
 
         position: relative;
 

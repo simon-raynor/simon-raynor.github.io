@@ -4,7 +4,7 @@ import Navbar from './navbar';
 import ImageText from './content-types/image-text';
 import CalloutText from './content-types/callout-text';
 import Columns from './content-types/columns';
-
+import CallToActionButton from './ctaButton';
 import '../../css/index.scss';
 
 
@@ -44,11 +44,9 @@ export default function App() {
         <Hero
             image={images[0]}
         >
-            <h1
-                data-txt="Seamless verticals"
-            >Seamless verticals</h1>
+            <h1>Seamless verticals</h1>
             <h2>Big data top influencers leverage buzzword. Inbound verticals reaching out phablet emerging.</h2>
-            <p><a href="//example.com">call to action</a></p>
+            <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
         </Hero>
         <ImageText
             image={images[1]}
@@ -58,7 +56,7 @@ export default function App() {
             <p>
                 Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
             </p>
-            <p><a href="//example.com">call to action</a></p>
+            <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
         </ImageText>
         <CalloutText>
             <h2>Alignment crowdsource wearables flat design</h2>
@@ -66,7 +64,7 @@ export default function App() {
             <p>
                 Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
             </p>
-            <p><a href="//example.com">call to action</a></p>
+            <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
         </CalloutText>
         <Columns
             title="Shoptimization synergies content curation"
@@ -77,7 +75,7 @@ export default function App() {
                     Leading the pack wheelhouse long-tail council. Holistic content marketing dynamic content flat design CRM call-to-action disrupt.
                     <img {...images[2]} />
                 </p>
-                <p><a href="//example.com">call to action</a></p>
+                <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
             </>
             <>
                 <h3>Low hanging fruit social buttons dynamic content.</h3>
@@ -85,7 +83,7 @@ export default function App() {
                     Curated ROI goals for engagement CRM leading the pack content marketing. Iterative robust leading the pack mission critical.
                     <img {...images[3]} />
                 </p>
-                <p><a href="//example.com">call to action</a></p>
+                <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
             </>
             <>
                 <h3 id="organicreach">Organic reach</h3>
@@ -93,7 +91,7 @@ export default function App() {
                     Alignment crowdsource wearables flat design target influencer responsive. Big data hit the like button wheelhouse reaching out.
                     <img {...images[4]} />
                 </p>
-                <p><a href="//example.com">call to action</a></p>
+                <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
             </>
         </Columns>
         <ImageText
@@ -104,7 +102,7 @@ export default function App() {
             <p>
                 Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
             </p>
-            <p><a href="//example.com">call to action</a></p>
+            <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
         </ImageText>
         <ImageText
             image={images[3]}
@@ -115,7 +113,7 @@ export default function App() {
             <p>
                 Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
             </p>
-            <p><a href="//example.com">call to action</a></p>
+            <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
         </ImageText>
         <ImageText
             image={images[1]}
@@ -125,7 +123,7 @@ export default function App() {
             <p>
                 Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
             </p>
-            <p><a href="//example.com">call to action</a></p>
+            <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
         </ImageText>
         <CalloutText>
             <h2>Alignment crowdsource wearables flat design</h2>
@@ -133,7 +131,7 @@ export default function App() {
             <p>
                 Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
             </p>
-            <p><a href="//example.com">call to action</a></p>
+            <CallToActionButton action={() => alert('ACTION!')}>Call to Action</CallToActionButton>
         </CalloutText>
     </>
 }
