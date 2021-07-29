@@ -5,11 +5,11 @@
         align-items: center;
 
         > * {
-            max-width: var(--half-width);
+            max-width: calc(2 * var(--width) / 3);
         }
 
-        > h1,
-        > h2 {
+        > h2,
+        > h3 {
             text-align: center;
         }
     }

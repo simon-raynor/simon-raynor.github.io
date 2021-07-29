@@ -1,10 +1,11 @@
+$image-side-padding: calc(50vw + var(--padding-h));
+
 :local {
     .section {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
 
-        width: var(--half-width-unpad);
-        padding-left: calc(50vw + var(--padding-h));
+        padding-left: $image-side-padding;
 
         position: relative;
 
@@ -12,7 +13,7 @@
 
         .image {
             height: 100%;
-            width: 50vw;
+            width: 50%;
 
             position: absolute;
             top: 50%;
@@ -21,8 +22,18 @@
 
             object-fit: cover;
         }
+
+        > *:not(.image) {
+            width: var(--half-width-unpad);
+        }
     }
     .reverse {
-        flex-direction: row-reverse;
+        padding-left: var(--padding-pagegutter);
+        padding-right: $image-side-padding;
+
+        .image {
+            left: auto;
+            right: 0;
+        }
     }
 }

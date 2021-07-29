@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import Hero from './hero';
 import Navbar from './navbar';
-
-import '../../css/index.scss';
 import ImageText from './content-types/image-text';
 import CalloutText from './content-types/callout-text';
 import Columns from './content-types/columns';
+
+import '../../css/index.scss';
 
 
 const images = [
@@ -34,11 +34,19 @@ const images = [
 
 export default function App() {
     return <>
-        <Navbar navitems={[{text: 'home', href: '/'}]}/>
+        <Navbar navitems={[
+            {text: 'home', href: '/'},
+            {text: 'link', href: '/'},
+            {text: 'thing', href: '/'},
+            {text: 'stuff', href: '/'},
+            {text: 'foobar', href: '/'},
+        ]}/>
         <Hero
             image={images[0]}
         >
-            <h1>Seamless verticals</h1>
+            <h1
+                data-txt="Seamless verticals"
+            >Seamless verticals</h1>
             <h2>Big data top influencers leverage buzzword. Inbound verticals reaching out phablet emerging.</h2>
             <p><a href="//example.com">call to action</a></p>
         </Hero>
@@ -88,5 +96,44 @@ export default function App() {
                 <p><a href="//example.com">call to action</a></p>
             </>
         </Columns>
+        <ImageText
+            image={images[2]}
+        >
+            <h2>Inbound emerging hackathon social influencer</h2>
+            <h3>thought leadership millennials.</h3>
+            <p>
+                Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
+            </p>
+            <p><a href="//example.com">call to action</a></p>
+        </ImageText>
+        <ImageText
+            image={images[3]}
+            reverse
+        >
+            <h2>Inbound emerging hackathon social influencer</h2>
+            <h3>thought leadership millennials.</h3>
+            <p>
+                Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
+            </p>
+            <p><a href="//example.com">call to action</a></p>
+        </ImageText>
+        <ImageText
+            image={images[1]}
+        >
+            <h2>Inbound emerging hackathon social influencer</h2>
+            <h3>thought leadership millennials.</h3>
+            <p>
+                Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
+            </p>
+            <p><a href="//example.com">call to action</a></p>
+        </ImageText>
+        <CalloutText>
+            <h2>Alignment crowdsource wearables flat design</h2>
+            <h3>Click bait CRM drone quiet period pivot, reaching out social influencer.</h3>
+            <p>
+                Lean content context engagement optimized for social sharing leverage. Hit the like button customer engagement target audience emerging market share. SEO mobile ready shoptimization target audience thought leadership content marketing.
+            </p>
+            <p><a href="//example.com">call to action</a></p>
+        </CalloutText>
     </>
 }

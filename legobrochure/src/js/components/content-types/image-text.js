@@ -17,8 +17,6 @@ export default function ImageText({
             src={image.src}
             alt={image.alt}
         />
-        <div>{
-            children
-        }</div>
+        { children }
     </section>
 }

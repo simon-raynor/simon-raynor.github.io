@@ -1,7 +1,10 @@
 import React from 'react';
+import styles from './navbar.scss';
 
 export default function Navbar({ navitems = [] }) {
-    return <nav>{
+    return <nav
+        className={styles.nav}
+    >{
         navitems.map(item => item
                 ? <a
                     key={
