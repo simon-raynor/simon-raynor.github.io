@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+    --gap: 40px;
+}
+body {
+    width: 800px;
+    max-width: 96%;
+    margin: var(--gap) auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: minmax(var(--gap), max-content);
+    justify-content: center;
+    align-items: center;
+
+    gap: var(--gap);
+}
+body > h1 {
+    grid-column: 1 / 3;
+    text-align: center;
+}
+body > h1 ~ * {
+    grid-row: span 2;
+    padding: 0;
+    margin: 0;
+}
+body > h1 + * + * {
+    grid-column: 2;
+    grid-row: 3 / 5;
+}
+body > h1 ~ *:nth-child(2n) {
+    text-align: right;
+}
+
+img {
+    max-width: 100%;
+}
+</style>
+</head>
+<body>
+
+<h1>Page Title</h1>
+
+<p>
+    1: Lorem ipsum dolor sit amet, enim do excepteur ad Lorem sunt laborum esse eu voluptate minim minim adipisicing qui nisi adipisicing non aliquip aliquip ex deserunt dolor ex deserunt est nostrud exercitation voluptate duis amet
+</p>
+
+<p>
+    2: Lorem ipsum dolor sit amet, enim do excepteur ad Lorem sunt laborum esse eu voluptate minim minim adipisicing qui nisi adipisicing non aliquip aliquip ex deserunt dolor ex deserunt est nostrud exercitation voluptate duis amet
+</p>
+
+<p>
+    3: Lorem ipsum dolor sit amet, enim do excepteur ad Lorem
+</p>
+
+<p>
+    4: Lorem ipsum dolor sit amet, enim do excepteur ad Lorem sunt laborum esse eu voluptate minim minim adipisicing qui nisi adipisicing non aliquip aliquip ex deserunt dolor ex deserunt est nostrud exercitation voluptate duis amet
+</p>
+
+<img src="../legobrochure/img/van1.jpg" alt="van" />
+
+<img src="../legobrochure/img/van2.jpg" alt="van" />
+
+<img src="../legobrochure/img/van3.jpg" alt="van" />
+
+<img src="../legobrochure/img/van4.jpg" alt="van" />
+
+<img src="../legobrochure/img/van5.jpg" alt="van" />
+
+<section>
+    <p>
+        Lorem ipsum dolor sit amet, enim do excepteur ad Lorem sunt laborum esse eu voluptate minim minim adipisicing qui nisi adipisicing non aliquip aliquip ex deserunt dolor ex deserunt est nostrud exercitation voluptate duis amet
+    </p>
+    <p>
+        Lorem ipsum dolor sit amet, enim do excepteur ad Lorem sunt laborum esse eu voluptate minim minim adipisicing qui nisi adipisicing non aliquip aliquip ex deserunt dolor ex deserunt est nostrud exercitation voluptate duis amet
+    </p>
+</section>
+
+
+</body>
+</html>
