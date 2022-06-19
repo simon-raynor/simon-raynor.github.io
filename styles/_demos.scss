@@ -1,0 +1,50 @@
+.demopop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > div {
+        position: relative;
+        border: 2px solid white;
+        box-shadow: 0 1px 2px #111;;
+    }
+
+    > div > button {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        background: none;
+        border: none;
+
+        line-height: 1;
+        padding: 2px;
+
+        color: white;
+        text-shadow: 1px 1px #111;
+
+        font-family: monospace;
+        font-size: 24px;
+
+        &::before {
+            content: '[';
+        }
+        &::after {
+            content: ']';
+        }
+    }
+    
+    iframe {
+        display: block;
+        height: 80vh;
+        width: 80vw;
+        
+        border: none;
+    }
+}
