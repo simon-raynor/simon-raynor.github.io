@@ -1,0 +1,21 @@
+{
+  "name": "simon-raynor.github.io",
+  "version": "0.0.1",
+  "description": "personal site",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "sass ./styles/index.scss ./styles/main.css",
+    "dev": "sass --watch ./styles/index.scss:./styles/main.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon-raynor/simon-raynor.github.io.git"
+  },
+  "author": "simon raynor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simon-raynor/simon-raynor.github.io/issues"
+  },
+  "homepage": "https://simon-raynor.github.io"
+}
