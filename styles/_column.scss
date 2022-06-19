@@ -1,17 +1,4 @@
 
-.column {
-    max-width: 90%;
-    margin: var(--col-gap) auto;
-    display: grid;
-    gap: var(--col-gap);
-
-    & > .column-header,
-    & > .column-footer {
-        grid-column: 1 / -1;
-        grid-row: span 1;
-        text-align: center;
-    }
-}
 
 @media (max-width: 799px) {
     :root {
@@ -55,5 +42,19 @@
         & > *:nth-child(2n) {
             text-align: right;
         }
+    }
+}
+
+.column {
+    max-width: 90%;
+    margin: var(--col-gap) auto;
+    display: grid;
+    gap: var(--col-gap);
+
+    & > .column-header,
+    & > .column-footer {
+        grid-column: 1 / -1;
+        grid-row: span 1;
+        text-align: center;
     }
 }
