@@ -1,0 +1,28 @@
+@import './reset';
+@import './variables';
+@import './column';
+
+
+
+body {
+    background: $c-background;
+    color: $c-foreground;
+}
+
+.column {
+     > .column-header ~ * {
+        background: $c-foreground;
+        color: green;
+        
+        padding: 20px 28px 32px;
+
+        border-radius: 20px;
+
+        &:nth-child(2n + 1) {
+            border-bottom-left-radius: 0;
+        }
+        &:nth-child(2n) {
+            border-bottom-right-radius: 0;
+        }
+    }
+}
