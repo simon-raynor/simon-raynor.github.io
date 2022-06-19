@@ -47,5 +47,4 @@ function demoModal(demoUrl) {
     wrapper.className = 'demopop';
 
     document.body.appendChild(wrapper);
-
 }
