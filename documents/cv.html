@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
     * {
         margin: 0;
@@ -47,13 +48,30 @@
     }
 
     .printnotice {
-        background: yellow;
+        background: #ffee88;
         border: 4px dashed #111;
-        padding: 1em 1.25em 0.5em;
+        padding: 1em 1.25em;
+
+        font-size: 12px;
     }
     .printnotice p {
         padding: 0;
         margin: 0 0 1em;
+    }
+
+    #hackyNoticeHider1 {
+        position: absolute;
+        left: -9999px;
+    }
+
+    #hackyNoticeHider1:checked ~ .printnotice {
+        display: none;
+    }
+
+    label[for="hackyNoticeHider1"] {
+        background: white;
+        display: inline-block;
+        padding: 0.6em 0.75em;
     }
 
     @media print {
@@ -64,12 +82,26 @@
             display: none;
         }
     }
+
+    @media (max-width: 800px) {
+        body {
+            padding: 4vw 5vw 6vw;
+        }
+    }
 </style>
 </head>
 <body>
     <h1 id="simon-raynor">Simon Raynor</h1>
     <p><strong>ssraynor [at] googlemail [dot] com // <a href="https:simon-raynor.github.io">simon-raynor.github.io</a></strong></p>
 
+    <h2 id="profile">Profile</h2>
+    <p>An experienced full stack developer with a focus on the front end, passionate about user experience and with a good eye for the details. Exposure to different environments and tech stacks has fostered a pragmatic “get it done” attitude while supporting long-term projects has made sure “get it right” is prioritised equally. Always looking to simplify things where possible, without sacrificing the end result.</p>
+
+    <input
+        type="checkbox"
+        value=""
+        id="hackyNoticeHider1"
+    />
     <section class="printnotice">
         <p>
             <strong>N.B.</strong> most modern systems will let you download as a PDF by
@@ -81,9 +113,8 @@
             it'd be swell if you just send a link to this page. Shouldn't ever go stale
             that way! <small>Hopefully it'll even improve in quality over time!</small>
         </p>
+        <label for="hackyNoticeHider1">OK</label>
     </section>
-    <h2 id="profile">Profile</h2>
-    <p>An experienced full stack developer with a focus on the front end, passionate about user experience and with a good eye for the details. Exposure to different environments and tech stacks has fostered a pragmatic “get it done” attitude while supporting long-term projects has made sure “get it right” is prioritised equally. Always looking to simplify things where possible, without sacrificing the end result.</p>
 
     <h2 id="skills">Skills</h2>
     <h3 id="javascript">Javascript</h3>
