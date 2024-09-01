@@ -1,6 +1,6 @@
 # Simon Raynor
 
-**ssraynor [at] googlemail [dot] com // [simon-raynor.github.io](https:simon-raynor.github.io)**
+**ssraynor [at] googlemail [dot] com // [simon-raynor.github.io](https://simon-raynor.github.io)**
 
 ## Profile
 
