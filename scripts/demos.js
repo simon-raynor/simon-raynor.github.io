@@ -5,7 +5,7 @@
 })();
 
 
-const SELECTOR_DEMOLINKS = 'a[href^="./demos/"]';
+const SELECTOR_DEMOLINKS = 'a[href^="./demos/"]:not([target])';
 
 function domReady() {
 
