@@ -8,25 +8,21 @@ An experienced web developer with a heavy focus on the front end, passionate abo
 
 ## Skills
 
-### Javascript
+### Javascript (+ Typescript)
 
-Very strong, in-depth understanding of the language and its quirks. Experience in implementing large scale visual applications & charts, as well as more standard functionality such as form validation, image carousels and custom controls. Familiar with common frameworks such as React, Webpack and the Google Maps API. Typescript, while not my first choice for "fun" code, has won me over especially on larger projects.
+Very strong, in-depth understanding of the language and its quirks. Experience in architecting and implementing large scale visual applications & charts, as well as more standard functionality such as form validation, image carousels and custom controls. Familiar with common tools & frameworks such as React, Webpack and the Google Maps API. Typescript, while not my first choice for "fun" code, has won me over especially on larger projects.
 
 ### HTML/CSS/SVG
 
 Extensive up-to-date knowledge of the modern browser stack including semantic HTML, FlexBox/Grid and mobile/responsive design. Liberal use of SVG, both statically for icons & presentation and for dynamically building interactive interfaces for data visualisation/charting, as well as for less serious projects. Understanding of SASS/SCSS/Stylus features such as @extend.
 
-### PHP/Coldfusion/.NET
+### Backend & SQL
 
-Designing and building a number of back ends for e-commerce, CMS, CRM and several more esoteric systems, in a variety of languages and platforms. A holistic approach to web development has led to a broad understanding of back end tasks such as automation, data storage and 3rd party integrations, which has allowed for the development of several highly data-driven apps and tools.
-
-### SQL
-
-Mainly SQL Server but a degree of familiarity with MySQL & Postgres. Knowledge of querying and database design subjects such as indexing and normalisation and a desire to keep the data as “readable” as possible, coupled with an interest in ORM data abstractions and the related architecture.
+Designing and building a number of back ends for e-commerce, CMS, CRM and several more esoteric systems; in a variety of languages and platforms. A holistic approach to web development has led to a broad understanding of back end tasks such as automation, data storage and 3rd party integrations, which has allowed for the development of several highly data-driven apps and tools. Knowledge of querying and database design subjects such as indexing and normalisation and a desire to keep the data as “readable” as possible, coupled with an interest in ORM data abstractions and the related architecture.
 
 ### Other
 
-Familiarity with an array of non-programming aspects of web development, including Git and managing IIS and Apache. Run Linux full time where possible and confident on the command line (both Bash and CMD/Powershell). Soft skills including prioritisation, time estimation/management and liaising with clients & client-facing team members for planning & troubleshooting. Strong mathematics skills, in particular geometry, and ability to convert “maths equations” into functional code.
+Familiarity with an array of non-programming aspects of web development, including Git and managing IIS and Apache. Run Linux full time where possible and confident on the command line (both Bash and CMD/Powershell). Soft skills including prioritisation, time estimation/management, mentoring teammates and liaising with clients & client-facing colleagues for planning & troubleshooting. Strong mathematics skills, in particular geometry, and ability to convert “maths equations” into functional code.
 
 ## Employment
 
@@ -34,13 +30,14 @@ Familiarity with an array of non-programming aspects of web development, includi
 
 **Sep 2020 - Present**
 
-Hired to fill a front-end skills gap in the team, initially put to work fixing up a fleet tracking SPA built by 3rd party contractors. Prior knowledge of mapping applications proved vital in understanding and taming the pre-existing codebase, and in converting “React” code into something closer to idiomatic React. This approach was then applied to a wider ground-up rebuild of the entire "portal" area, both to facilitate backend requirements and to improve maintainability and DX.
+Hired to fill a front-end skills gap in the team, initially put to work fixing up a fleet tracking SPA built by 3rd party contractors. Prior knowledge of mapping applications proved vital in understanding and taming the pre-existing codebase, and in converting “React” code into something closer to idiomatic React. Was subsequently tasked with spearheading a rebuild of the rest of the Lightfoot portal, both to facilitate backend requirements and to improve maintainability and DX, where the larger scale of the project led to embracing libraries like redux and react-i18n to provide a truly "pro" solution.
 
 * Interpretation and maintenance of existing React codebase to fix broken functionality and add new features, followed by heading a project to create a drop-in replacement
-* Improving and fixing CI tasks such as automated builds and testing, in particular creating a standalone testing environment for our SPA in Docker.
-* Involved in front-end architecture work, planning use and development of component frameworks and how to reign in the various different JS approaches used in the legacy codebase.
-* Using UI/UX knowledge to assist the wider team when planning new features.
+* Improving and fixing CI tasks such as automated builds and testing, in particular creating a standalone testing environment for our SPA in Docker
+* Involved in front-end architecture work, planning use and development of component frameworks and how to reign in the various different JS approaches used in the legacy codebase
+* Using UI/UX knowledge to assist the wider team when planning new features
 * Providing input for back-end developers to streamline APIs; collaborating to implement rich, data-driven functionality for stakeholders
+* Mentorship of full-stack colleagues to get them up-to-speed with React and Typescript (and sometimes I pick holes in their CSS too)
 
 ### Front End Developer – Yello Studio
 
