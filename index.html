@@ -3,8 +3,14 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="./styles/main.css" />
-<link rel="preload" href="./assets/me1.webp" />
-<link rel="preload" href="./assets/me2.webp" />
+<script type="importmap">
+{
+	"imports": {
+		"three": "https://unpkg.com/three@0.154.0/build/three.module.js",
+		"three/addons/": "https://unpkg.com/three@0.154.0/examples/jsm/"
+	}
+}
+</script>
 </head>
 <body
 	class="column"
@@ -100,7 +106,7 @@
 	<div class="headscroll column-span">
 		<div class="headscroll--head"></div>
 	</div>
-	<script src="./scripts/headscroll.js" type="module"></script>
+	<script src="./scripts/headscroll/index.js" type="module"></script>
 
 	<script src="./scripts/demos.js" type="module"></script>
 </body>

@@ -4,7 +4,7 @@ $open-height: 50svh;
 // allow space around the rest of the content, we'll see if I live to regret not doing it properly
 .column header + section,
 .column footer {
-    margin-top: 50vh;
+    margin-top: 40vh;
 }
 
 
@@ -20,11 +20,13 @@ $open-height: 50svh;
 }
 
 .headscroll {
-    //pointer-events: none;
+    --theta: 0;
+
+    pointer-events: none;
     position: fixed;
-    height: 100vh;
+    height: 101vh; // 101 so it looks good scrolling on my phone
     width: 100vw;
-    bottom: 0;
+    top: 0;
     left: 0;
 
     background-image: radial-gradient(ellipse at top, transparent 60vw, #ff0088)
@@ -34,6 +36,11 @@ $open-height: 50svh;
         , linear-gradient(transparent 50%, $c-background)
         , linear-gradient(transparent 66.667%, $c-background)
         , linear-gradient(transparent 50%, $c-background 75%);
+
+        > canvas {
+            position: relative;
+            z-index: -1;;
+        }
 }
 
 .headscroll--head {
@@ -62,7 +69,7 @@ $open-height: 50svh;
         background-repeat: no-repeat;
         background-size: var(--headsize);
 
-        transition: transform 0.5s cubic-bezier(0.05, 0.25, 0.8, 1.5);
+        transition: transform 0.4s cubic-bezier(0.05, 0.25, 0.8, 1.5);
 
         transform: rotate(0deg);
     }
@@ -86,12 +93,12 @@ $open-height: 50svh;
         left: calc(50% - var(--headsize) *0.5);
         transform-origin: calc(var(--headsize) * 1 / 16) 100%;
         background-position: left top;
-        transform: rotate(-130deg);
+        transform: rotate(calc(var(--theta) * -1deg));
     }
     &::after {
         left: calc(50%);
         transform-origin: calc(var(--headsize) * 7 / 16) 100%;
         background-position: right top;
-        transform: rotate(130deg);
+        transform: rotate(calc(var(--theta) * 1deg));
     }
 }
