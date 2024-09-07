@@ -1,0 +1,97 @@
+$open-height: 50svh;
+
+
+// allow space around the rest of the content, we'll see if I live to regret not doing it properly
+.column header + section,
+.column footer {
+    margin-top: 50vh;
+}
+
+
+@media (max-width: #{$page-width - 1}) {
+    .headscroll {
+        --headsize: 50svh;
+    }
+}
+@media (min-width: $page-width) {
+    .headscroll {
+        --headsize: 66.667lvh;
+    }
+}
+
+.headscroll {
+    //pointer-events: none;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    bottom: 0;
+    left: 0;
+
+    background-image: radial-gradient(ellipse at top, transparent 60vw, #ff0088)
+    , radial-gradient(ellipse at top, transparent 55vw, #ff1493)
+    , radial-gradient(ellipse at top, transparent 50vw, #ff45a8)
+    , radial-gradient(ellipse at top, transparent 45vw, #ff93cc)
+        , linear-gradient(transparent 50%, $c-background)
+        , linear-gradient(transparent 66.667%, $c-background)
+        , linear-gradient(transparent 50%, $c-background 75%);
+}
+
+.headscroll--head {
+    position: absolute;
+    height: $open-height;
+    width: 100vw;
+    bottom: 0;
+    left: 0;
+
+    background-image: url('/assets/me1.webp');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: var(--headsize);
+
+    &::after, &::before {
+        // adding this as content here serves to prefetch the image for when we swap
+        content: url('/assets/me2.webp');
+
+        display: block;
+        position: absolute;
+        top: 100%;
+        height: $open-height*0.5;
+        width: calc(var(--headsize) / 2);
+
+        background-image: url('/assets/me2.webp');
+        background-repeat: no-repeat;
+        background-size: var(--headsize);
+
+        transition: transform 0.5s cubic-bezier(0.05, 0.25, 0.8, 1.5);
+
+        transform: rotate(0deg);
+    }
+}
+
+// TODO: if I use separate images for each part I can have better shapes to e.g. the brow
+
+.headscroll--open .headscroll--head{
+    background-image: url('/assets/me2.webp');
+    height: $open-height*0.5;
+    background-position: center #{$open-height*-0.5};
+
+    &::after, &::before {
+        content: ' ';
+        top: initial;
+        bottom: $open-height*0.5;
+        background-position: left top;
+    }
+
+    &::before {
+        left: calc(50% - var(--headsize) *0.5);
+        transform-origin: calc(var(--headsize) * 1 / 16) 100%;
+        background-position: left top;
+        transform: rotate(-130deg);
+    }
+    &::after {
+        left: calc(50%);
+        transform-origin: calc(var(--headsize) * 7 / 16) 100%;
+        background-position: right top;
+        transform: rotate(130deg);
+    }
+}

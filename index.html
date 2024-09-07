@@ -3,6 +3,8 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="./styles/main.css" />
+<link rel="preload" href="./assets/me1.webp" />
+<link rel="preload" href="./assets/me2.webp" />
 </head>
 <body
 	class="column"
@@ -13,6 +15,7 @@
 		<h1>Simon Raynor</h1>
 		<p>Web Developer</p>
 	</header>
+
 	<section>
 		<p>
 			My name is Simon and I make websites. Kinda. It's a bit more complicated
@@ -90,9 +93,14 @@
 		</p>
 	</section>
 
-	<p
+	<footer
 		class="column-footer"
-	><strong><em>TODO</em></strong> Add more stuff...</p>
+	><strong><em>TODO</em></strong> Add more stuff...</footer>
+
+	<div class="headscroll column-span">
+		<div class="headscroll--head"></div>
+	</div>
+	<script src="./scripts/headscroll.js" type="module"></script>
 
 	<script src="./scripts/demos.js" type="module"></script>
 </body>
