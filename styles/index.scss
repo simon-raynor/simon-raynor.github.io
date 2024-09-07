@@ -49,6 +49,10 @@ section {
     text-shadow: 1px 1px $c-text;
 
     position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 
