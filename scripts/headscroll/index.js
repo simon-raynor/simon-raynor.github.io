@@ -82,10 +82,13 @@ function animate(_t) {
 let open = false;
 function doOpen() {
     open = true;
+
+    // trigger CSS
     elWrapper.classList.add('headscroll--open');
 
-    const bbox = elWrapper.querySelector('.headscroll--head').getBoundingClientRect()
-console.log(bbox.top - (window.innerHeight/2))
+    // set origin for particles
+    const bbox = elWrapper.querySelector('.headscroll--head').getBoundingClientRect();
+
     raycaster.setFromCamera(
         {
             x: 0,
@@ -95,8 +98,6 @@ console.log(bbox.top - (window.innerHeight/2))
     );
 
     const hits = raycaster.intersectObject(floor, false);
-
-    console.log(hits);
 
     scrollies.setCentreY(hits[0].point.y);
 }
@@ -116,13 +117,18 @@ function domReady() {
     elWrapper = document.querySelector('.headscroll');
     elWrapper.appendChild(renderer.domElement);
 
-    animate(Performance.now);
-
     window.addEventListener('scroll', scroll);
 
+    /* window.onclick = () => {
+        scrollies.add(5 - (Math.random() * 10), 2 - (Math.random() * 4));
+    } */
 }
 
 document.addEventListener('DOMContentLoaded', domReady);
 
 
+function onLoad() {
+    animate(Performance.now);
+}
 
+window.addEventListener('load', onLoad);

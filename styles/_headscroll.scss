@@ -55,6 +55,8 @@ $open-height: 50svh;
     background-repeat: no-repeat;
     background-size: var(--headsize);
 
+    filter: drop-shadow(0 0 8px #222);
+
     &::after, &::before {
         // adding this as content here serves to prefetch the image for when we swap
         content: url('/assets/me2.webp');

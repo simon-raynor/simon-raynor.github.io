@@ -112,6 +112,8 @@ section {
     border-bottom-left-radius: 0; }
   section:nth-child(2n) {
     border-bottom-right-radius: 0; }
+  section a {
+    color: #440055; }
 
 .column > .column-header {
   font-family: Fascinate, sans-serif;
@@ -154,7 +156,8 @@ section {
   background-image: url("/assets/me1.webp");
   background-position: top;
   background-repeat: no-repeat;
-  background-size: var(--headsize); }
+  background-size: var(--headsize);
+  filter: drop-shadow(0 0 8px #222); }
   .headscroll--head::after, .headscroll--head::before {
     content: url("/assets/me2.webp");
     display: block;
