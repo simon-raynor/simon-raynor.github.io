@@ -176,24 +176,29 @@ export default class Scrollies {
                     float cosr = velocity.x / xy;
                     float sinr = -velocity.y / xy;
 
-                    mat3 rotz = mat3(
+                    mat3 rot = mat3(
                         cosr, -sinr, 0.,
                         sinr, cosr, 0.,
                         0., 0., 1.
                     );
 
 
-                    float thetas = posn.x + posn.y + abs(pos.x)/2. + pos.y/3. + .5*newPosn.y;
+                    float thetas = posn.x + posn.y + abs(pos.x)/5. + pos.y/3. + .5*newPosn.x;
                     float coss = cos(thetas);
                     float sins = sin(thetas);
 
-                    mat3 spiny = mat3(
+                    /* mat3 spiny = mat3(
                         coss, 0., sins,
                         0., 1., 0.,
                         -sins, 0., coss
+                    ) */; 
+                    mat3 spinx = mat3(
+                        1., 0., 0.,
+                        0., coss, -sins,
+                        0., sins, coss
                     );
 
-                    newPosn = rotz * spiny * newPosn;
+                    newPosn = rot /* * spiny */ * spinx * newPosn;
 
                     /*
                     float x = sin(pos.y);
