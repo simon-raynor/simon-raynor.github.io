@@ -253,7 +253,7 @@ export default class Scrollies {
                 
                 void main() {
                     gl_FragColor = vec4(
-                        vColor,
+                        /* vColor *  */texture2D( glyphs, vuv ).xyz,
                         /* 0.5 +  */texture2D( glyphs, vuv ).w
                     );
                 }
@@ -403,6 +403,7 @@ export default class Scrollies {
         this.uniforms.hasInput.value.needsUpdate = true;
 
         if (s > 10/*  && Math.random() > 0.5 */) {
+            this.add((0.5 - Math.random()) * 20, 0);
             this.add((0.5 - Math.random()) * 20, 0);
         }
     }
