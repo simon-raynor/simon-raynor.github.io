@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import { GPUComputationRenderer } from 'three/addons/misc/GPUComputationRenderer.js';
+import glyphs, { GLYPH_COUNT } from './shapes.js';
 
-const GPU_SIZE = 25;
+const GPU_SIZE = 32;
 const SCROLLIE_COUNT = GPU_SIZE * GPU_SIZE;
 
 const VERTICES = [
@@ -42,9 +43,12 @@ export default class Scrollies {
         const colors = [];
         const uvs = [];
         const posns = [];
+        const nums = [];
 
         for (let y = 0; y < GPU_SIZE; y++) {
             for (let x = 0; x < GPU_SIZE; x++) {
+                const i = (x + (y * GPU_SIZE)) % GPU_SIZE;
+
                 const c = Math.random();
                 VERTICES.forEach(
                     vert => {
@@ -52,12 +56,24 @@ export default class Scrollies {
                         colors.push(c);
                     }
                 );
+
+                const g = i % GLYPH_COUNT;
                 UVS.forEach(
                     (uv, idx) => {
-                        uvs.push(uv);
-                        posns.push((idx % 2) ? x / GPU_SIZE : y / GPU_SIZE);
+                        uvs.push(
+                            (idx % 2)
+                            ? uv
+                            : (uv + g) / GLYPH_COUNT
+                        );
+                        posns.push(
+                            (idx % 2)
+                            ? x / GPU_SIZE
+                            : y / GPU_SIZE
+                        );
                     }
                 );
+
+                nums.push(i);
             }
         }
 
@@ -93,6 +109,14 @@ export default class Scrollies {
             )
         );
 
+        this.geom.setAttribute(
+            'num',
+            new THREE.BufferAttribute(
+                new Float32Array(nums),
+                1
+            )
+        );
+
         console.log(this.geom)
 
 
@@ -124,7 +148,7 @@ export default class Scrollies {
                 THREE.RGBAFormat,
                 THREE.FloatType
             ),
-        };
+        };console.log(glyphs)
 
         this.uniforms = {
             t: { value: 0, type: 'f' },
@@ -133,7 +157,8 @@ export default class Scrollies {
             n: { value: 0, type: 'i' },
             hasInput,
             velocityInput,
-            positionInput
+            positionInput,
+            glyphs: { value: glyphs, type: 't' }
         };
 
         this.gpuUniforms = {
@@ -158,12 +183,14 @@ export default class Scrollies {
                 vertexShader: `
                 uniform sampler2D texturePosition;
                 uniform sampler2D textureVelocity;
-                
-                varying vec3 vColor;
-                varying vec2 vuv;
 
                 attribute vec2 posn;
                 attribute vec3 color;
+                attribute float num;
+                
+                varying vec3 vColor;
+                varying vec2 vuv;
+                varying float vnum;
                 
                 void main() {
                     vec3 newPosn = position;
@@ -211,21 +238,23 @@ export default class Scrollies {
                     newPosn += pos;
 
                     gl_Position = projectionMatrix * viewMatrix * vec4(newPosn, 1.0);
-                
+
                     vuv = uv;
                     vColor = color;
+                    vnum = num;
                 }
                 `,
                 fragmentShader: `
                 varying vec3 vColor;
                 varying vec2 vuv;
+                varying float vnum;
+
+                uniform sampler2D glyphs;
                 
                 void main() {
                     gl_FragColor = vec4(
                         vColor,
-                        length(vuv - vec2(0.5, 0.5)) < 0.5
-                        ? 1.
-                        : 0.
+                        /* 0.5 +  */texture2D( glyphs, vuv ).w
                     );
                 }
                 `,
