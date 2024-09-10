@@ -71,8 +71,6 @@ $open-height: 50svh;
         background-repeat: no-repeat;
         background-size: var(--headsize);
 
-        transition: transform 0.4s cubic-bezier(0.05, 0.25, 0.8, 1.5);
-
         transform: rotate(0deg);
     }
 }
@@ -89,6 +87,8 @@ $open-height: 50svh;
         top: initial;
         bottom: $open-height*0.5;
         background-position: left top;
+
+        transition: transform 0.4s cubic-bezier(0.05, 0.25, 0.8, 1.5);
     }
 
     &::before {

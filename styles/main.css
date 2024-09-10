@@ -168,7 +168,6 @@ section {
     background-image: url("/assets/me2.webp");
     background-repeat: no-repeat;
     background-size: var(--headsize);
-    transition: transform 0.4s cubic-bezier(0.05, 0.25, 0.8, 1.5);
     transform: rotate(0deg); }
 
 .headscroll--open .headscroll--head {
@@ -179,7 +178,8 @@ section {
     content: ' ';
     top: initial;
     bottom: 25svh;
-    background-position: left top; }
+    background-position: left top;
+    transition: transform 0.4s cubic-bezier(0.05, 0.25, 0.8, 1.5); }
   .headscroll--open .headscroll--head::before {
     left: calc(50% - var(--headsize) *0.5);
     transform-origin: calc(var(--headsize) * 1 / 16) 100%;

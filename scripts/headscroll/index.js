@@ -102,14 +102,22 @@ function doOpen() {
     scrollies.setCentreY(hits[0].point.y);
 }
 
+function doClose() {
+    open = false;
+
+    // trigger CSS
+    elWrapper.classList.remove('headscroll--open');
+}
+
 
 function scroll() {
     s = window.scrollY;
 
     if (!open && s) {
         doOpen();
+    } else if (!s && open) {
+        doClose();
     }
-
 }
 
 

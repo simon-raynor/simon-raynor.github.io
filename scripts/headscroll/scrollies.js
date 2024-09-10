@@ -357,6 +357,8 @@ export default class Scrollies {
                     } else if (position.x > 0.1) {
                         velocity.x += 0.01;
                     }
+
+                    //velocity.y -= 0.01;
                 } else {
                     velocity.y *= 1.001;
                 }
