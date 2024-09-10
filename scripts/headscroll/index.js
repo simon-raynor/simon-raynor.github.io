@@ -61,8 +61,21 @@ function setAngle(t) { elWrapper.style.setProperty('--theta', Math.min(t, MAX_AN
 
 
 
+let paused = false;
+const pauseBtn = document.createElement('button');
+function togglePause() {
+    paused = !paused;
+    pauseBtn.classList.toggle('paused');
+}
+pauseBtn.addEventListener('click', togglePause);
+pauseBtn.classList.add('headscroll--pausebtn');
+pauseBtn.textContent = 'Pause';
+
+
+
 let t = 0;
 let s = 0;
+
 
 function animate(_t) {
     const dt = (_t - t) / 1000;
@@ -70,7 +83,9 @@ function animate(_t) {
 
     requestAnimationFrame(animate);
 
-    scrollies.tick(dt, s);
+    if (!paused) {
+        scrollies.tick(dt, s);
+    }
 
     stats.update();
     renderer.render( scene, camera );
@@ -124,6 +139,7 @@ function scroll() {
 function domReady() {
     elWrapper = document.querySelector('.headscroll');
     elWrapper.appendChild(renderer.domElement);
+    elWrapper.appendChild(pauseBtn);
 
     window.addEventListener('scroll', scroll);
 

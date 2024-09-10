@@ -138,7 +138,7 @@ section {
   --theta: 0;
   pointer-events: none;
   position: fixed;
-  height: 101vh;
+  height: calc(100vh + 1vh);
   width: 100vw;
   top: 0;
   left: 0;
@@ -174,7 +174,7 @@ section {
   background-image: url("/assets/me2.webp");
   height: 25svh;
   background-position: center -25svh; }
-  .headscroll--open .headscroll--head::after, .headscroll--open .headscroll--head::before {
+  .headscroll--open .headscroll--head::before, .headscroll--open .headscroll--head::after {
     content: ' ';
     top: initial;
     bottom: 25svh;
@@ -190,5 +190,34 @@ section {
     transform-origin: calc(var(--headsize) * 7 / 16) 100%;
     background-position: right top;
     transform: rotate(calc(var(--theta) * 1deg)); }
+
+.headscroll--pausebtn {
+  pointer-events: all;
+  position: absolute;
+  bottom: 1vh;
+  right: 0;
+  display: block;
+  height: 1em;
+  width: 1em;
+  margin: 0.25em;
+  padding: 0;
+  font-size: 64px;
+  color: transparent;
+  background-color: transparent;
+  border: none;
+  filter: drop-shadow(0 0 4px #222); }
+  .headscroll--pausebtn::before, .headscroll--pausebtn::after {
+    content: ' ';
+    background-color: rgba(255, 255, 255, 0.25);
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 0.125em;
+    display: block;
+    height: 0.75em;
+    width: 0.25em; }
+  .headscroll--pausebtn::before {
+    left: 0.625em; }
+  .headscroll--pausebtn::after {
+    left: 0.125em; }
 
 /*# sourceMappingURL=main.css.map */

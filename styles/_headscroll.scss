@@ -1,5 +1,6 @@
 $open-height: 50svh;
 
+$bottom-overflow: 1vh; // makes it look better scrolling on mobile
 
 // allow space around the rest of the content, we'll see if I live to regret not doing it properly
 .column header + section,
@@ -24,7 +25,7 @@ $open-height: 50svh;
 
     pointer-events: none;
     position: fixed;
-    height: 101vh; // 101 so it looks good scrolling on my phone
+    height: calc(100vh + #{$bottom-overflow}); // 101 so it looks good scrolling on my phone
     width: 100vw;
     top: 0;
     left: 0;
@@ -82,7 +83,7 @@ $open-height: 50svh;
     height: $open-height*0.5;
     background-position: center #{$open-height*-0.5};
 
-    &::after, &::before {
+    &::before, &::after{
         content: ' ';
         top: initial;
         bottom: $open-height*0.5;
@@ -102,5 +103,51 @@ $open-height: 50svh;
         transform-origin: calc(var(--headsize) * 7 / 16) 100%;
         background-position: right top;
         transform: rotate(calc(var(--theta) * 1deg));
+    }
+}
+
+
+
+.headscroll--pausebtn {
+    pointer-events: all;
+
+    position: absolute;
+    bottom: $bottom-overflow;
+    right: 0;
+
+    display: block;
+    height: 1em;
+    width: 1em;
+
+    margin: 0.25em;
+    padding: 0;
+
+    font-size: 64px;
+    color: transparent;
+    background-color: transparent;
+    border: none;
+
+    filter: drop-shadow(0 0 4px #222);
+
+    &::before,
+    &::after {
+        content: ' ';
+
+        background-color: rgba(255, 255, 255, 0.25);
+        outline: 1px solid rgba(255, 255, 255, 0.5);
+
+        position: absolute;
+        top: 0.125em;
+
+        display: block;
+        height: 0.75em;
+        width: 0.25em;
+    }
+    &::before {
+        left: 0.625em;
+
+    }
+    &::after {
+        left: 0.125em;
     }
 }
