@@ -154,6 +154,7 @@ export default class Scrollies {
             t: { value: 0, type: 'f' },
             dt: { value: 0, type: 'f' },
             s: { value: 0, type: 'f' },
+            ds: { value: 0, type: 'f' },
             n: { value: 0, type: 'i' },
             hasInput,
             velocityInput,
@@ -298,6 +299,7 @@ export default class Scrollies {
             uniform float t;
             uniform float dt;
             uniform float s;
+            uniform float ds;
             uniform float n;
 
             uniform sampler2D hasInput;
@@ -314,7 +316,9 @@ export default class Scrollies {
                 // pick buffer vs previous
                 vec3 position = doInput > 0.0 ? inputPosn : tmpPosn;
 
-                vec4 velocity = texture2D( textureVelocity, uv );
+                vec4 velocity = doInput > 0.0
+                    ? vec4(0., 0., 0., 0.)
+                    : texture2D( textureVelocity, uv );
 
                 //float sway = velocity.w;
 
@@ -332,6 +336,7 @@ export default class Scrollies {
             uniform float t;
             uniform float dt;
             uniform float s;
+            uniform float ds;
 
             uniform sampler2D hasInput;
             uniform sampler2D velocityInput;
@@ -358,10 +363,14 @@ export default class Scrollies {
                         velocity.x += 0.01;
                     }
 
-                    //velocity.y -= 0.01;
+                    if (position.y > position.x) {
+                        velocity.y -= 0.01;
+                    }
                 } else {
                     velocity.y *= 1.001;
                 }
+
+                velocity.y += ds / 250.;
 
                 gl_FragColor = velocity;
             }
@@ -390,6 +399,7 @@ export default class Scrollies {
         this.uniforms.t.value += dt;
         this.uniforms.dt.value = dt;
 
+        this.uniforms.ds.value = s - this.uniforms.s.value;
         this.uniforms.s.value = s;
 
         this.computer.compute();
