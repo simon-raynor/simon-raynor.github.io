@@ -167,6 +167,7 @@ export default class Scrollies {
             textureVelocity: { value: null },
         };
 
+        this.size = { x: 0, y: 0 };
         this.center = { x: 0, y: 0 };
 
         this.initMesh();
@@ -450,7 +451,10 @@ export default class Scrollies {
         this.next = (this.next + 1) % SCROLLIE_COUNT;
     }
 
-    setCentreY(y) {
-        this.center.y = y;
+    resize(height, width, cy) {
+        this.size.x = width;
+        this.size.y = height;
+
+        this.center.y = cy;
     }
 }

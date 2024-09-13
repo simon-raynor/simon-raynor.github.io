@@ -19,13 +19,13 @@ renderer.setClearAlpha(0);
 
 
 const aspect = window.innerWidth / window.innerHeight;
-const d = 25;
+const camFactor = 25;
 
 const camera = new THREE.OrthographicCamera(
-    -d * aspect,
-    d * aspect,
-    d,
-    -d,
+    -camFactor * aspect,
+    camFactor * aspect,
+    camFactor,
+    -camFactor,
     0.0001,
     20000
 );
@@ -85,7 +85,7 @@ function animate(_t) {
     requestAnimationFrame(animate);
 
     if (!paused) {
-        scrollies.tick(dt, s);
+        scrollies.tick(dt, s/*  / window.innerHeight */);
     }
 
     stats.update();
@@ -103,19 +103,7 @@ function doOpen() {
     elWrapper.classList.add('headscroll--open');
 
     // set origin for particles
-    const bbox = elWrapper.querySelector('.headscroll--head').getBoundingClientRect();
-
-    raycaster.setFromCamera(
-        {
-            x: 0,
-            y: ((window.innerHeight/2) - bbox.top) / (window.innerHeight/2)
-        },
-        camera
-    );
-
-    const hits = raycaster.intersectObject(floor, false);
-
-    scrollies.setCentreY(hits[0].point.y);
+    resizeScrollies();
 }
 
 function doClose() {
@@ -137,12 +125,61 @@ function scroll() {
 }
 
 
+function resize() {console.log('resize')
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    camera.left = -window.innerWidth / camFactor;
+    camera.right = window.innerWidth / camFactor;
+    camera.bottom = -window.innerHeight / camFactor;
+    camera.top = window.innerHeight / camFactor;
+    camera.updateProjectionMatrix();
+
+    resizeScrollies();
+}
+
+function resizeScrollies() {
+    // set origin for particles
+    const bbox = elWrapper.querySelector('.headscroll--head').getBoundingClientRect();
+
+    raycaster.setFromCamera(
+        {
+            x: 0,
+            y: ((window.innerHeight/2) - bbox.top) / (window.innerHeight/2)
+        },
+        camera
+    );
+
+    const hits = raycaster.intersectObject(floor, false);
+
+    const particleY = hits[0].point.y;
+
+    // set height/width
+    raycaster.setFromCamera(
+        {
+            x: window.innerWidth/2,
+            y: window.innerHeight/2
+        },
+        camera
+    );
+
+    const cornerhits = raycaster.intersectObject(floor, false);
+    const x = cornerhits[0]?.point.x;
+    const y = cornerhits[0]?.point.y;
+
+    const width = x * 2;
+    const height = y * 2;
+
+    scrollies.resize(height, width, particleY);
+}
+
+
 function domReady() {
     elWrapper = document.querySelector('.headscroll');
     elWrapper.appendChild(renderer.domElement);
     elWrapper.appendChild(pauseBtn);
 
     window.addEventListener('scroll', scroll);
+    window.addEventListener('resize', resize);
 
     /* window.onclick = () => {
         scrollies.add(5 - (Math.random() * 10), 2 - (Math.random() * 4));
