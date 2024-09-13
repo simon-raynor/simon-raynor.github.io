@@ -205,6 +205,11 @@ export default class Scrollies {
                     float cosr = velocity.x / xy;
                     float sinr = -velocity.y / xy;
 
+                    if (velocity.x < 0.) {
+                        cosr *= -1.;
+                        sinr *= -1.;
+                    }
+
                     mat3 rot = mat3(
                         cosr, -sinr, 0.,
                         sinr, cosr, 0.,
@@ -374,6 +379,10 @@ export default class Scrollies {
                 }
 
                 velocity.y += ds / 20.;
+
+                /* if (length(velocity.xy) > 1.) {
+                    velocity *= 0.99;
+                } */
 
                 gl_FragColor = velocity;
             }
