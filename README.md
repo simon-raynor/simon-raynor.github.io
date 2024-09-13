@@ -7,7 +7,7 @@ My personal site. I try not to mess it up too bad.
 ### here
 
 - mindblown
-    - resize handler
+    - mouse interactivity
     - update main site text
     - escape button/a11y mode
         - kind of done w/ the pause button
