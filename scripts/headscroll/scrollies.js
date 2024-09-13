@@ -324,6 +324,8 @@ export default class Scrollies {
                 //float sway = velocity.w;
 
                 //position.x += sin(2.0 * t + (sway * 47.0)) / 15.0;
+
+                //position.y += ds / 2.;
     
                 gl_FragColor = vec4( position + velocity.xyz * dt * 15., 1.0 );
             }
@@ -371,7 +373,7 @@ export default class Scrollies {
                     velocity.y *= 1.001;
                 }
 
-                velocity.y += ds / 250.;
+                velocity.y += ds / 20.;
 
                 gl_FragColor = velocity;
             }
@@ -400,6 +402,7 @@ export default class Scrollies {
         this.uniforms.t.value += dt;
         this.uniforms.dt.value = dt;
 
+        s = s * this.size.y;
         this.uniforms.ds.value = s - this.uniforms.s.value;
         this.uniforms.s.value = s;
 
@@ -415,7 +418,7 @@ export default class Scrollies {
         this.uniforms.hasInput.value.image.data.fill(0);
         this.uniforms.hasInput.value.needsUpdate = true;
 
-        if (s > 10/*  && Math.random() > 0.5 */) {
+        if (s > 1/*  && Math.random() > 0.5 */) {
             this.add((0.5 - Math.random()) * 20, 0);
             this.add((0.5 - Math.random()) * 20, 0);
         }

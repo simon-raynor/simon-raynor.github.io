@@ -83,9 +83,9 @@ function animate(_t) {
     t = _t;
 
     requestAnimationFrame(animate);
-
+    
     if (!paused) {
-        scrollies.tick(dt, s/*  / window.innerHeight */);
+        scrollies.tick(dt, s / window.innerHeight);
     }
 
     stats.update();
@@ -156,15 +156,15 @@ function resizeScrollies() {
     // set height/width
     raycaster.setFromCamera(
         {
-            x: window.innerWidth/2,
-            y: window.innerHeight/2
+            x: 1,
+            y: 1
         },
         camera
     );
 
     const cornerhits = raycaster.intersectObject(floor, false);
-    const x = cornerhits[0]?.point.x;
-    const y = cornerhits[0]?.point.y;
+    const x = cornerhits[0].point.x;
+    const y = cornerhits[0].point.y;
 
     const width = x * 2;
     const height = y * 2;
