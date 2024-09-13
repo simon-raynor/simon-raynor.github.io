@@ -129,7 +129,47 @@ $bottom-overflow: 1vh; // makes it look better scrolling on mobile
 
     filter: drop-shadow(0 0 4px #222);
 
+    &::before {
+        content: '⏸';
+        opacity: 1;
+        --spin: 0deg;
+    }
+    &::after {
+        content: '⏵';
+        opacity: 0;
+        --spin: -90deg;
+    }
     &::before,
+    &::after {
+        //color: rgba(255, 255, 255, 0.25);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 1);
+
+        filter: drop-shadow(0 0 2px #fff);
+
+        //background: radial-gradient(ellipse at top, deeppink, orange, deepskyblue);
+        //background-clip: text;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotateY(var(--spin));
+        transition: all 0.25s ease-in;
+    }
+
+    &.headscroll--pausebtn--paused {
+        &::before {
+            content: '⏸';
+            opacity: 0;
+            --spin: 90deg;
+        }
+        &::after {
+            content: '⏵';
+            opacity: 1;
+            --spin: 0deg;
+        }
+    }
+
+    /* &::before,
     &::after {
         content: ' ';
 
@@ -149,5 +189,5 @@ $bottom-overflow: 1vh; // makes it look better scrolling on mobile
     }
     &::after {
         left: 0.125em;
-    }
+    } */
 }

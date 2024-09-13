@@ -65,11 +65,12 @@ let paused = false;
 const pauseBtn = document.createElement('button');
 function togglePause() {
     paused = !paused;
-    pauseBtn.classList.toggle('paused');
+    pauseBtn.classList.toggle('headscroll--pausebtn--paused');
 }
 pauseBtn.addEventListener('click', togglePause);
 pauseBtn.classList.add('headscroll--pausebtn');
 pauseBtn.textContent = 'Pause';
+pauseBtn.setAttribute('aria-label', 'Pause');
 
 
 
