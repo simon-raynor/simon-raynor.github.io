@@ -117,20 +117,9 @@ export default class Scrollies {
             )
         );
 
-        console.log(this.geom)
+        //console.log(this.geom)
 
-
-        const hasInput = {
-            value: new THREE.DataTexture(
-                new Float32Array(SCROLLIE_COUNT * 4),
-                GPU_SIZE,
-                GPU_SIZE,
-                THREE.RGBAFormat,
-                THREE.FloatType
-            )
-        };
-
-        const positionInput = {
+        const inputbuffer = {
             value: new THREE.DataTexture(
                 new Float32Array(SCROLLIE_COUNT * 4),
                 GPU_SIZE,
@@ -139,16 +128,6 @@ export default class Scrollies {
                 THREE.FloatType
             ),
         };
-
-        const velocityInput = {
-            value: new THREE.DataTexture(
-                new Float32Array(SCROLLIE_COUNT * 4),
-                GPU_SIZE,
-                GPU_SIZE,
-                THREE.RGBAFormat,
-                THREE.FloatType
-            ),
-        };console.log(glyphs)
 
         this.uniforms = {
             t: { value: 0, type: 'f' },
@@ -156,15 +135,12 @@ export default class Scrollies {
             s: { value: 0, type: 'f' },
             ds: { value: 0, type: 'f' },
             n: { value: 0, type: 'i' },
-            hasInput,
-            velocityInput,
-            positionInput,
+            inputbuffer,
             glyphs: { value: glyphs, type: 't' }
         };
 
         this.gpuUniforms = {
-            texturePosition: { value: null },
-            textureVelocity: { value: null },
+            texturePosnVelo: { value: null },
         };
 
         this.size = { x: 0, y: 0 };
@@ -183,8 +159,7 @@ export default class Scrollies {
                     ...this.gpuUniforms
                 },
                 vertexShader: `
-                uniform sampler2D texturePosition;
-                uniform sampler2D textureVelocity;
+                uniform sampler2D texturePosnVelo;
 
                 attribute vec2 posn;
                 attribute vec3 color;
@@ -197,8 +172,9 @@ export default class Scrollies {
                 void main() {
                     vec3 newPosn = position;
 
-                    vec3 pos = texture2D( texturePosition, posn ).xyz;
-                    vec3 velocity = normalize(texture2D( textureVelocity, posn ).xyz);
+                    vec3 pos = vec3(texture2D( texturePosnVelo, posn ).xy, 0.);
+                    vec3 velocity = vec3(normalize(texture2D( texturePosnVelo, posn ).zw), 0.);
+
 
 
                     float xy = length( velocity.xy );
@@ -233,14 +209,6 @@ export default class Scrollies {
                     );
 
                     newPosn = rot /* * spiny */ * spinx * newPosn;
-
-                    /*
-                    float x = sin(pos.y);
-                    float y = cos(pos.x);
-
-                    newPosn.x += x;
-                    newPosn.y += y; 
-                    */
 
                     newPosn += pos;
 
@@ -279,28 +247,18 @@ export default class Scrollies {
             renderer
         );
 
-        const posnTexture = this.computer.createTexture();
-        const veloTexture = this.computer.createTexture();
+        const posnVeloTexture = this.computer.createTexture();
 
-        // fill textures
-        const posnArr = posnTexture.image.data;
-        const veloArr = veloTexture.image.data;
-        
-        for (let i = 0, l = posnArr.length; i < l; i += 4) {
-            posnArr[ i + 0 ] = 0;
-            posnArr[ i + 1 ] = 0;
-            posnArr[ i + 2 ] = -1000000; // offscreen
-            posnArr[ i + 3 ] = 0;
-
-            veloArr[ i + 0 ] = 0;
-            veloArr[ i + 1 ] = 0;
-            veloArr[ i + 2 ] = 0;
-            veloArr[ i + 3 ] = 0;
+        const posnVeloArr = posnVeloTexture.image.data;
+        for (let i = 0, l = posnVeloArr.length; i < l; i += 4) {
+            posnVeloArr[i + 0] = 1000; // offscreen
+            posnVeloArr[i + 1] = 1000; // offscreen
+            posnVeloArr[i + 2] = 0;
+            posnVeloArr[i + 3] = 0;
         }
 
-
-        this.posnVar = this.computer.addVariable(
-            'texturePosition',
+        this.posnVeloVar = this.computer.addVariable(
+            'texturePosnVelo',
             `
             uniform float t;
             uniform float dt;
@@ -308,98 +266,58 @@ export default class Scrollies {
             uniform float ds;
             uniform float n;
 
-            uniform sampler2D hasInput;
-            uniform sampler2D positionInput;
-
-            void main() {
-                vec2 uv = gl_FragCoord.xy / resolution.xy;
-    
-                // check previous
-                vec3 tmpPosn = texture2D( texturePosition, uv ).xyz;
-                // check input buffer
-                vec3 inputPosn = texture2D( positionInput, uv ).xyz;
-                float doInput = texture2D( hasInput, uv ).x;
-                // pick buffer vs previous
-                vec3 position = doInput > 0.0 ? inputPosn : tmpPosn;
-
-                vec4 velocity = doInput > 0.0
-                    ? vec4(0., 0., 0., 0.)
-                    : texture2D( textureVelocity, uv );
-
-                //float sway = velocity.w;
-
-                //position.x += sin(2.0 * t + (sway * 47.0)) / 15.0;
-
-                //position.y += ds / 2.;
-    
-                gl_FragColor = vec4( position + velocity.xyz * dt * 15., 1.0 );
-            }
-            `,
-            posnTexture
-        );
-
-        this.veloVar = this.computer.addVariable(
-            'textureVelocity',
-            `
-            uniform float t;
-            uniform float dt;
-            uniform float s;
-            uniform float ds;
-
-            uniform sampler2D hasInput;
-            uniform sampler2D velocityInput;
+            uniform sampler2D inputbuffer;
 
             void main() {
                 vec2 uv = gl_FragCoord.xy / resolution.xy;
 
-                // check previous
-                vec4 tmpVelo = texture2D( textureVelocity, uv );
-                // check input buffer
-                vec4 inputVelo = texture2D( velocityInput, uv );
-                float doInput = texture2D( hasInput, uv ).y;
-                // pick buffer vs previous
-                vec4 velocity = doInput > 0.0 ? inputVelo : tmpVelo;
+                vec4 existing = texture2D( texturePosnVelo, uv );
+                vec4 buffered = texture2D( inputbuffer, uv );
 
-                vec4 position = texture2D( texturePosition, uv );
+                bool doInput = buffered.x != 0. || buffered.y != 0. || buffered.z != 0. || buffered.w != 0.;
 
-                //velocity.x *= 1.01;
-                //velocity.y *= 1.01;
-                if (position.x > -10.0 && position.x < 10.0) {
-                    if (position.x < -0.1) {
-                        velocity.x -= 0.01;
-                    } else if (position.x > 0.1) {
-                        velocity.x += 0.01;
+                vec4 value = doInput ? buffered : existing;
+
+                // don't run the calcs if we've read from the buffer this tick
+                if (!doInput) {
+                    vec2 posn = value.xy;
+                    vec2 velo = value.zw;
+
+                    if (posn.x > -10.0 && posn.x < 10.0) {
+                        if (posn.x < -0.1) {
+                            velo.x -= 0.01;
+                        } else if (posn.x > 0.1) {
+                            velo.x += 0.01;
+                        }
+
+                        if (posn.y > posn.x) {
+                            velo.y -= 0.01;
+                        }
+                    } else {
+                        velo.y *= 1.001;
                     }
 
-                    if (position.y > position.x) {
-                        velocity.y -= 0.01;
+                    if (velo.x != 0. || velo.y != 0.) {
+                        velo.y += ds / 20.;
                     }
-                } else {
-                    velocity.y *= 1.001;
+
+                    if (length(velo) > 1.) {
+                        velo *= 0.995;
+                    }
+
+                    posn += velo * dt * 10.;
+
+                    value = vec4(posn, velo);
                 }
 
-                velocity.y += ds / 20.;
-
-                /* if (length(velocity.xy) > 1.) {
-                    velocity *= 0.99;
-                } */
-
-                gl_FragColor = velocity;
+                gl_FragColor = value;
             }
-            `,
-            veloTexture
+            `
         );
 
-        this.computer.setVariableDependencies( this.posnVar, [ this.posnVar, this.veloVar ]);
-        this.computer.setVariableDependencies( this.veloVar, [ this.posnVar, this.veloVar ]);
-
-        this.posnVar.material.uniforms = this.uniforms;
-        this.veloVar.material.uniforms = this.uniforms;
-
-        this.posnVar.wrapS = THREE.RepeatWrapping;
-        this.posnVar.wrapT = THREE.RepeatWrapping;
-        this.veloVar.wrapS = THREE.RepeatWrapping;
-        this.veloVar.wrapT = THREE.RepeatWrapping;
+        this.computer.setVariableDependencies( this.posnVeloVar, [ this.posnVeloVar ]);
+        this.posnVeloVar.material.uniforms = this.uniforms;
+        this.posnVeloVar.wrapS = THREE.RepeatWrapping;
 
         const error = this.computer.init();
         if (error !== null) console.error(error);
@@ -417,15 +335,12 @@ export default class Scrollies {
 
         this.computer.compute();
 
-        this.gpuUniforms.texturePosition.value = this.computer.getCurrentRenderTarget(
-            this.posnVar
-        ).texture;
-        this.gpuUniforms.textureVelocity.value = this.computer.getCurrentRenderTarget(
-            this.veloVar
+        this.gpuUniforms.texturePosnVelo.value = this.computer.getCurrentRenderTarget(
+            this.posnVeloVar
         ).texture;
 
-        this.uniforms.hasInput.value.image.data.fill(0);
-        this.uniforms.hasInput.value.needsUpdate = true;
+        this.uniforms.inputbuffer.value.image.data.fill(0);
+        this.uniforms.inputbuffer.value.needsUpdate = true;
 
         if (s > 1/*  && Math.random() > 0.5 */) {
             this.add((0.5 - Math.random()) * 20, 0);
@@ -436,29 +351,16 @@ export default class Scrollies {
     next = 0;
 
     add(x, y) {
-        this.uniforms.hasInput.value.image.data[this.next * 4 + 0] = 1;
-        this.uniforms.hasInput.value.image.data[this.next * 4 + 1] = 1;
-        this.uniforms.hasInput.value.image.data[this.next * 4 + 2] = 0;
-        this.uniforms.hasInput.value.image.data[this.next * 4 + 3] = 0;
-        this.uniforms.hasInput.value.needsUpdate = true;
+        const inputArr = this.uniforms.inputbuffer.value.image.data;
         
-        const posnArr = this.uniforms.positionInput.value.image.data;
-
-        posnArr[this.next * 4 + 0] = this.center.x + x;
-        posnArr[this.next * 4 + 1] = this.center.y + y;
-        posnArr[this.next * 4 + 2] = 0;
-        posnArr[this.next * 4 + 3] = 0;
-        this.uniforms.positionInput.value.needsUpdate = true;
-        
-        const veloArr = this.uniforms.velocityInput.value.image.data;
-
         tmpVec2.random();
 
-        veloArr[this.next * 4 + 0] = (0.5 - Math.random()) * 2 * tmpVec2.x;
-        veloArr[this.next * 4 + 1] = tmpVec2.y;
-        veloArr[this.next * 4 + 2] = 0;
-        veloArr[this.next * 4 + 3] = Math.random();
-        this.uniforms.velocityInput.value.needsUpdate = true;
+        inputArr[this.next * 4 + 0] = this.center.x + x;
+        inputArr[this.next * 4 + 1] = this.center.y + y;
+        inputArr[this.next * 4 + 2] = (0.5 - Math.random()) * 2 * tmpVec2.x;
+        inputArr[this.next * 4 + 3] = tmpVec2.y;
+        
+        this.uniforms.inputbuffer.value.needsUpdate = true;
 
         this.next = (this.next + 1) % SCROLLIE_COUNT;
     }
