@@ -102,7 +102,7 @@ section {
   gap: 20px;
   background: #ffffff;
   color: #1e0025;
-  padding: 20px 28px 32px;
+  padding: 20px 26px 32px;
   border-radius: 20px; }
   section:nth-child(2n + 1) {
     border-bottom-left-radius: 0; }
@@ -111,10 +111,9 @@ section {
   section a {
     color: #440055; }
   section > p {
-    line-height: 1.5; }
+    line-height: 24px; }
     section > p:first-child::first-letter {
-      float: left;
-      font-size: 1.5em; }
+      font-size: 18px; }
 
 .column > .column-header {
   font-family: Fascinate, sans-serif;

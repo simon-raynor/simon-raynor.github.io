@@ -29,7 +29,7 @@ section {
     background: $c-foreground;
     color: $c-text;
     
-    padding: 20px 28px 32px;
+    padding: 20px 26px 32px;
 
     border-radius: 20px;
 
@@ -45,11 +45,10 @@ section {
     }
 
     > p {
-        line-height: 1.5;
+        line-height: 24px;
 
         &:first-child::first-letter {
-            float: left;
-            font-size: 1.5em;
+            font-size: 18px;
         }
     }
 }
