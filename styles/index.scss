@@ -43,6 +43,15 @@ section {
     a {
         color: $c-background;
     }
+
+    > p {
+        line-height: 1.5;
+
+        &:first-child::first-letter {
+            float: left;
+            font-size: 1.5em;
+        }
+    }
 }
 
 
