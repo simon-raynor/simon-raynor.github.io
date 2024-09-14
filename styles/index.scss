@@ -64,6 +64,16 @@ section {
     display: flex;
     flex-direction: column;
     gap: 14px;
+
+    
+    width: max-content;
+    justify-self: center;
+
+    margin-top: 24px;
+
+    h1 {
+        width: min-content;
+    }
 }
 
 

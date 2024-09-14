@@ -1,6 +1,7 @@
 @media (max-width: #{$page-width - 1}) {
     :root {
-        --col-gap: 30px;
+        --col-gap-h: 30px;
+        --col-gap-v: 33vh;
     }
 
     .column {
@@ -19,14 +20,15 @@
 
 @media (min-width: $page-width) {
     :root {
-        --col-gap: 40px;
+        --col-gap-h: 40px;
+        --col-gap-v: 60px;
     }
 
     .column {
         width: $page-width;
 
         grid-template-columns: 1fr 1fr;
-        grid-auto-rows: minmax(var(--col-gap), max-content);
+        grid-auto-rows: minmax(var(--col-gap-h), max-content);
         justify-content: center;
         align-items: center;
 
@@ -45,9 +47,9 @@
 
 .column {
     max-width: 90%;
-    margin: var(--col-gap) auto 0;
+    margin: 0 auto 0;
     display: grid;
-    gap: var(--col-gap);
+    gap: var(--col-gap-v) var(--col-gap-h);
 
     & > .column-header,
     & > .column-footer,

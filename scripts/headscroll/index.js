@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import Stats from 'three/addons/libs/stats.module.js';
 
 import Scollies from './scrollies.js';
+import generateFlowField from './flowfield.js';
 
 
 const stats = new Stats();
@@ -57,7 +58,7 @@ let elWrapper;
 
 const MAX_ANGLE = 150;
 
-function setAngle(t) { elWrapper.style.setProperty('--theta', Math.min(t, MAX_ANGLE)); }
+function setAngle(t) { elWrapper.style.setProperty('--theta', Math.min(t * 2000, MAX_ANGLE)); }
 
 
 
@@ -85,7 +86,10 @@ function animate(_t) {
     requestAnimationFrame(animate);
     
     if (!paused) {
-        scrollies.tick(dt, s / window.innerHeight);
+        scrollies.tick(
+            dt,
+            s
+        );
     }
 
     stats.update();
@@ -115,17 +119,17 @@ function doClose() {
 
 
 function scroll() {
-    s = window.scrollY;
+    s = window.scrollY / document.body.scrollHeight;
 
-    if (!open && s) {
+    if (!open && s > 0.01) {
         doOpen();
-    } else if (!s && open) {
+    } else if (s < 0.01 && open) {
         doClose();
     }
 }
 
 
-function resize() {console.log('resize')
+function resize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     camera.left = -window.innerWidth / camFactor;
@@ -135,6 +139,12 @@ function resize() {console.log('resize')
     camera.updateProjectionMatrix();
 
     resizeScrollies();
+
+    scrollies.setFlowField(
+        generateFlowField(
+            document.querySelectorAll('.column > section, .column > header, .column > footer')
+        )
+    );
 }
 
 function resizeScrollies() {
@@ -169,7 +179,9 @@ function resizeScrollies() {
     const width = x * 2;
     const height = y * 2;
 
-    scrollies.resize(height, width, particleY);
+    const scrollheight = document.body.scrollHeight / window.innerHeight;
+
+    scrollies.resize(height, width, scrollheight, particleY);
 }
 
 
@@ -190,6 +202,8 @@ document.addEventListener('DOMContentLoaded', domReady);
 
 
 function onLoad() {
+    scroll(); // make sure everything is set correctly
+    resize(); // ^^ ditto
     animate(Performance.now);
 }
 

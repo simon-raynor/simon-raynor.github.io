@@ -117,7 +117,6 @@ export default class Scrollies {
             )
         );
 
-        //console.log(this.geom)
 
         const inputbuffer = {
             value: new THREE.DataTexture(
@@ -134,16 +133,18 @@ export default class Scrollies {
             dt: { value: 0, type: 'f' },
             s: { value: 0, type: 'f' },
             ds: { value: 0, type: 'f' },
-            n: { value: 0, type: 'i' },
             inputbuffer,
-            glyphs: { value: glyphs, type: 't' }
+            glyphs: { value: glyphs, type: 't' },
+            flowfield: { value: null, type: 't' },
+            height: { value: 0, type: 'f' },
+            width: { value: 0, type: 'f' },
+            scrollheight: { value: 0, type: 'f' },
         };
 
         this.gpuUniforms = {
             texturePosnVelo: { value: null },
         };
 
-        this.size = { x: 0, y: 0 };
         this.center = { x: 0, y: 0 };
 
         this.initMesh();
@@ -160,6 +161,12 @@ export default class Scrollies {
                 },
                 vertexShader: `
                 uniform sampler2D texturePosnVelo;
+                uniform sampler2D flowfield;
+
+                uniform float s;
+                uniform float height;
+                uniform float width;
+                uniform float scrollheight;
 
                 attribute vec2 posn;
                 attribute vec3 color;
@@ -168,12 +175,23 @@ export default class Scrollies {
                 varying vec3 vColor;
                 varying vec2 vuv;
                 varying float vnum;
+                varying vec2 vflow;
                 
                 void main() {
                     vec3 newPosn = position;
 
                     vec3 pos = vec3(texture2D( texturePosnVelo, posn ).xy, 0.);
                     vec3 velocity = vec3(normalize(texture2D( texturePosnVelo, posn ).zw), 0.);
+
+
+
+                    float halfwidth = width / 2.;
+                    float halfheight = height / 2.;
+                    vec2 flowUV = vec2(
+                        (((pos.x + halfwidth)) / height) / scrollheight,
+                        s + (((halfheight - pos.y) / height) / scrollheight)
+                    );
+                    vflow = texture2D( flowfield, flowUV ).xy;
 
 
 
@@ -223,13 +241,14 @@ export default class Scrollies {
                 varying vec3 vColor;
                 varying vec2 vuv;
                 varying float vnum;
+                varying vec2 vflow;
 
                 uniform sampler2D glyphs;
                 
                 void main() {
                     gl_FragColor = vec4(
                         /* vColor *  */texture2D( glyphs, vuv ).xyz,
-                        /* 0.5 +  */texture2D( glyphs, vuv ).w
+                        texture2D( glyphs, vuv ).w
                     );
                 }
                 `,
@@ -264,9 +283,12 @@ export default class Scrollies {
             uniform float dt;
             uniform float s;
             uniform float ds;
-            uniform float n;
+            uniform float height;
+            uniform float width;
+            uniform float scrollheight;
 
             uniform sampler2D inputbuffer;
+            uniform sampler2D flowfield;
 
             void main() {
                 vec2 uv = gl_FragCoord.xy / resolution.xy;
@@ -278,31 +300,29 @@ export default class Scrollies {
 
                 vec4 value = doInput ? buffered : existing;
 
+                vec2 posn = value.xy;
+                vec2 velo = value.zw;
+
+                // convert posn to a UV on the flowfield
+                float halfwidth = width / 2.;
+                float halfheight = height / 2.;
+
+                vec2 flowUV = vec2(
+                    (((posn.x + halfwidth)) / height) / scrollheight,
+                    s + (((halfheight - posn.y) / height) / scrollheight)
+                );
+                vec2 flow = texture2D( flowfield, flowUV ).xy;
+
                 // don't run the calcs if we've read from the buffer this tick
                 if (!doInput) {
-                    vec2 posn = value.xy;
-                    vec2 velo = value.zw;
-
-                    if (posn.x > -10.0 && posn.x < 10.0) {
-                        if (posn.x < -0.1) {
-                            velo.x -= 0.01;
-                        } else if (posn.x > 0.1) {
-                            velo.x += 0.01;
-                        }
-
-                        if (posn.y > posn.x) {
-                            velo.y -= 0.01;
-                        }
-                    } else {
-                        velo.y *= 1.001;
-                    }
-
                     if (velo.x != 0. || velo.y != 0.) {
-                        velo.y += ds / 20.;
-                    }
+                        velo += flow;
 
-                    if (length(velo) > 1.) {
-                        velo *= 0.995;
+                        velo.y += ds * 20.;
+
+                        if (length(velo) > 3.) {
+                            velo *= 3. / length(velo);
+                        }
                     }
 
                     posn += velo * dt * 10.;
@@ -328,8 +348,7 @@ export default class Scrollies {
 
         this.uniforms.t.value += dt;
         this.uniforms.dt.value = dt;
-
-        s = s * this.size.y;
+        
         this.uniforms.ds.value = s - this.uniforms.s.value;
         this.uniforms.s.value = s;
 
@@ -342,9 +361,9 @@ export default class Scrollies {
         this.uniforms.inputbuffer.value.image.data.fill(0);
         this.uniforms.inputbuffer.value.needsUpdate = true;
 
-        if (s > 1/*  && Math.random() > 0.5 */) {
-            this.add((0.5 - Math.random()) * 20, 0);
-            this.add((0.5 - Math.random()) * 20, 0);
+        if (s > 0.015) {
+            this.add((0.5 - Math.random()) * 25, 0);
+            this.add((0.5 - Math.random()) * 25, 0);
         }
     }
 
@@ -365,10 +384,16 @@ export default class Scrollies {
         this.next = (this.next + 1) % SCROLLIE_COUNT;
     }
 
-    resize(height, width, cy) {
-        this.size.x = width;
-        this.size.y = height;
+    resize(height, width, scrollheight, cy) {
+        this.uniforms.height.value = height;
+        this.uniforms.width.value = width;
+        this.uniforms.scrollheight.value = scrollheight;
 
         this.center.y = cy;
+    }
+
+    setFlowField(ffield) {
+        this.uniforms.flowfield.value = ffield;
+        this.uniforms.flowfield.value.needsUpdate = true;
     }
 }
