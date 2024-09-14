@@ -4,7 +4,7 @@
     }
 
     .column {
-        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-columns: 1fr 5fr 1fr;
         
         & > *:nth-child(2n + 1) {
             grid-column: 2 / 4;
