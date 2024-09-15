@@ -175,24 +175,12 @@ export default class Scrollies {
                 varying vec3 vColor;
                 varying vec2 vuv;
                 varying float vnum;
-                varying vec2 vflow;
                 
                 void main() {
                     vec3 newPosn = position;
 
                     vec3 pos = vec3(texture2D( texturePosnVelo, posn ).xy, 0.);
                     vec3 velocity = vec3(normalize(texture2D( texturePosnVelo, posn ).zw), 0.);
-
-
-
-                    float halfwidth = width / 2.;
-                    float halfheight = height / 2.;
-                    vec2 flowUV = vec2(
-                        (((pos.x + halfwidth)) / height) / scrollheight,
-                        s + (((halfheight - pos.y) / height) / scrollheight)
-                    );
-                    vflow = texture2D( flowfield, flowUV ).xy;
-
 
 
                     float xy = length( velocity.xy );
@@ -241,14 +229,14 @@ export default class Scrollies {
                 varying vec3 vColor;
                 varying vec2 vuv;
                 varying float vnum;
-                varying vec2 vflow;
 
                 uniform sampler2D glyphs;
                 
                 void main() {
+                    //float a = length(vflow) > 0. ? 1. : .25;
                     gl_FragColor = vec4(
                         /* vColor *  */texture2D( glyphs, vuv ).xyz,
-                        texture2D( glyphs, vuv ).w
+                        /* a *  */texture2D( glyphs, vuv ).w
                     );
                 }
                 `,
@@ -308,9 +296,14 @@ export default class Scrollies {
                 float halfheight = height / 2.;
 
                 vec2 flowUV = vec2(
-                    (((posn.x + halfwidth)) / height) / scrollheight,
+                    (
+                        posn.x
+                        + halfwidth
+                        + (((scrollheight * height) - width) / 2.)
+                    ) / (scrollheight * height),
                     s + (((halfheight - posn.y) / height) / scrollheight)
                 );
+                
                 vec2 flow = texture2D( flowfield, flowUV ).xy;
 
                 // don't run the calcs if we've read from the buffer this tick
@@ -320,8 +313,8 @@ export default class Scrollies {
 
                         velo.y += ds * 20.;
 
-                        if (length(velo) > 3.) {
-                            velo *= 3. / length(velo);
+                        if (length(velo) > 1.5) {
+                            velo *= 1.5 / length(velo);
                         }
                     }
 

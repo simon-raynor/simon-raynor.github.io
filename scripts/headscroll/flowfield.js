@@ -2,6 +2,10 @@ import * as THREE from 'three';
 
 const TEXTURE_SIZE = 256;
 
+const CONTENT_PADDING = 6;
+
+
+// debugging canvas
 /* const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -9,6 +13,8 @@ canvas.style.position = 'absolute';
 canvas.style.top = 0;
 canvas.style.left = 0;
 document.body.appendChild(canvas); */
+
+
 
 const tmpVec2 = new THREE.Vector2();
 
@@ -25,10 +31,10 @@ export default function generateFlowField(avoidElements) {
             const bbox = el.getBoundingClientRect();
 
             bboxes.push([
-                bbox.top + window.scrollY,
-                bbox.right,
-                bbox.bottom + window.scrollY,
-                bbox.left
+                bbox.top + window.scrollY - CONTENT_PADDING,
+                bbox.right + CONTENT_PADDING,
+                bbox.bottom + window.scrollY + CONTENT_PADDING,
+                bbox.left - CONTENT_PADDING
             ]);
         }
     );
@@ -44,9 +50,12 @@ export default function generateFlowField(avoidElements) {
     const vectors = texture.image.data;
 
     let idx = 0;
+
+    const xOffset = (height - width) / 2;
+
     for (let j = 0; j < TEXTURE_SIZE; j++) {
         for (let i = 0; i < TEXTURE_SIZE; i++) {
-            const x = (height * ((0.5 + i) / TEXTURE_SIZE))/*  - (height / 2) */,
+            const x = (height * ((0.5 + i) / TEXTURE_SIZE)) - xOffset,
                 y = height * (j / TEXTURE_SIZE);
             let inside;
             for (let i = 0; i < bboxes.length; i++) {
@@ -66,20 +75,27 @@ export default function generateFlowField(avoidElements) {
                 const [top, right, bottom, left] = inside;
                 const width = right - left,
                     height = bottom - top;
-                const cx = left + (width / 4),
+                const cx = left + (width / 2),
                     cy = top + (height / 4);
                 const dx = x - cx,
                     dy = y - cy;
 
-                tmpVec2.set(height / dx, width / dy).normalize();
+                //tmpVec2.set(height / dx, width / dy).normalize();
+                tmpVec2.set(dx / height, dy / width).normalize();
                 
                 vectors[idx + 0] = tmpVec2.x / 10;
                 vectors[idx + 1] = -tmpVec2.y / 10;
                 vectors[idx + 2] = x;
                 vectors[idx + 3] = y;
             } else {
-                vectors[idx + 0] = 0;
-                vectors[idx + 1] = 0.005;
+                const period = (x - (width/2)) / (width/2) * Math.PI;
+                const vx = Math.sin(period);
+                const vy = 1 + Math.sin(period);
+
+                tmpVec2.set(vx, vy).normalize();
+
+                vectors[idx + 0] = tmpVec2.x / 20;
+                vectors[idx + 1] = tmpVec2.y / 20;
                 vectors[idx + 2] = x;
                 vectors[idx + 3] = y;
             }
@@ -97,9 +113,10 @@ export default function generateFlowField(avoidElements) {
     for (let i = 0; i <= vectors.length; i += 4) {
         ctx.moveTo(vectors[i + 2], vectors[i + 3]);
         ctx.lineTo(
-            vectors[i + 2] + (vectors[i + 0] * 10),
-            vectors[i + 3] + (vectors[i + 1] * 10)
+            vectors[i + 2] + (vectors[i + 0] * 100),
+            vectors[i + 3] - (vectors[i + 1] * 100)
         );
+        ctx.arc(vectors[i + 2], vectors[i + 3], 1, 0, 2 * Math.PI);
     }
     
     ctx.stroke(); */
