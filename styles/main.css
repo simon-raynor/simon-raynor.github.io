@@ -127,13 +127,13 @@ section {
   gap: 14px;
   width: max-content;
   justify-self: center;
-  margin-top: 24px; }
+  padding: 24px; }
   .column > .column-header h1 {
     width: min-content; }
 
 .column header + section,
 .column footer {
-  margin-top: 40vh; }
+  margin-top: 50vh; }
 
 @media (max-width: 799px) {
   .headscroll {

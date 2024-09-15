@@ -6,13 +6,13 @@ const CONTENT_PADDING = 6;
 
 
 // debugging canvas
-/* const canvas = document.createElement('canvas');
+const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 
 canvas.style.position = 'absolute';
 canvas.style.top = 0;
 canvas.style.left = 0;
-document.body.appendChild(canvas); */
+document.body.appendChild(canvas);
 
 
 
@@ -81,16 +81,19 @@ export default function generateFlowField(avoidElements) {
                     dy = y - cy;
 
                 //tmpVec2.set(height / dx, width / dy).normalize();
-                tmpVec2.set(dx / height, dy / width).normalize();
+                tmpVec2.set(dx / width, dy / height).normalize();
                 
                 vectors[idx + 0] = tmpVec2.x / 10;
                 vectors[idx + 1] = -tmpVec2.y / 10;
                 vectors[idx + 2] = x;
                 vectors[idx + 3] = y;
             } else {
-                const period = (x - (width/2)) / (width/2) * Math.PI;
-                const vx = Math.sin(period);
-                const vy = 1 + Math.sin(period);
+                const plusminusone = (x - (width/2)) / (width/2);
+                const xperiodperiod = 1.05 + (Math.sin(y / 101) / 20)
+                const xperiod = xperiodperiod * plusminusone * Math.PI;
+                const yperiod = plusminusone * Math.PI * ((4 + Math.random()) / 5);
+                const vx = Math.sin(xperiod);
+                const vy = 1 + (Math.sin(yperiod) / 2);
 
                 tmpVec2.set(vx, vy).normalize();
 

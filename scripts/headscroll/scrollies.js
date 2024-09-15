@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GPUComputationRenderer } from 'three/addons/misc/GPUComputationRenderer.js';
 import glyphs, { GLYPH_COUNT } from './shapes.js';
 
-const GPU_SIZE = 32;
+const GPU_SIZE = 64;
 const SCROLLIE_COUNT = GPU_SIZE * GPU_SIZE;
 
 const VERTICES = [
@@ -311,10 +311,10 @@ export default class Scrollies {
                     if (velo.x != 0. || velo.y != 0.) {
                         velo += flow;
 
-                        velo.y += ds * 20.;
+                        velo.y += ds * 25.;
 
-                        if (length(velo) > 1.5) {
-                            velo *= 1.5 / length(velo);
+                        if (ds == 0. && length(velo) > 2.) {
+                            velo *= 2. / length(velo);
                         }
                     }
 
