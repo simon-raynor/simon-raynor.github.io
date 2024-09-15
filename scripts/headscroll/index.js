@@ -1,12 +1,12 @@
 import * as THREE from 'three';
-import Stats from 'three/addons/libs/stats.module.js';
+//import Stats from 'three/addons/libs/stats.module.js';
 
 import Scollies from './scrollies.js';
 import generateFlowField from './flowfield.js';
 
 
-const stats = new Stats();
-document.body.appendChild( stats.dom );
+/* const stats = new Stats();
+document.body.appendChild( stats.dom ); */
 
 
 const scene = new THREE.Scene();
@@ -92,7 +92,7 @@ function animate(_t) {
         );
     }
 
-    stats.update();
+    //stats.update();
     renderer.render( scene, camera );
 
     setAngle(s);
