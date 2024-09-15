@@ -313,8 +313,8 @@ export default class Scrollies {
 
                         velo.y += ds * 25.;
 
-                        if (ds == 0. && length(velo) > 2.) {
-                            velo *= 2. / length(velo);
+                        if (ds == 0. && length(velo) > 0.) {
+                            velo *= 0.985;
                         }
                     }
 
