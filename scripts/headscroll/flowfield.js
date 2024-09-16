@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 const TEXTURE_SIZE = 256;
 
-const CONTENT_PADDING = 6;
+const CONTENT_PADDING = 0;
 
 
 // debugging canvas
@@ -107,15 +107,18 @@ export default function generateFlowField(avoidElements) {
                 if (dsq < radius) {
                     tmpVec2.multiplyScalar(
                         1
-                        + (dsq / radius)
+                        + ((radius - dsq) / radius)
                         //+ (0.5 - Math.random())
                     );
-                    if (dsq < radius / 4 && dsq > 0) {
-                        const r = ((radius / 4) - dsq) / (radius / 4);
-                        const x = tmpVec2.y * r;
+
+                    if (dsq < radius / 4) {
+                        const a = ((radius / 4) - dsq) / (radius / 4) * Math.PI / 2
+                                * ((1 + Math.random()) / 2);
+                        /* const x = tmpVec2.y * r;
                         const y = -tmpVec2.x * r;
 
-                        tmpVec2.add({x, y});
+                        tmpVec2.add({x, y}); */
+                        tmpVec2.rotateAround({x:0,y:0}, a);
                     }
                 }
 

@@ -17,7 +17,7 @@ canvas.width = GLYPH_SIZE * GLYPH_COUNT;
 ctx.lineWidth = 5;
 ctx.strokeStyle = '#000';
 ctx.fillStyle = '#fff';
-ctx.font = `${GLYPH_SIZE}px ${GLYPH_FONT}`
+ctx.font = `bold ${GLYPH_SIZE}px ${GLYPH_FONT}`
 
 for (let i = 0; i < GLYPH_COUNT; i++) {
     const glyph = chars[i];

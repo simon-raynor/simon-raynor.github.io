@@ -52,7 +52,7 @@ export default class Scrollies {
                 const c = Math.random();
                 VERTICES.forEach(
                     vert => {
-                        vertices.push(vert);
+                        vertices.push(0.667 * vert);
                         colors.push(c);
                     }
                 );
@@ -314,7 +314,7 @@ export default class Scrollies {
                         velo.y += ds * 25.;
 
                         if (ds == 0. && length(velo) > 0.) {
-                            velo *= 0.985;
+                            velo *= 0.97;
                         }
                     }
 
