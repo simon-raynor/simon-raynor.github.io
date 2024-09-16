@@ -87,40 +87,40 @@ export default function generateFlowField(avoidElements) {
                 vectors[idx + 3] = y;
             } else {
                 const plusminusone = (x - (width/2)) / Math.min(width/2, 450);
-                const xperiodperiod = 1.05 + (Math.sin(y / 101) / 20)
-                                    - (y < height ? Math.PI * (height - y) / height : 0);
+                const xperiodperiod = 1.05 + (Math.sin(y / 101) / 20);
                 const xperiod = xperiodperiod * plusminusone * Math.PI;
                 const yperiod = plusminusone * Math.PI;
                 
-                const vx = Math.sin(xperiod);
-                const vy = Math.cos(yperiod / 2.1)
-                            + 2 * Math.sin(y < height ? Math.PI * (y - (height/2)) / (height/2) : 0);
+                let vx = Math.sin(xperiod);
+                let vy = Math.cos(yperiod / 2.1);
+
+                const xcx = (width / 2) - x;
+                const ycy = y - (height / 2);
+
+                if (y < height) {
+                    tmpVec2.set(xcx, ycy).normalize();
+                    const h = (height - y) / height;
+                    //const h = Math.abs(xcx / (width / 2 )) * (height - y) / height;
+                    vx += xcx * h;
+                    vy += ycy * h;
+                }
 
                 tmpVec2.set(vx, vy).normalize();
 
-                const xcx = (width / 2) - x;
-                const ycy = (height / 2) - y;
-
                 const dsq = (xcx * xcx) + (ycy * ycy);
-                const radius = (height/2)*(height/2);
+                const radius = (height/4)*(height/4);
 
                 if (dsq < radius) {
-                    tmpVec2.multiplyScalar(
-                        1
-                        + ((radius - dsq) / radius)
-                        //+ (0.5 - Math.random())
-                    );
+                    const r = (radius - dsq) / radius;
 
-                    if (dsq < radius / 4) {
-                        const a = ((radius / 4) - dsq) / (radius / 4) * Math.PI / 2
-                                * ((1 + Math.random()) / 2);
-                        /* const x = tmpVec2.y * r;
-                        const y = -tmpVec2.x * r;
+                    const x = tmpVec2.y * r;
+                    const y = -tmpVec2.x * r;
+                    //tmpVec2.add({x, y});
 
-                        tmpVec2.add({x, y}); */
-                        tmpVec2.rotateAround({x:0,y:0}, a);
-                    }
+                    tmpVec2.rotateAround({x:0,y:0}, r * Math.PI);
                 }
+
+            tmpVec2.rotateAround({x:0,y:0}, 0.5 - Math.random());
 
                 vectors[idx + 0] = tmpVec2.x / 20;
                 vectors[idx + 1] = tmpVec2.y / 20;
