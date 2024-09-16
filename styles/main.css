@@ -117,6 +117,10 @@ section {
     section > p:first-child::first-letter {
       font-size: 18px; }
 
+.column > .column-header,
+.column > .column-footer {
+  filter: drop-shadow(0 1px 1px #000); }
+
 .column > .column-header {
   font-family: Fascinate, sans-serif;
   font-size: 24px;
@@ -127,13 +131,19 @@ section {
   gap: 14px;
   width: max-content;
   justify-self: center;
-  margin-top: 24px; }
+  margin-top: 24px;
+  margin-bottom: 50vh; }
   .column > .column-header h1 {
     width: min-content; }
 
-.column header + section,
-.column footer {
-  margin-top: 50vh; }
+.column > .column-footer {
+  margin-top: 24vh;
+  margin-bottom: 50vh;
+  max-width: 500px;
+  justify-self: center;
+  opacity: 0.75; }
+  .column > .column-footer > p {
+    line-height: 2; }
 
 @media (max-width: 799px) {
   .headscroll {

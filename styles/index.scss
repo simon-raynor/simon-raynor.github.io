@@ -54,6 +54,11 @@ section {
 }
 
 
+.column > .column-header,
+.column > .column-footer {
+    filter: drop-shadow(0 1px 1px #000);
+}
+
 .column > .column-header {
     font-family: Fascinate, sans-serif;
     font-size: 24px;
@@ -70,9 +75,23 @@ section {
     justify-self: center;
 
     margin-top: 24px;
+    margin-bottom: 50vh;
 
     h1 {
         width: min-content;
+    }
+}
+
+.column > .column-footer {
+    margin-top: 24vh;
+    margin-bottom: 50vh;
+    max-width: 500px;
+    justify-self: center;
+
+    opacity: 0.75;
+    
+    > p {
+        line-height: 2;
     }
 }
 

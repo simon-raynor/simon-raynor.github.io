@@ -60,7 +60,7 @@ controls.update();
 
 const composer = new EffectComposer( renderer );
 
-const PIXEL_SIZE = 2;
+const PIXEL_SIZE = 1;
 const pixelPass = new RenderPixelatedPass(
     PIXEL_SIZE * window.devicePixelRatio,
     scene,

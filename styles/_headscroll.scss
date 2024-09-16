@@ -2,11 +2,6 @@ $open-height: 50svh;
 
 $bottom-overflow: 1vh; // makes it look better scrolling on mobile
 
-// allow space around the rest of the content, we'll see if I live to regret not doing it properly
-.column header + section,
-.column footer {
-    margin-top: 50vh;
-}
 
 
 @media (max-width: #{$page-width - 1}) {
@@ -38,10 +33,10 @@ $bottom-overflow: 1vh; // makes it look better scrolling on mobile
         , linear-gradient(transparent 66.667%, $c-background)
         , linear-gradient(transparent 50%, $c-background 75%);
 
-        > canvas {
-            position: relative;
-            z-index: -1;;
-        }
+    > canvas {
+        position: relative;
+        z-index: -1;
+    }
 }
 
 .headscroll--head {
