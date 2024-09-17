@@ -114,6 +114,8 @@ section {
     color: #440055; }
   section > p {
     line-height: 24px; }
+    section > p sup, section > p sub {
+      line-height: 0; }
     section > p:first-child::first-letter {
       font-size: 18px; }
 
