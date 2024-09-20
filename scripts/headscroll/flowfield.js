@@ -50,6 +50,8 @@ export default function generateFlowField(avoidElements) {
 
     let idx = 0;
 
+    // TODO: needs to overlap top/bottom too
+
     const xOffset = (scrollheight - width) / 2;
 
     for (let j = 0; j < TEXTURE_SIZE; j++) {
@@ -86,41 +88,47 @@ export default function generateFlowField(avoidElements) {
                 vectors[idx + 2] = x;
                 vectors[idx + 3] = y;
             } else {
-                const plusminusone = (x - (width/2)) / Math.min(width/2, 450);
-                const xperiodperiod = 1.05 + (Math.sin(y / 101) / 20);
+                const plusminusone = Math.min(Math.max((x - (width/2)) / Math.min(width/2, 450), -1), 1);
+                const xperiodperiod = 1.1 + (Math.sin(y / 101) / 20);
                 const xperiod = xperiodperiod * plusminusone * Math.PI;
                 const yperiod = plusminusone * Math.PI;
                 
                 let vx = Math.sin(xperiod);
                 let vy = Math.cos(yperiod / 2.1);
 
+                tmpVec2.set(vx, vy)//.normalize();
+
+
                 const xcx = (width / 2) - x;
-                const ycy = y - (height / 2);
-
-                if (y < height) {
-                    tmpVec2.set(xcx, ycy).normalize();
-                    const h = (height - y) / height;
-                    //const h = Math.abs(xcx / (width / 2 )) * (height - y) / height;
-                    vx += xcx * h;
-                    vy += ycy * h;
-                }
-
-                tmpVec2.set(vx, vy).normalize();
+                const ycy = (3*height/5) - y;
 
                 const dsq = (xcx * xcx) + (ycy * ycy);
-                const radius = (height/4)*(height/4);
+                const radius = height * height;
+
+                tmpVec2.multiplyScalar(
+                    Math.min(
+                        Math.max(
+                            (dsq / radius)
+                            * (y / (height/2))
+                            , 0
+                        ),
+                        1
+                    )
+                );
 
                 if (dsq < radius) {
                     const r = (radius - dsq) / radius;
 
-                    const x = tmpVec2.y * r;
-                    const y = -tmpVec2.x * r;
-                    //tmpVec2.add({x, y});
-
-                    tmpVec2.rotateAround({x:0,y:0}, r * Math.PI);
+                    const theta = Math.atan(ycy ? (xcx/width)/(ycy/height) : 100000000);
+                    const sx = r * Math.cos(theta) * Math.sign(ycy)// * Math.sign(xcx);
+                    const sy = r * Math.sin(theta) * Math.sign(ycy)// * Math.sign(xcx);
+    
+                    tmpVec2.add({x: sx, y: sy})
                 }
 
-            tmpVec2.rotateAround({x:0,y:0}, 0.5 - Math.random());
+                tmpVec2.rotateAround({x:0,y:0}, 0.5 - Math.random());
+
+                tmpVec2.normalize().multiplyScalar(0.5);
 
                 vectors[idx + 0] = tmpVec2.x / 20;
                 vectors[idx + 1] = tmpVec2.y / 20;

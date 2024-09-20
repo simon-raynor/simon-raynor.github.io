@@ -142,7 +142,7 @@ function resize() {
 
     scrollies.setFlowField(
         generateFlowField(
-            document.querySelectorAll('.column > section, .column > header')
+            document.querySelectorAll('.column > section, .column > header > *')
         )
     );
 }
