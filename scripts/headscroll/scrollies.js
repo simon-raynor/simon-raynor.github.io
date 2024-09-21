@@ -292,6 +292,7 @@ export default class Scrollies {
                 vec2 velo = value.zw;
 
                 // convert posn to a UV on the flowfield
+                // x = 0, y = 0 should be the centre of the screen
                 float halfwidth = width / 2.;
                 float halfheight = height / 2.;
 
@@ -313,8 +314,14 @@ export default class Scrollies {
 
                         velo.y += ds * 25.;
 
-                        if (ds == 0. && length(velo) > 0.25) {
-                            velo *= 0.97;
+                        if (ds == 0. && length(velo) > 2.) {
+                            velo *= 0.95;//1.1/length(velo);
+                        }
+
+                        vec2 dc = vec2((posn.x / (height*scrollheight)), (posn.y / (height*scrollheight)) - s);
+                        float lendc = length(dc);
+                        if (lendc > 0.0333) {
+                            velo -= normalize(dc) * smoothstep(0., 1.,.0075/lendc);
                         }
                     }
 

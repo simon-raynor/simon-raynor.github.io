@@ -6,13 +6,18 @@ const CONTENT_PADDING = 0;
 
 
 // debugging canvas
-/* const canvas = document.createElement('canvas');
-const ctx = canvas.getContext('2d');
+const __DEBUG__ = false;
 
-canvas.style.position = 'absolute';
-canvas.style.top = 0;
-canvas.style.left = 0;
-document.body.appendChild(canvas); */
+let canvas, ctx;
+if (__DEBUG__) {
+    canvas = document.createElement('canvas');
+    canvas.style.position = 'absolute';
+    canvas.style.top = 0;
+    canvas.style.left = 0;
+    document.body.appendChild(canvas);
+
+    ctx = canvas.getContext('2d');
+}
 
 
 
@@ -77,7 +82,7 @@ export default function generateFlowField(avoidElements) {
                 const width = right - left,
                     height = bottom - top;
                 const cx = left + (width / 2),
-                    cy = top + (height / 4);
+                    cy = top + (height / 3);
                 const dx = x - cx,
                     dy = y - cy;
 
@@ -88,50 +93,29 @@ export default function generateFlowField(avoidElements) {
                 vectors[idx + 2] = x;
                 vectors[idx + 3] = y;
             } else {
-                const plusminusone = Math.min(Math.max((x - (width/2)) / Math.min(width/2, 450), -1), 1);
-                const xperiodperiod = 1.1 + (Math.sin(y / 101) / 20);
+                let vx = 0;
+                let vy = 0;
+
+                const plusminusone = //Math.min(Math.max(
+                    (x - (width/2)) / Math.min(width/2, 450)
+                //, -1)/* , 1);
+                const xperiodperiod = 1.01 + (Math.sin(y / 101) / 20);
                 const xperiod = xperiodperiod * plusminusone * Math.PI;
                 const yperiod = plusminusone * Math.PI;
                 
-                let vx = Math.sin(xperiod);
-                let vy = Math.cos(yperiod / 2.1);
-
-                tmpVec2.set(vx, vy)//.normalize();
-
-
-                const xcx = (width / 2) - x;
-                const ycy = (3*height/5) - y;
-
-                const dsq = (xcx * xcx) + (ycy * ycy);
-                const radius = height * height;
-
-                tmpVec2.multiplyScalar(
-                    Math.min(
-                        Math.max(
-                            (dsq / radius)
-                            * (y / (height/2))
-                            , 0
-                        ),
-                        1
-                    )
-                );
-
-                if (dsq < radius) {
-                    const r = (radius - dsq) / radius;
-
-                    const theta = Math.atan(ycy ? (xcx/width)/(ycy/height) : 100000000);
-                    const sx = r * Math.cos(theta) * Math.sign(ycy)// * Math.sign(xcx);
-                    const sy = r * Math.sin(theta) * Math.sign(ycy)// * Math.sign(xcx);
-    
-                    tmpVec2.add({x: sx, y: sy})
-                }
+                const mult = Math.min(Math.max(y / height, -1), 1);
+                
+                vx = mult * Math.sin(xperiod);
+                vy = mult * (1 - Math.abs(Math.sin(Math.abs(yperiod))));
+                
+                tmpVec2.set(vx, vy).normalize();
 
                 tmpVec2.rotateAround({x:0,y:0}, 0.5 - Math.random());
 
-                tmpVec2.normalize().multiplyScalar(0.5);
+                //tmpVec2.normalize();
 
-                vectors[idx + 0] = tmpVec2.x / 20;
-                vectors[idx + 1] = tmpVec2.y / 20;
+                vectors[idx + 0] = tmpVec2.x / 40;
+                vectors[idx + 1] = tmpVec2.y / 40;
                 vectors[idx + 2] = x;
                 vectors[idx + 3] = y;
             }
@@ -140,22 +124,23 @@ export default function generateFlowField(avoidElements) {
         }
     }
 
-    
-    /* canvas.height = scrollheight;
-    canvas.width = width;
+    if (__DEBUG__) {
+        canvas.height = scrollheight;
+        canvas.width = width;
 
-    ctx.beginPath();
-    
-    for (let i = 0; i <= vectors.length; i += 4) {
-        ctx.moveTo(vectors[i + 2], vectors[i + 3]);
-        ctx.lineTo(
-            vectors[i + 2] + (vectors[i + 0] * 100),
-            vectors[i + 3] - (vectors[i + 1] * 100)
-        );
-        ctx.arc(vectors[i + 2], vectors[i + 3], 1, 0, 2 * Math.PI);
+        ctx.beginPath();
+        
+        for (let i = 0; i <= vectors.length; i += 4) {
+            ctx.moveTo(vectors[i + 2], vectors[i + 3]);
+            ctx.lineTo(
+                vectors[i + 2] + (vectors[i + 0] * 200),
+                vectors[i + 3] - (vectors[i + 1] * 200)
+            );
+            ctx.arc(vectors[i + 2], vectors[i + 3], 1, 0, 2 * Math.PI);
+        }
+        
+        ctx.stroke();
     }
-    
-    ctx.stroke(); */
 
     texture.needsUpdate = true;
 
