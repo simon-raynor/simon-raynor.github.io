@@ -8,17 +8,16 @@ My personal site. I try not to mess it up too bad.
 
 - mindblown update
     - mouse interactivity
-    - things you can drag around which attract/repel scrollies
-        - it could have, like, a little game or challenge
+        - things you can drag around which attract/repel scrollies
+            - it could have, like, a little game or challenge
     - bundle THREE modules w/ my code, for (hopefully) better loading times
         - it's not *bad* but unpkg can hang on the more obscure addons
         - will benchmark once this is live and make a final decision
     - escape button/a11y mode
-        - kind of done w/ the pause button
+        - kind of done w/ the pause button but could be better
+        - at least put a `<noscript>` with an explanation
     - `prefers-reduced-motion: reduce` media query
         - not sure what it should do, may need to consult with actually affected people
-    - better movement for basic scrollies
-        - strange attractor or similar in the gap between heading an content
     - more scrollies
         - seasonal
             - bats

@@ -295,14 +295,15 @@ export default class Scrollies {
                 // x = 0, y = 0 should be the centre of the screen
                 float halfwidth = width / 2.;
                 float halfheight = height / 2.;
+                float hsh = height*scrollheight;
 
                 vec2 flowUV = vec2(
                     (
                         posn.x
                         + halfwidth
-                        + (((scrollheight * height) - width) / 2.)
-                    ) / (scrollheight * height),
-                    s + (((halfheight - posn.y) / height) / scrollheight)
+                        + ((hsh - width) / 2.)
+                    ) / hsh,
+                    s + ((halfheight - posn.y) / hsh)
                 );
                 
                 vec2 flow = texture2D( flowfield, flowUV ).xy;
@@ -314,14 +315,19 @@ export default class Scrollies {
 
                         velo.y += ds * 25.;
 
-                        if (ds == 0. && length(velo) > 2.) {
-                            velo *= 0.95;//1.1/length(velo);
-                        }
-
-                        vec2 dc = vec2((posn.x / (height*scrollheight)), (posn.y / (height*scrollheight)) - s);
+                        // "gravity" vector
+                        vec2 dc = vec2(
+                            (posn.x / hsh),
+                            (posn.y / hsh) - s
+                        );
                         float lendc = length(dc);
                         if (lendc > 0.0333) {
                             velo -= normalize(dc) * smoothstep(0., 1.,.0075/lendc);
+                        }
+
+                        // decay
+                        if (ds == 0. && length(velo) > 2.) {
+                            velo *= 0.95;
                         }
                     }
 

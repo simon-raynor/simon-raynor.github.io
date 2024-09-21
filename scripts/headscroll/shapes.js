@@ -30,7 +30,4 @@ for (let i = 0; i < GLYPH_COUNT; i++) {
 }
 
 const glyphs = new THREE.CanvasTexture(canvas);
-/* glyphs.minFilter = THREE.LinearFilter;
-glyphs.wrapS = THREE.ClampToEdgeWrapping;
-glyphs.wrapT = THREE.ClampToEdgeWrapping; */
 export default glyphs;

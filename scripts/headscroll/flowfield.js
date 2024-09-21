@@ -55,8 +55,6 @@ export default function generateFlowField(avoidElements) {
 
     let idx = 0;
 
-    // TODO: needs to overlap top/bottom too
-
     const xOffset = (scrollheight - width) / 2;
 
     for (let j = 0; j < TEXTURE_SIZE; j++) {
@@ -96,9 +94,7 @@ export default function generateFlowField(avoidElements) {
                 let vx = 0;
                 let vy = 0;
 
-                const plusminusone = //Math.min(Math.max(
-                    (x - (width/2)) / Math.min(width/2, 450)
-                //, -1)/* , 1);
+                const plusminusone = (x - (width/2)) / Math.min(width/2, 450);
                 const xperiodperiod = 1.01 + (Math.sin(y / 101) / 20);
                 const xperiod = xperiodperiod * plusminusone * Math.PI;
                 const yperiod = plusminusone * Math.PI;
@@ -112,7 +108,6 @@ export default function generateFlowField(avoidElements) {
 
                 tmpVec2.rotateAround({x:0,y:0}, 0.5 - Math.random());
 
-                //tmpVec2.normalize();
 
                 vectors[idx + 0] = tmpVec2.x / 40;
                 vectors[idx + 1] = tmpVec2.y / 40;

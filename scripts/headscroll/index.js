@@ -139,12 +139,6 @@ function resize() {
     camera.updateProjectionMatrix();
 
     resizeScrollies();
-
-    scrollies.setFlowField(
-        generateFlowField(
-            document.querySelectorAll('.column > section , .column > header')
-        )
-    );
 }
 
 function resizeScrollies() {
@@ -182,6 +176,12 @@ function resizeScrollies() {
     const scrollheight = document.body.scrollHeight / window.innerHeight;
 
     scrollies.resize(height, width, scrollheight, particleY);
+
+    scrollies.setFlowField(
+        generateFlowField(
+            document.querySelectorAll('.column > section , .column > header')
+        )
+    );
 }
 
 
@@ -192,10 +192,6 @@ function domReady() {
 
     window.addEventListener('scroll', scroll);
     window.addEventListener('resize', resize);
-
-    /* window.onclick = () => {
-        scrollies.add(5 - (Math.random() * 10), 2 - (Math.random() * 4));
-    } */
 }
 
 document.addEventListener('DOMContentLoaded', domReady);
