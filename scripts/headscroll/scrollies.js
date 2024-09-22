@@ -321,13 +321,14 @@ export default class Scrollies {
                             (posn.y / hsh) - s
                         );
                         float lendc = length(dc);
-                        if (lendc > 0.0333) {
-                            velo -= normalize(dc) * smoothstep(0., 1.,.0075/lendc);
+                        float minrad = 0.001;
+                        if (lendc > minrad) {
+                            velo -= normalize(dc) * (minrad/lendc) * 2.;
                         }
 
                         // decay
-                        if (ds == 0. && length(velo) > 2.) {
-                            velo *= 0.95;
+                        if (ds == 0. && length(velo) > 1.) {
+                            velo *= 0.99;
                         }
                     }
 
@@ -369,7 +370,7 @@ export default class Scrollies {
 
         if (s > 0.015) {
             this.add((0.5 - Math.random()) * 25, 0);
-            this.add((0.5 - Math.random()) * 25, 0);
+            //this.add((0.5 - Math.random()) * 25, 0);
         }
     }
 
