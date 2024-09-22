@@ -25,11 +25,7 @@ $bottom-overflow: 1vh; // makes it look better scrolling on mobile
     top: 0;
     left: 0;
 
-    background-image: radial-gradient(ellipse at top, transparent 60vw, #ff0088)
-    , radial-gradient(ellipse at top, transparent 55vw, #ff1493)
-    , radial-gradient(ellipse at top, transparent 50vw, #ff45a8)
-    , radial-gradient(ellipse at top, transparent 45vw, #ff93cc)
-        , linear-gradient(transparent 50%, $c-background)
+    background-image: linear-gradient(transparent 50%, $c-background)
         , linear-gradient(transparent 66.667%, $c-background)
         , linear-gradient(transparent 50%, $c-background 75%);
 
@@ -37,6 +33,19 @@ $bottom-overflow: 1vh; // makes it look better scrolling on mobile
         position: relative;
         z-index: -1;
     }
+}
+
+.headscroll--bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    background-image: radial-gradient(ellipse at top, transparent 60vw, #ff0088)
+        , radial-gradient(ellipse at top, transparent 55vw, #ff1493)
+        , radial-gradient(ellipse at top, transparent 50vw, #ff45a8)
+        , radial-gradient(ellipse at top, transparent 45vw, #ff93cc)
 }
 
 .headscroll--head {
