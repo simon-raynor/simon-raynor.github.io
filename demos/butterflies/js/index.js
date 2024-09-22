@@ -18,21 +18,12 @@ const scene = new THREE.Scene();
 
 
 const renderer = new THREE.WebGLRenderer();
-//renderer.pixelRatio = window.devicePixelRatio;
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-//renderer.shadowMap.enabled = true;
 
 document.getElementById('stage').appendChild(renderer.domElement);
 
 const aspect = window.innerWidth / window.innerHeight;
-
-/* const camera = new THREE.PerspectiveCamera(
-    75,
-    aspect,
-    0.1,
-    2500
-); */
 
 const d = 25;
 
@@ -140,13 +131,6 @@ const planeCorners = screenCorners.map(
         console.log([x, y], hits);
 
         if (hits[0]) {
-            /* const s = new THREE.Mesh(
-                new THREE.SphereGeometry(1),
-                new THREE.MeshBasicMaterial()
-            );
-            s.position.copy(hits[0].point);
-            scene.add(s); */
-
             return new THREE.Vector3().copy(hits[0].point);
         }
     }
@@ -156,8 +140,6 @@ const minx = Math.min.apply(null, planeCorners.map(v => v.x));
 const minz = Math.min.apply(null, planeCorners.map(v => v.z));
 const maxx = Math.max.apply(null, planeCorners.map(v => v.x));
 const maxz = Math.max.apply(null, planeCorners.map(v => v.z));
-
-const planewidth = maxx - minx;
 
 
 
@@ -182,107 +164,6 @@ Butterflies.fetchShaders().then(
 
 
 
-const letters = 'some text'
-                .toUpperCase()
-                .split('');
-
-const lettermeshes = [];
-
-
-
-
-const floader = new FontLoader();
-
-const fontPromise = new Promise(
-    (resolve, reject) => {
-        floader.load(
-            './assets/font/LilitaOne_Regular.json',
-            resolve
-        );
-    }
-);
-
-const tloader = new THREE.TextureLoader();
-
-const texturePromise = new Promise(
-    (resolve, reject) => {
-        tloader.load(
-            './assets/img/test.png',
-            resolve
-        );
-    }
-)
-
-
-Promise.all([
-    fontPromise,
-    texturePromise
-]).then(([font, texture]) => {
-    const grp = new THREE.Group();
-
-    const size = 10;
-    const depth = 2 * size / 5;
-
-    let left = 0;
-
-    //texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-
-    letters.forEach(
-        (letter, idx) => {
-            if (letter.trim()) {
-                const geom = new TextGeometry(
-                    letter,
-                    {
-                        font,
-                        size,
-                        depth,
-                        bevelEnabled: true,
-                        bevelThickness: size / 50,
-                        bevelSize: size / 50,
-                        bevelOffset: 0,
-                        bevelSegments: 1
-                    }
-                );
-                geom.computeBoundingSphere();
-                geom.computeBoundingBox();
-        
-                const mesh = new THREE.Mesh(
-                    geom,
-                    new THREE.MeshLambertMaterial({
-                        //color: 0xffdd11,
-                        //map: texture
-                        //emissive: 0xccbb00
-                    })
-                );
-
-                mesh.position.setY(50);
-                
-                mesh.position.setX(left);
-                left += /* 2 +  */geom.boundingBox.max.x;
-
-                grp.add(mesh);
-                lettermeshes.push(mesh);
-            } else {
-                left += 3;
-            }
-        }
-    );
-
-    const boundingBox = new THREE.Box3().setFromObject(grp);
-    const scale = planewidth / (boundingBox.max.x - boundingBox.min.x);
-    
-    grp.children.forEach(
-        letter => {
-            letter.geometry.scale(scale, scale, scale);
-            letter.position.multiplyScalar(scale)
-        }
-    )
-
-    grp.position.setX(-left*scale/2);
-
-    //scene.add(grp);
-});
-
 
 
 let t = 0;
@@ -299,15 +180,6 @@ function animate(_t) {
     stats.update();
 
     butterflies.tick(dt);
-
-    //trees.forEach(t => t.tick(dt));
-    if (lettermeshes[0]) {
-        if (lettermeshes[0].position.y <= 0) {
-            lettermeshes.shift().position.setY(0);
-        } else {
-            lettermeshes[0].position.y -= dt * 200;
-        }
-    }
 
 
     //renderer.render( scene, camera );
