@@ -1,0 +1,75 @@
+// variables
+
+
+// reset
+*
+	margin	0
+	padding	0
+
+
+// basic layout
+html,
+body
+	height	100%
+
+.fullscreen
+	display	block
+	height	100vh
+	width	100vw
+
+
+// colours and that
+
+$bg-color	= #080808
+
+$line-color	= hsl( 345, 100%, 55% )
+
+$line-width	= 1//2
+
+
+
+body
+	background	$bg-color
+
+
+
+path
+	//color			$line-color
+	fill			$bg-color
+	stroke			currentColor
+	stroke-linejoin	round
+	stroke-width	$line-width
+
+g path
+	color	#0ff
+
+g g path
+	color	#f0f
+
+g g g path
+	color	#ff0
+
+/*
+g g g g path
+	color	#0f0
+
+g g g g g path
+	color	white
+*/
+
+.inside
+	fill	currentColor
+
+.outside
+	fill	$bg-color
+
+.nofill
+	fill				transparent
+	stroke				yellow
+	//stroke-dashArray	2 2
+	//stroke-width		1
+
+circle
+	fill			$bg-color
+	stroke			$line-color
+	stroke-width	$line-width

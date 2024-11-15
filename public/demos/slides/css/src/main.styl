@@ -1,0 +1,78 @@
+$beige	= #F5F5DC
+$yellow	= #EEB802
+$orange	= #EE8F02
+$red	= #EE5102
+
+$black		= #222
+$blueblack	= #324
+
+$c-bg	= $beige
+$c-txt	= $blueblack
+
+
+$spacing	= 1em
+$padding 	= 2rem
+
+
+@import '../fonts/namskin-all.css'
+
+$font-body		= "Roboto mono", monospace//namskin
+$font-display	= "Roboto mono", monospace//namskout
+
+$font-size		= 24px
+$font-smaller	= 16px
+
+
+
+
+
+*
+	font-weight	400
+	margin		0
+	padding		0
+
+html,
+body
+	height	100vh
+	width	100vw
+
+body
+	background	$beige
+	overflow	hidden
+	position	relative
+	
+	> section
+		visibility	hidden	// initial hide
+
+.init > section
+	visibility	visible	// safe to show now they're hidden by JS
+
+
+.slide,
+.canvas
+	bottom		0
+	left		0
+	position	absolute
+	right		0
+	top			0
+
+
+.slide
+	--c		$c-bg
+	color	$c-txt
+	
+	display	flex
+	
+	.door
+		content	' '
+		display	block
+		position	absolute
+	
+	&.alt
+		--c		$c-txt
+		color	$c-bg
+
+
+
+@import transitions
+@import content

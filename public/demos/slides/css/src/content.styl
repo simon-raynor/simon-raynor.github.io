@@ -1,0 +1,55 @@
+.slide main
+	margin		auto
+	max-width	40em
+	padding		$padding
+	
+	position	relative
+	
+	opacity		0
+	transform	scale( 1.025 )
+	
+	font-family	$font-body
+	font-size	$font-size
+	font-weight	700
+
+.slide.alt main
+	font-family	$font-display
+
+&.show main
+	opacity	1
+	transform	scale( 1 )
+	transition	opacity 0.25s 0.0625s ease-out, transform 0.125s 0.0625s ease-in
+&.out main
+	opacity		0
+	transform	scale( 0.75 )
+	transition	opacity 0.25s 0.125s ease-out, transform 0.75s 0.125s ease-in
+
+
+
+ul, li
+	list-style	none
+
+li
+	font-size		$font-smaller
+	padding-left	$padding
+
+* + p,
+* + ul,
+* + li
+		margin-top	$spacing
+
+
+
+/*
+button
+	background	none
+	border		0.25rem solid currentColor
+	color		currentColor
+	font-family	inherit
+	font-size	20px
+	font-weight	bold
+	padding		0.5rem 1rem
+	&:active
+		border-width	0.125em
+		margin			0.125em
+*/

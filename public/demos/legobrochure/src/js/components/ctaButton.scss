@@ -1,0 +1,26 @@
+:local {
+    .button {
+        display: block;
+        width: 15rem;
+        padding: 1rem 2rem;
+        margin: 2rem 0 0;
+    
+        background: var(--c-accent);
+        border: none;
+        color: white;
+    
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+    
+        font-weight: bold;
+        font-family: inherit;
+    }
+
+
+    // centre the button horizontally
+    // (don't do this in the header)
+    section .button {
+        margin-inline: auto;
+    }
+}

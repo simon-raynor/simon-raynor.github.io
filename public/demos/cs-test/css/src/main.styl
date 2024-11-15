@@ -1,0 +1,300 @@
+/*
+$ivans-color	= darken( #112, 10% )
+
+$color-bg		= $ivans-color//#080808
+$color-main		= saturation(
+					lighten( $ivans-color, 70% ),
+					50%
+				)
+*/
+$color-bg	= #000800
+$color-main	= green
+
+$border-default	= 1px solid $color-main
+
+$padding	= 0.5rem
+
+
+
+*
+	margin	0
+	padding	0
+
+ul
+	list-style	none
+
+button
+	background	none
+	border		none
+	color		inherit
+	cursor		pointer
+	font		inherit
+	&.button
+		display			flex
+		justify-content	space-between
+		&::before
+			content	'['
+		&::after
+			content	']'
+
+
+html 
+	overflow	hidden
+	font-size	12px
+
+body
+	background	$color-bg
+	color		$color-main
+	height		100vh
+	
+	font-family	Roboto Mono, monospace
+
+
+body
+	align-items		stretch
+	display			flex
+	flex-direction	row
+	flex-wrap		nowrap
+	justify-content	space-between
+	> *
+		box-sizing	border-box
+		flex		1 1 1em
+
+@media screen and (orientation:portrait)
+	body
+		flex-direction	column
+
+
+fixed-col-count( n )
+	align-items	stretch
+	box-sizing	border-box
+	display		flex
+	flex-wrap	wrap
+	padding		$padding 0 0 $padding
+	> *
+		box-sizing	border-box
+		flex		0 1 ( 100% / n )
+		
+		padding-bottom	$padding
+		padding-right	$padding
+
+//https://stackoverflow.com/a/10441480/869247
+fixed-aspect( ratio )
+	box-sizing		border-box
+	display			block
+	overflow		hidden
+	padding-bottom	ratio
+	position		relative
+	width			100%
+	> div
+		position	absolute
+		top			$padding
+		bottom		$padding
+		left		$padding
+		right		$padding
+
+
+
+.intro
+	background	alpha( $color-bg, 90% )
+	border		$border-default
+	padding		$padding
+	position	absolute
+	top			$padding
+	bottom		$padding
+	right		$padding
+	left		$padding
+	z-index		1000
+	p
+		max-width	40em
+		margin		0 auto 1em
+	button
+		background	$color-bg
+		border		$border-default
+		display		block
+		margin		0 auto
+		padding		$padding
+		width		5em
+		
+
+
+
+#chartwrap
+	.cols-2,
+	.cols-3,
+	.cols-4
+		> div
+			> div
+				border	$border-default
+				fixed-aspect( 75% )
+					
+	.cols-2
+		fixed-col-count( 2 )
+	.cols-3
+		fixed-col-count( 3 )
+	.cols-4
+		fixed-col-count( 4 )
+
+
+#mapwrap
+	box-sizing	border-box
+	height		100%
+	padding		$padding $padding $padding 0
+	position	relative
+	width		100%
+	> div
+		box-sizing	border-box
+		border		$border-default
+
+@media screen and (orientation:portrait)
+	#mapwrap
+		padding		0 $padding $padding $padding
+
+
+.graphics
+	height		100%
+	position	relative
+	width		100%
+	> canvas,
+	> svg
+		position	absolute
+		left		0
+		top			0
+		transform-origin	0 0
+	&.loading::before
+		background-color	alpha( $color-bg, 90% )
+		content				' '
+		display				block
+		position			absolute
+		top					0
+		bottom				0
+		left				0
+		right				0
+		
+		z-index				99
+	&.loading::after
+		content		url( '../img/loader.svg' )
+		position	absolute
+		top			50%
+		left		50%
+		transform	translate( -50%, -50% )
+		
+		z-index		100
+
+
+.chartpop
+	background	alpha( $color-bg, 90% )
+	border		$border-default
+	bottom		$padding
+	box-sizing	border-box
+	left		$padding
+	padding		$padding
+	position	absolute
+	right		$padding
+	top			$padding
+	z-index		101
+	> div
+		height	100%
+		width	100%
+	button
+		font-size	2em
+		line-height	2em
+		position	absolute
+		right		0
+		top			0
+		width		2em
+
+
+
+.chart .title,
+.chart .axis
+	fill		$color-main
+	text-anchor	middle
+
+.chart .title
+	font-size	16px
+
+.chart .axis
+	font-size	12px
+	path
+		fill	none
+		stroke	$color-main
+
+.chart .block
+	fill	$color-main
+
+.chart .zebra :nth-child( 2n )
+	fill	darken( $color-main, 50% )
+
+
+
+.roadmap
+	> svg
+		// fix rendering ish for firefox?
+		transform translate( 0.5px, 0.5px )
+
+.roadmap--marker
+	fill			transparent
+	stroke			$color-main
+	stroke-width	1
+
+
+
+.ctrl-wrap
+	background	$color-bg
+	padding		$padding
+	position	absolute
+	left		0
+	top			$padding
+	button + button
+		margin-left	$padding
+
+@media screen and (orientation:portrait)
+	.ctrl-wrap
+		left	$padding
+		top		0
+
+
+
+.dropdown--drop
+	fixed-col-count( 4 )
+	
+	background	$color-bg
+	border		$border-default
+	margin-top	0.5em
+	width		24em
+	
+	&::before
+		content	' '
+		display	block
+		
+		height	$padding
+		width	$padding
+		
+		border-left	$border-default
+		border-top	$border-default
+		background	$color-bg
+		transform	rotate( 45deg ) translateY( -$padding )
+		
+		position	absolute
+		left		0
+		top			0
+
+.dropdown--drop input
+	position	absolute
+	left		-1000rem
+
+.dropdown--drop label
+	cursor			pointer
+	display			block
+	
+	line-height		1.5
+	
+	border-left		5px double $color-main
+	padding-left	0.5em
+	&:hover
+		background	#fff1
+
+.dropdown--drop input:checked + label
+	border-left-style	solid
+

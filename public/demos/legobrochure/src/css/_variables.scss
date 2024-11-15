@@ -1,0 +1,40 @@
+$c-accent: #ff4d20;
+$c-secondary: #20D2FF;
+
+$c-background: adjust-color($c-accent, $saturation: -50%, $lightness: 25%);
+$c-background-secondary: adjust-color($c-secondary, $saturation: -60%, $lightness: 25%);
+
+$c-text: darken($c-accent, 45%);
+$c-text-secondary: darken($c-secondary, 40%);
+
+$c-white: #fff;
+$c-white-50: rgba(255,255,255,0.5);
+
+$c-dark: adjust-color($c-secondary, $saturation: -80%, $lightness: -50%);
+
+
+:root {
+    
+    --width: 72rem;
+    --half-width: calc(var(--width) / 2);
+    --padding-h: 2rem;
+    --padding-v: 4rem;
+    --padding-pagegutter: calc(50vw - var(--half-width));
+    --half-width-pad: calc(var(--half-width) + var(--padding-h));
+    --half-width-unpad: calc(var(--half-width) - var(--padding-h));
+
+
+    --c-accent: #{$c-accent};
+    --c-secondary: #{$c-secondary};
+
+    --c-background: #{$c-background};
+    --c-background-secondary: #{$c-background-secondary};
+
+    --c-text: #{$c-text};
+    --c-text-secondary: #{$c-text-secondary};
+
+    --c-white: #{$c-white};
+    --c-white-50: #{$c-white-50};
+
+    --c-dark: #{$c-dark};
+}
