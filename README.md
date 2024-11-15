@@ -10,9 +10,6 @@ My personal site. I try not to mess it up too bad.
     - mouse interactivity
         - things you can drag around which attract/repel scrollies
             - it could have, like, a little game or challenge
-    - bundle THREE modules w/ my code, for (hopefully) better loading times
-        - it's not *bad* but unpkg can hang on the more obscure addons
-        - will benchmark once this is live and make a final decision
     - escape button/a11y mode
         - kind of done w/ the pause button but could be better
         - at least put a `<noscript>` with an explanation
@@ -42,3 +39,17 @@ My personal site. I try not to mess it up too bad.
     - reintegrate the particle paths that made it feel alive
 - learn webassembly/more c++
 - real world shiz
+
+## Script
+
+Dev (built in server etc.):
+
+```
+npx vite
+```
+
+Prod:
+
+```
+npx vite build
+```
