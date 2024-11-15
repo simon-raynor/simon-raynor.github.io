@@ -40,7 +40,7 @@ My personal site. I try not to mess it up too bad.
 - learn webassembly/more c++
 - real world shiz
 
-## Script
+## Scripts
 
 Dev (built in server etc.):
 
@@ -52,4 +52,10 @@ Prod:
 
 ```
 npx vite build
+```
+
+Push dist directory to gh-pages branch
+
+```
+git subtree push --prefix dist origin gh-pages
 ```
