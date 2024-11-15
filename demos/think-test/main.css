@@ -1,0 +1,130 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: #3f4a75;
+  font-family: Raleway;
+  font-weight: 300;
+}
+body::before {
+  background: url("./corner-bg.jpg");
+  border-bottom-left-radius: 100%;
+  content: ' ';
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 66.67%;
+  width: 50%;
+  z-index: -1;
+}
+.cols {
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  max-width: 900px;
+  position: relative;
+}
+.cols main {
+  flex: 0 0 33.33%;
+}
+@media (max-width: 1000px) {
+  .cols {
+    flex-direction: column;
+  }
+}
+.desc {
+  background: rgba(248,248,248,0.533);
+  padding: 2em 1em;
+}
+.desc p {
+  margin: 2em auto;
+  max-width: 600px;
+}
+.ringtext p {
+  font-size: 2.25em;
+}
+.ringtext p em {
+  color: #db487e;
+  font-style: normal;
+}
+.ringtext ul {
+  font-size: 1.33em;
+  padding: 0;
+}
+.ringtext li {
+  list-style: none;
+}
+.ringtext li::before {
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  content: ' ';
+  display: inline-block;
+  height: 0.33em;
+  margin-right: 0.5em;
+  transform: rotate(-45deg);
+  vertical-align: middle;
+  width: 0.33em;
+}
+.ringtext button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0;
+}
+.ringtext button.selected {
+  font-weight: 700;
+}
+.ringimg {
+  flex: 0 0 66.67%;
+}
+.ring {
+  color: #3f4a75;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+.ring image {
+  opacity: 0;
+  transition: opacity 0.5s 0.25s;
+}
+.ring .selected {
+  opacity: 1;
+}
+.ringitem--icon {
+  transition: transform 0.25s cubic-bezier(0.55, 0.15, 0.75, 1.5), fill 0.25s linear;
+  transform-origin: var(--to);
+}
+.ringitem--icon.selected {
+  fill: currentColor;
+  transform: scale(2);
+  transition: transform 0.5s cubic-bezier(0.55, 0.15, 0.75, 1.5), fill 0.5s linear;
+}
+.ringitem--icon.selected use {
+  color: #fff;
+}
+.ringitem--arrow path {
+  fill: none;
+  stroke: #c2c7d4;
+  stroke-width: 2;
+}
+.ringitem--arrow .animable {
+  stroke: #db487e;
+  stroke-dasharray: 100 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 0.001s ease-in;
+}
+.ringitem--arrow.selected .animable {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.5s;
+}
+.ringitem--arrow.selected--out .animable {
+  stroke-dashoffset: -100;
+  transition: stroke-dashoffset 0.25s;
+}
+footer {
+  font-size: 10px;
+  text-align: center;
+}

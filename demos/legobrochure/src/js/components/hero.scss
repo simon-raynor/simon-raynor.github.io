@@ -1,0 +1,39 @@
+$height: 90vh;
+$width: 100%;
+
+:local {
+    .hero {
+        box-sizing: border-box;
+
+        height: $height;
+        width: $width;
+
+        padding: var(--padding-v) 33.3vw var(--padding-v) var(--padding-pagegutter);
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        position: relative;
+
+        overflow: hidden;
+
+        text-shadow: 0.0625em 0.0625em 0.05em var(--c-white-50);
+
+        > * {
+            z-index: 1;
+        }
+
+        > .image {
+            min-height: $height;
+            min-width: $width;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            z-index: 0;
+        }
+    }
+}

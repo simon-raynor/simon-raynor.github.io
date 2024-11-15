@@ -1,0 +1,32 @@
+:local {
+    .section {
+        display: grid;
+        grid-template-columns: repeat(
+            3,
+            calc(
+                (var(--width) - (
+                    var(--padding-h) * 4
+                )) / 3
+            )
+        );
+        grid-template-rows: repeat(5, min-content);
+        justify-content: center;
+        gap: 0 4rem;
+        padding: 4rem 0;
+    
+        > h2 {
+            grid-column: 1 / 4;
+        }
+
+        > div {
+            grid-row: 2 / 5;
+            display: grid;
+            grid-template-rows: subgrid;
+
+            > p > img {
+                display: block;
+                margin-top: 1em;
+            }
+        }
+    }
+}

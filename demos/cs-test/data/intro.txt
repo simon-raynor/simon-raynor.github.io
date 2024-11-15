@@ -1,0 +1,18 @@
+I decided to go with a minimal design as I felt obsessing over looks wouldn't
+be an efficient use of time here. I put in quite a few complex features and
+this is reflected in the quality of my code. In the real world more effort
+would be put into architecture and maintainability, there would probably
+even be some useful comments!
+
+I'm not actually sure which part of this data is most important to users,
+or how they would be analysing it, so I had to make some guesses as to
+what to implement. Similarly I chose to only bother making a bar chart
+as I knew they're usually correct, even when they're not ideal. It would
+be fairly trivial to add different outputs, however, as the chart drawing
+stuff is fairly extensible.
+
+In hindsight maybe some kind of "pick your axes" chart tool might have
+been a better concept but I like what's here and think it looks cool :D
+Hopefully you do too!
+
+(P.S. you can click on the charts and the "year"/"road" map labels)

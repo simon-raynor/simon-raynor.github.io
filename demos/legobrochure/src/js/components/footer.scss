@@ -1,0 +1,28 @@
+:local {
+    .footer {
+        background: var(--c-dark);
+        color: var(--c-white);
+
+        dl {
+            width: var(--width);
+            margin: 0 auto;
+
+            display: grid;
+            grid-template-rows: repeat(2, min-content);
+            grid-auto-flow: column;
+        }
+
+        dt {
+            font-weight: 500;
+        }
+
+        dd {
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            color: inherit;
+        }
+    }
+}

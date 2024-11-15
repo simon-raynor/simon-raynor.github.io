@@ -1,0 +1,40 @@
+:local {
+    .nav {
+        display: flex;
+        justify-content: space-between;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        padding: 1rem 0 1rem var(--padding-pagegutter);
+        width: var(--width);
+
+        z-index: 100;
+
+        &::before {
+            content: ' ';
+            position: absolute;
+            width: 100vw;
+            height: 100%;
+            left: 0;
+            top: 0;
+
+            background: rgba(0,0,0,0.2);
+
+            z-index: -1;
+
+            backdrop-filter: blur(5px);
+        }
+
+        > a {
+            color: white;
+
+            text-shadow: 1px 1px 0 black;
+            text-decoration: none;
+            text-transform: capitalize;
+
+            font-weight: bold;
+        }
+    }
+}

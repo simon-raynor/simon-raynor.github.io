@@ -1,0 +1,92 @@
+@require './variables'
+@require './keyframes'
+
+*
+	margin	0
+	padding	0
+
+html,
+body
+	min-height	100vh
+
+body
+	background		$c-bg
+	
+	font-family		$font-body
+	
+	align-items		center
+	display			flex
+	flex-direction	column
+
+
+section
+	display			flex
+	flex-direction	column
+	
+	margin		2.75em
+	max-width	50em
+	
+	padding	0.25em
+	
+	color	$c-black
+	
+	border-radius	5px	
+	
+	font-size	$font-med
+	
+	h1,
+	h2
+		align-self	center
+		
+		font-family	$font-display
+		font-weight	bold
+		
+		position	relative
+	
+	h1
+		font-size	$font-xlg
+	
+	h2
+		font-size	$font-lg
+	
+	nav
+		align-items		flex-start
+		display			flex
+		flex-direction	column
+		
+		align-self	center
+		font-size	$font-med
+		font-weight	bold
+		margin-top	2.5vh
+		
+		a
+			color			inherit
+			text-decoration	none
+			&::before
+				content			'> '
+
+
+svg
+	display	block
+	height	100vh
+	width	100vw
+	
+	position	absolute
+	bottom		0
+	left		0
+	right		0
+	right		0
+	z-index		-1
+
+.leaf
+	fill	transparent
+	
+	stroke			$c-grn-d
+	stroke-width	3
+	stroke-linecap	round
+
+.leaf.alt
+	stroke			$c-grn
+
+.go .leaf
+	stroke-dashoffset	: 0
