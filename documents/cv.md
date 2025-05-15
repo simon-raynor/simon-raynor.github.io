@@ -10,7 +10,7 @@ An experienced web developer with a heavy focus on the front end, passionate abo
 
 ### Javascript (+ Typescript)
 
-Very strong, in-depth understanding of the language and its quirks. Experience in architecting and implementing large scale visual applications & charts, as well as more standard functionality such as form validation, image carousels and custom controls. Familiar with common tools & frameworks such as React, Webpack and the Google Maps API. Typescript, while not my first choice for "fun" code, has won me over especially on larger projects.
+Very strong, in-depth understanding of the language and its quirks. Experience in architecting and implementing large scale visual applications & charts, as well as more standard functionality such as form validation, image carousels and custom controls. Particularly fond of abstracting away API interaction bits so that the UI code can be single-purpose. Familiar with common tools & frameworks such as React, Webpack, Vite and the Google Maps API. Typescript, while not my first choice for "fun" code, has won me over especially on larger projects.
 
 ### HTML/CSS/SVG
 
@@ -22,7 +22,7 @@ Designing and building a number of back ends for e-commerce, CMS, CRM and severa
 
 ### Other
 
-Familiarity with an array of non-programming aspects of web development, including Git and managing IIS and Apache. Run Linux full time where possible and confident on the command line (both Bash and CMD/Powershell). Soft skills including prioritisation, time estimation/management, mentoring teammates and liaising with clients & client-facing colleagues for planning & troubleshooting. Strong mathematics skills, in particular geometry, and ability to convert “maths equations” into functional code.
+Familiarity with an array of non-programming aspects of web development, including Git and managing IIS and Apache. Understanding of testing approaches (both unit- and end-to-end). Run Linux full time where possible and confident on the command line (both Bash and CMD/Powershell). Soft skills including prioritisation, time estimation/management, mentoring teammates and liaising with clients & client-facing colleagues for planning & troubleshooting. Strong mathematics skills, in particular geometry, and ability to convert “maths equations” into functional code.
 
 ## Employment
 
@@ -33,10 +33,10 @@ Familiarity with an array of non-programming aspects of web development, includi
 Hired to fill a front-end skills gap in the team, initially put to work fixing up a fleet tracking SPA built by 3rd party contractors. Prior knowledge of mapping applications proved vital in understanding and taming the pre-existing codebase, and in converting “React” code into something closer to idiomatic React. Was subsequently tasked with spearheading a rebuild of the rest of the Lightfoot portal, both to facilitate backend requirements and to improve maintainability and DX, where the larger scale of the project led to embracing libraries like redux and react-i18n to provide a truly "pro" solution.
 
 * Interpretation and maintenance of existing React codebase to fix broken functionality and add new features, followed by heading a project to create a drop-in replacement
-* Improving and fixing CI tasks such as automated builds and testing, in particular creating a standalone testing environment for our SPA in Docker
+* Working on many aspects of CI/build automation, in particular an ongoing project to try to get full coverage of our applications with Cypress end-to-end tests
 * Involved in front-end architecture work, planning use and development of component frameworks and how to reign in the various different JS approaches used in the legacy codebase
 * Using UI/UX knowledge to assist the wider team when planning new features
-* Providing input for back-end developers to streamline APIs; collaborating to implement rich, data-driven functionality for stakeholders
+* Heavily involved in helping back-end developers design/streamline APIs, and the subsequent consumption thereof; collaborating to implement rich, data-driven functionality for stakeholders
 * Mentorship of full-stack colleagues to get them up-to-speed with React and Typescript (and sometimes I pick holes in their CSS too)
 
 ### Front End Developer – Yello Studio
