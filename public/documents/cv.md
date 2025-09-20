@@ -26,9 +26,16 @@ Familiarity with an array of non-programming aspects of web development, includi
 
 ## Employment
 
+### Senior React Engineer - Citation Group (uCheck)
+
+**Sep 2025 - Present**
+
+Greenfield work looking to modernise a legacy PHP UI in a very complex problem space. Initially focussed on architecture and planning, alongside trying to learn the ins-and-outs of a mature product.
+
+
 ### Senior Front End Developer – Lightfoot
 
-**Sep 2020 - Present**
+**Sep 2020 - Sep 2025**
 
 Hired to fill a front-end skills gap in the team, initially put to work fixing up a fleet tracking SPA built by 3rd party contractors. Prior knowledge of mapping applications proved vital in understanding and taming the pre-existing codebase, and in converting “React” code into something closer to idiomatic React. Was subsequently tasked with spearheading a rebuild of the rest of the Lightfoot portal, both to facilitate backend requirements and to improve maintainability and DX, where the larger scale of the project led to embracing libraries like redux and react-i18n to provide a truly "pro" solution.
 
