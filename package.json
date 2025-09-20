@@ -20,5 +20,8 @@
   "homepage": "https://simon-raynor.github.io",
   "dependencies": {
     "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.93.0"
   }
 }
