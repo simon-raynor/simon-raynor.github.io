@@ -199,7 +199,7 @@ export default class Scrollies {
                     );
 
 
-                    float thetas = posn.x + posn.y + abs(pos.x)/5. + pos.y/3. + .5*newPosn.x;
+                    float thetas = (color.x * 25.) + posn.x + posn.y + abs(pos.x)/5. + pos.y/3. + .5*newPosn.x;
                     float coss = cos(thetas);
                     float sins = sin(thetas);
 
