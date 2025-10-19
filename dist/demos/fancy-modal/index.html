@@ -2,20 +2,20 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" crossorigin href="./assets/index-efB-rIcD.css">
+  <link rel="stylesheet" crossorigin href="./assets/index-DF6Eenbv.css">
 </head>
 <body>
 
 <dialog>
     <h2>Default Monochrome</h2>
         
-    <p>Because the settings need a default.</p>
+    <p>Every setting deserves a default. This one deserves grey.</p>
 
     <button>How drab</button>
 </dialog>
 
 <dialog class="red">
-    <h2>An error occurred or something.</h2>
+    <h2>&times; An error occurred or something.</h2>
         
     <p>Either that or you're about to do something <strong>permanent</strong>.</p>
 
@@ -23,7 +23,7 @@
 </dialog>
 
 <dialog class="green">
-    <h2>Success!</h2>
+    <h2>&check; Success!</h2>
 
     <p>The transaction went through, you will be contacted shortly.</p>
 
@@ -35,7 +35,7 @@
 <dialog class="blurple">
     <h2>Blurple</h2>
 
-    <p>I feel like this combo would smell nice?</p>
+    <p>I feel like this combo would have a pleasant smell?</p>
 
     <button>Lavender probably</button>
 </dialog>
@@ -43,7 +43,7 @@
 <dialog class="sunset">
     <h2>Sunset</h2>
 
-    <p>Warm echoes of summer</p>
+    <p>Warm echoes of summer channel the serenity of an ocean breeze</p>
 
     <button>What?</button>
 </dialog>
@@ -52,21 +52,18 @@
     <h1>Fancy Modal</h1>
 
     <p>
-        I saw a cool modal open animation on reddit. I since went down multiple
-        rabbit holes involving the <code>&lt;dialog&gt;</code> element, not even
-        related to the swanky effect I was trying to recreate. Got there in the
-        end though, and I think its turned out pretty well. It should also be
-        super-duper a11y friendly because it uses the aforementioned <code>&lt;dialog&gt;</code>.
-        It's all CSS with a teensy bit of JavaScript to handle the events. As a
-        proof-of-concept I'm quite happy with it.
+        Some examples of animating the <code>&lt;dialog&gt;</code> element, as an
+        attempt to recreate a <a href="https://examples.motion.dev/react/warp-overlay">cool
+        animation I saw on reddit</a>. I think its turned out pretty well, the animation is
+        all CSS with a bit of JS to handle the events. I've done a few colour variants,
+        you could actually go much further with customising these - have them come
+        in from different angles and such.
     </p>
 
     <p>
-        Click the buttons below to see the effect. I've done a few colour variants,
-        you could actually go much further with customising these - have them come
-        in from different angles and such. It's actually so simple once I got my head
-        around it that I'll likely be using parts of this in every modal I do from
-        now on. <a href="https://github.com/simon-raynor/fancy-modal">Code for it is on Github</a>.
+        I've <a href="https://github.com/simon-raynor/fancy-modal">put the code for this demo
+        on Github</a>, and you are welcome to use it. I would suggest that it's best suited
+        as inspiration for your own custom modals, rather than production-ready code itself.
     </p>
 
     <div class="buttonwrap"></div>
@@ -101,12 +98,26 @@ function bindOut(dialog) {
     dialog.querySelector('button').addEventListener('click', evt => {
         dialog.classList.add('out');
     });
-    // TODO: what if this doesn't fire? Might need a timeout fallback call to dialog.close()?
-    dialog.addEventListener('animationend', evt => {
-        if (dialog.classList.contains('out')) {
-            dialog.close();
-            dialog.classList.remove('out');
-        }
+
+
+    let animstartTimeout = setTimeout(() => dialog.close(), 100);
+    
+    dialog.addEventListener('animationstart', evt => {console.log('clearing timeout s')
+        const ac = new AbortController();
+
+        clearTimeout(animstartTimeout);
+
+        const animendTimeout = setTimeout(() => {ac.abort(); dialog.close();}, 5000);
+
+        dialog.addEventListener('animationend', evt => {
+            clearTimeout(animendTimeout);
+            ac.abort();
+
+            if (dialog.classList.contains('out')) {console.log('clearing timeout e')
+                dialog.close();
+                requestAnimationFrame(() => dialog.classList.remove('out'));
+            }
+        }, { signal: ac.signal });
     });
 }
 
@@ -115,7 +126,7 @@ const slowtoggle = document.querySelector('input[type="checkbox"]');
 slowtoggle.addEventListener('change', evt => {
     document.body.style.setProperty('--duration', evt.target.checked ? `${Number(initialDuration.replace('s', '')) * 5}s` : initialDuration)
 })
-console.log(initialDuration)
+slowtoggle.checked = false;
 
 </script>
 
