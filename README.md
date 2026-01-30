@@ -6,6 +6,8 @@ My personal site. I try not to mess it up too bad.
 
 ### here
 
+- the build tooling could be nicer
+    - GH workflows for the build maybe?
 - mindblown update
     - mouse interactivity
         - things you can drag around which attract/repel scrollies
@@ -21,7 +23,6 @@ My personal site. I try not to mess it up too bad.
             - hearts
             - snowflakes?
             - birthday presents
-        - swear words
         - platonic solids
         - 3d?
         - javascroids?

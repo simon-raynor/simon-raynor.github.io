@@ -43,7 +43,6 @@ export default class Scrollies {
         const colors = [];
         const uvs = [];
         const posns = [];
-        const nums = [];
 
         for (let y = 0; y < GPU_SIZE; y++) {
             for (let x = 0; x < GPU_SIZE; x++) {
@@ -72,8 +71,6 @@ export default class Scrollies {
                         );
                     }
                 );
-
-                nums.push(i);
             }
         }
 
@@ -106,14 +103,6 @@ export default class Scrollies {
             new THREE.BufferAttribute(
                 new Float32Array(posns),
                 2
-            )
-        );
-
-        this.geom.setAttribute(
-            'num',
-            new THREE.BufferAttribute(
-                new Float32Array(nums),
-                1
             )
         );
 
@@ -170,11 +159,9 @@ export default class Scrollies {
 
                 attribute vec2 posn;
                 attribute vec3 color;
-                attribute float num;
                 
                 varying vec3 vColor;
                 varying vec2 vuv;
-                varying float vnum;
                 
                 void main() {
                     vec3 newPosn = position;
@@ -222,13 +209,11 @@ export default class Scrollies {
 
                     vuv = uv;
                     vColor = color;
-                    vnum = num;
                 }
                 `,
                 fragmentShader: `
                 varying vec3 vColor;
                 varying vec2 vuv;
-                varying float vnum;
 
                 uniform sampler2D glyphs;
                 
