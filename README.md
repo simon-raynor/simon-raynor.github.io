@@ -33,14 +33,6 @@ My personal site. I try not to mess it up too bad.
 - more demos
 - case studies/writeups?
 
-### elsewhere 
-
-- work on rhombic
-    - game needs a purpose
-    - reintegrate the particle paths that made it feel alive
-- learn webassembly/more c++
-- real world shiz
-
 ## Scripts
 
 Dev (built in server etc.):

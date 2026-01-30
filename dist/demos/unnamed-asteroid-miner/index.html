@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+<head>
+<title>Unnamed Asteroid Miner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+* { margin: 0; padding: 0; }
+body { height: 100%; width: 100%; overflow: hidden; touch-action: none;
+    --darkness: 0;
+}
+#stage {
+    filter: saturate(calc(1 - var(--darkness)));
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.statuscontainer {
+    color: rgba(255,255,255,0.9);
+    position: fixed;
+    bottom: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.statuscontainer .energyoutput,
+.statuscontainer .resourceoutput {
+    position: absolute;
+    height: 10px;
+    width: 100px;
+    border: 2px solid currentColor;
+    border-radius: 1px;
+    padding: 1px;
+    /* background: #221122; */
+    display: flex;
+}
+.statuscontainer .energyoutput {
+    left: 2px;
+    justify-content: start;
+}
+.statuscontainer .resourceoutput {
+    right: 2px;
+    justify-content: end;
+}
+.statuscontainer .energyoutput::before,
+.statuscontainer .resourceoutput::before {
+    content: ' ';
+    display: block;
+    height: 100%;
+    background: currentColor;
+}
+.statuscontainer .energyoutput::before {
+    width: var(--energyamount);
+}
+.statuscontainer .resourceoutput::before {
+    width: var(--resourceamount);
+}
+
+.statuscontainer .energyoutput::after {
+    content: ' ';
+    display: block;
+    height: 0;
+    width: 0;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border-color: transparent transparent currentColor;
+    border-style: solid;
+    border-width: 6px 4px 6px;
+}
+.statuscontainer.energydown .energyoutput::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.statuscontainer .speedoutput {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.pauseoverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    display: none;
+
+    background-color: rgba(0,0,0,.25);
+
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+        content: 'paused';
+        font-size: 64px;
+        color: white;
+    }
+}
+.pauseoverlay.paused {
+    display: grid;
+}
+</style>
+  <script type="module" crossorigin src="/demos/unnamed-asteroid-miner/assets/index-B4Z9i3MN.js"></script>
+</head>
+
+<body>
+<div id="stage"></div>
+
+</body>
+
+</html>

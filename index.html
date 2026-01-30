@@ -32,28 +32,52 @@
 	</section>
 	<section>
 		<p>
-			Recently I've been working on getting good with ThreeJS. I shamelessly dissected
-			the "flocking" example<sup>1</sup> until I understood it well enough to build a <a
+			Most recently I revisited some CSS animation as it had been a while since I'd refreshed my
+			knowledge. Turns out that with the advent of CSS properties and the implementation of more
+			and more CSS features (different gradients and transforms and filters and whatnot) you can
+			create effects today that would have been impossible with CSS alone 10 years ago.
+		</p>
+		<p>
+			I actually made this <a
+				href	= "./demos/fancy-modal/"
+				target	= "_blank"
+			>modal open animation</a> after seeing a "how can this be done with CSS?" question on Reddit.
+			It piqued my interest enough that I had a crack and got pretty damn close (if I do say so myself).
+			While fiddling with that animation I got a few ideas for other ways to take it and so made this <a
+				href	= "./demos/superfancy-modal/"
+				target	= "_blank"
+			>demo of different modal opening animations</a> to try some of them out. The result was a number
+			of very simple to code CSS animations that could be adapted and combined to almost any aesthetic,
+			and I'm genuinely excited to slip a few in to my future work projects.
+		</p>
+	</section>
+	<section>
+		<p>
+			A while back I spent a good bit of time learning ThreeJS and WebGL. I think it really
+			got me interested when I saw <a href="https://threejs.org/examples/webgl_gpgpu_birds.html">
+			this demo of flocking birds</a>, which I dissected until I could produce this <a
 				href	= "./demos/butterflies/"
 				target	= "_blank"
-			>box full of butterflies</a><sup>2</sup>. I've then taken that learning and
-			applied it to the page you're on now, streamlining the 3D "physics" to a much
-			less complicated 2D vesion that still gives me all the control I need (for now).
-			It's very much a work-in-progress, eventually I'll have all kinds of stuff flying
-			around!
-		</p><p>
-			I'm also working on-and-off on a <a
+			>box full of butterflies</a>. The same approach was then streamlined from 3D into 2D and
+			combined with some other fun techniques (such as generating a flow field based on the HTML)
+			to produce the "ones and zeroes" effect you're seeing on this page.
+		</p>
+		<p>
+			I also half built a couple of game demo type things with ThreeJS. The first is a sort of <a 
 				href	= "./demos/rhombic/"
 				target	= "_blank"
-			>cave-based game</a><sup>2</sup> to really push my abilities. Frankly it's still in
-			the early design stages, while I have a rough idea what I want to build I need to
-			put thought into things like objectives and purpose within the game. There's also
-			tons of modelling, animation, texturing, coding, etc. etc. to do too, so I'm sure to
-			have plenty to keep me busy. Heck at some point I need to think about audio! I'm open to any
-			and all feedback and suggestions so have a go on the demo and let me know what you think.
+			>cave-based maze/exploraton</a> deal, using a rhombic dodecahedral
+			lattice to prodcedurally generate the environment. The second is a more open <a
+				href	= "./demos/unnamed-asteroid-miner/"
+				target	= "_blank"
+			>asteroid/space vibe</a>, which I think looks really cool even if it's kinda unfinished. There's
+			a lot of shader magic in both of those but particularly the asteroid one, as well as things like
+			game chunk loading and seed based "terrain" generation (at least the begginings of). The problem
+			I've had with both concepts is that while I can make something that <em>looks</em> like a game it
+			is a very different proposition to make something that is also fun/engaging to play. I've parked both
+			projects until I can come up with a compelling use case (and then I'll probably just strip 'em for
+			parts).
 		</p>
-		<p><small>1. <a href="https://threejs.org/examples/webgl_gpgpu_birds.html">ThreeJS flocking example found here</a><sup>2</sup></small></p>
-		<p><small>2. For technical reasons these links will open in a new window</small></p>
 	</section>
 	<section>
 		<p>
@@ -102,7 +126,7 @@
 		<p>
 			Finally <a
 				href	= "./demos/javascroids/"
-			>here's a game I built many years ago</a>.
+			>here's an actual finished game I built many years ago</a>.
 			Keyboard controls means <strong>it doesn't work on mobile</strong> &ndash;
 			that's why I left it 'till last &ndash; but I'm still quite proud of it. Yes it's
 			really just an asteroids clone at heart but it has progression, high scores,
